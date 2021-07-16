@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:scored_/widgets/BottomMenuSheet.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({Key? key}) : super(key: key);
@@ -63,7 +64,14 @@ class HistoryPage extends StatelessWidget {
         color: Theme.of(context).primaryColor,
         child: Row(
           children: [
-            IconButton(icon: Icon(Icons.menu), onPressed: () {}),
+            IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () => {
+                showModalBottomSheet<void>(
+                context: context,
+                builder: (BuildContext context) => BottomMenuSheet())
+              }
+            ),
           ],
         ),
       ),
