@@ -10,25 +10,31 @@ class NoHistory extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 64),
+            padding: EdgeInsets.only(top: 128),
             child: Text(
               'No history found :(',
-              style: TextStyle(fontSize: 32, color: Colors.black38),
+              style: Theme.of(context).textTheme.headline4,
             ),
           ),
           Padding(
-              padding: EdgeInsets.only(top: 32, bottom: 8),
-              child: Text('Log in to get your previous parties',
-                  style: TextStyle(fontSize: 16, color: Colors.black38))),
+            padding: EdgeInsets.only(top: 32, bottom: 8),
+            child: Text(
+              'Log in to get your previous parties',
+              style: Theme.of(context).textTheme.bodyText1,
+            )
+          ),
           Padding(
-              padding: EdgeInsets.only(bottom: 64),
-              child: Text('or launch a new party now !',
-                  style: TextStyle(fontSize: 16, color: Colors.black38))),
+            padding: EdgeInsets.only(bottom: 64),
+            child: Text(
+              'or launch a new party now !',
+              style: Theme.of(context).textTheme.bodyText1,
+            )
+          ),
           SvgPicture.asset(
             'assets/arrow_down.svg',
             semanticsLabel: 'Arrow pointing to the create party button',
             height: 32,
-            color: Colors.black38,
+            color: Theme.of(context).textTheme.bodyText1?.color,
           )
         ],
       ),
