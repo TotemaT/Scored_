@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:scored/ui/widgets/BottomBar.dart';
 
@@ -23,10 +21,10 @@ class Layout extends StatelessWidget {
         ),
         body: SafeArea(child: child ?? Center()),
         bottomNavigationBar: BottomBar(),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => log("Clicked fab"),
-          child: const Icon(Icons.add),
-        ),
+        floatingActionButton: fabIcon != null ? FloatingActionButton(
+          onPressed: fabAction,
+          child: fabIcon,
+        ) : null,
         floatingActionButtonLocation:
             FloatingActionButtonLocation.centerDocked);
   }
