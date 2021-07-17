@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/material.dart';
+import 'package:scored/ui/pages/setup_page.dart';
 import 'package:scored/ui/partials/layout.dart';
 import 'package:scored/ui/widgets/no_history.dart';
 
@@ -12,6 +13,7 @@ class HistoryPage extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();
 
   Future<void> _showCreatePartyDialog(BuildContext context) async {
+    var playerCount = 1;
     return await showDialog(
         context: context,
         barrierDismissible: false,
@@ -22,7 +24,6 @@ class HistoryPage extends StatelessWidget {
                   key: _formKey,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-
                     children: [
                       TextFormField(
                         controller: _textEditingController,
@@ -37,10 +38,11 @@ class HistoryPage extends StatelessWidget {
                       SpinBox(
                         min: 1,
                         max: 15,
-                        value: 1,
+                        value: playerCount.toDouble(),
                         step: 1,
-                        onChanged: (value) => print(value),
-                        decoration: InputDecoration(labelText: 'Number of Players'),
+                        onChanged: (value) => playerCount = value.toInt(),
+                        decoration:
+                            InputDecoration(labelText: 'Number of Players'),
                       )
                     ],
                   )),
@@ -59,8 +61,12 @@ class HistoryPage extends StatelessWidget {
                   child: const Text('START'),
                   onPressed: () {
                     if (_formKey.currentState?.validate() == true) {
-//                      Navigator.of(context).pop();
-                      log("Let's start playing");
+                      Navigator.of(context).popAndPushNamed('/setup',
+                        arguments: SetupPageArgs(
+                          _textEditingController.text,
+                          playerCount
+                        )
+                      );
                     }
                   },
                 ),
