@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:scored_/notifiers/ThemeNotifier.dart';
-import 'package:scored_/utils/preferences.dart';
+import 'package:scored/notifiers/ThemeNotifier.dart';
+import 'package:scored/utils/preferences.dart';
 
 class BottomMenuSheet extends StatelessWidget {
+  void _setDarkMode(bool? isDarkMode, ThemeNotifier themeNotifier) {
+    isDarkMode = isDarkMode ?? false;
+    setIsDarkMode(isDarkMode);
+    themeNotifier.isDark = isDarkMode;
+  }
+
   @override
   Widget build(BuildContext context) {
     final ThemeNotifier themeNotifier =
@@ -19,11 +25,5 @@ class BottomMenuSheet extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  void _setDarkMode(bool? isDarkMode, ThemeNotifier themeNotifier) {
-    isDarkMode = isDarkMode ?? false;
-    setIsDarkMode(isDarkMode);
-    themeNotifier.isDark = isDarkMode;
   }
 }

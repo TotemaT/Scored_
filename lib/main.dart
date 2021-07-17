@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:scored_/notifiers/ThemeNotifier.dart';
-import 'package:scored_/ui/pages/HistoryPage.dart';
-import 'package:scored_/theme.dart';
-import 'package:scored_/utils/preferences.dart';
+import 'package:scored/notifiers/ThemeNotifier.dart';
+import 'package:scored/ui/pages/HistoryPage.dart';
+import 'package:scored/theme.dart';
+import 'package:scored/utils/preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

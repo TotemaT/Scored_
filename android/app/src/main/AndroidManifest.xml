@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.scored_">
+    package="com.example.scored">
    <application
-        android:label="scored_"
+        android:label="scored"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

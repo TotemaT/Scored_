@@ -1,15 +1,17 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:scored_/ui/widgets/BottomBar.dart';
+import 'package:scored/ui/widgets/BottomBar.dart';
 
 class Layout extends StatelessWidget {
-  String? scaffoldKey;
-  String? title;
-  Widget? child;
-
-  Layout({this.child, this.title, this.scaffoldKey, Key? key})
+  Layout({this.child, this.title, this.scaffoldKey, this.fabIcon, this.fabAction, Key? key})
       : super(key: key);
+
+  final Widget? child;
+  final VoidCallback? fabAction;
+  final Icon? fabIcon;
+  final String? scaffoldKey;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
