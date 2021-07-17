@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:scored/notifiers/ThemeNotifier.dart';
+import 'package:scored/notifiers/theme_notifier.dart';
 import 'package:scored/utils/preferences.dart';
 
 class BottomMenuSheet extends StatelessWidget {

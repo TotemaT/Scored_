@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scored/ui/widgets/BottomMenuSheet.dart';
+import 'package:scored/ui/widgets/bottom_menu_sheet.dart';
 
 class BottomBar extends StatelessWidget {
   const BottomBar({Key? key}) : super(key: key);

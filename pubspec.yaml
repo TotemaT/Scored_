@@ -9,6 +9,7 @@ environment:
 dependencies:
     flutter:
         sdk: flutter
+    flutter_spinbox: ^0.5.2
     flutter_svg: ^0.22.0
     provider: ^5.0.0
     shared_preferences: ^2.0.6
