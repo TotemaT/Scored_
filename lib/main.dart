@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scored/notifiers/theme_notifier.dart';
-import 'package:scored/ui/pages/game_page.dart';
-import 'package:scored/ui/pages/history_page.dart';
+import 'package:scored/game/game_page.dart';
+import 'package:scored/history/history_page.dart';
 import 'package:scored/theme.dart';
-import 'package:scored/ui/pages/setup_page.dart';
+import 'package:scored/setup/setup_page.dart';
 import 'package:scored/utils/preferences.dart';
 
 void main() async {

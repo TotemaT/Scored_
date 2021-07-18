@@ -1,10 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/material.dart';
-import 'package:scored/ui/pages/setup_page.dart';
-import 'package:scored/ui/partials/layout.dart';
-import 'package:scored/ui/widgets/no_history.dart';
+import 'package:scored/setup/setup_page.dart';
+import 'package:scored/partials/layout.dart';
+import 'package:scored/history/no_history.dart';
 
 class HistoryPage extends StatelessWidget {
   HistoryPage({Key? key}) : super(key: key);

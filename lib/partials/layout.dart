@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scored/ui/widgets/bottom_bar.dart';
+import 'package:scored/partials/bottom_bar.dart';
 
 class Layout extends StatelessWidget {
   Layout({this.child, this.title, this.scaffoldKey, this.fabIcon, this.fabAction, Key? key})

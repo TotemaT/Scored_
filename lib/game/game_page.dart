@@ -1,13 +1,16 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:scored/domain/game.dart';
+import 'package:scored/partials/layout.dart';
 
 class GamePage extends StatelessWidget {
   const GamePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(child: Text("MyTest"), onWillPop: _saveGame);
+    final args = ModalRoute.of(context)!.settings.arguments as GamePageArgs;
+    return WillPopScope(child: Layout(child: Text(args.game.toString()),), onWillPop: _saveGame);
   }
 
   Future<bool> _saveGame() async {
@@ -17,9 +20,9 @@ class GamePage extends StatelessWidget {
 }
 
 class GamePageArgs {
-  const GamePageArgs(this.players, this.mode);
+  const GamePageArgs(this.game, this.mode);
 
-  final List<String> players;
+  final Game game;
   final GamePageMode mode;
 }
 
