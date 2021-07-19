@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:scored/domain/game.dart';
+import 'package:scored/history/no_history.dart';
 import 'package:scored/setup/setup_page.dart';
 import 'package:scored/partials/layout.dart';
-import 'package:scored/history/no_history.dart';
 
 class HistoryPage extends StatelessWidget {
   HistoryPage({Key? key}) : super(key: key);
@@ -60,11 +62,8 @@ class HistoryPage extends StatelessWidget {
                   onPressed: () {
                     if (_formKey.currentState?.validate() == true) {
                       Navigator.of(context).popAndPushNamed('/setup',
-                        arguments: SetupPageArgs(
-                          _textEditingController.text,
-                          playerCount
-                        )
-                      );
+                          arguments: SetupPageArgs(
+                              _textEditingController.text, playerCount));
                     }
                   },
                 ),
@@ -80,7 +79,20 @@ class HistoryPage extends StatelessWidget {
       scaffoldKey: 'HistoryScaffold',
       fabIcon: Icon(Icons.add),
       fabAction: () => _showCreatePartyDialog(context),
-      child: NoHistory(),
+      child: ValueListenableBuilder(
+        valueListenable: Hive.box<Game>('games').listenable(),
+        builder: (BuildContext context, Box<Game> box, Widget? widget) {
+          if (box.isEmpty) {
+            return NoHistory();
+          }
+          return ListView.builder(
+            itemBuilder: (context, listIndex) {
+              return Text(box.getAt(listIndex)?.name ?? 'Prout');
+            },
+            itemCount: box.length
+          );
+        },
+      )
     );
   }
 }

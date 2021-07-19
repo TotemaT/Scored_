@@ -10,11 +10,18 @@ class GamePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as GamePageArgs;
-    return WillPopScope(child: Layout(child: Text(args.game.toString()),), onWillPop: _saveGame);
+    final game = args.game;
+    game.state = GameState.RUNNING;
+    return WillPopScope(
+        child: Layout(
+          child: Text(game.toString()),
+        ),
+        onWillPop: () => _saveGame(game));
   }
 
-  Future<bool> _saveGame() async {
+  Future<bool> _saveGame(Game game) async {
     log('Saving Game');
+    game.state = GameState.SAVED;
     return true;
   }
 }
