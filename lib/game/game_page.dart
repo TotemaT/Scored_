@@ -8,7 +8,7 @@ class GamePage extends StatefulWidget {
   GamePage(this.game, this.mode, {Key? key}) : super(key: key);
 
   final Game game;
-  final GamePageMode mode;
+  final GameMode mode;
 
   @override
   _GamePageState createState() => _GamePageState();
@@ -208,7 +208,5 @@ class GamePageArgs {
   const GamePageArgs(this.game, this.mode);
 
   final Game game;
-  final GamePageMode mode;
+  final GameMode mode;
 }
-
-enum GamePageMode { VIEW, PLAY }

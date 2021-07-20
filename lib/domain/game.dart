@@ -42,3 +42,5 @@ enum GameState {
   @HiveField(3)
   SAVED
 }
+
+enum GameMode { VIEW, PLAY }
