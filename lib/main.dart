@@ -5,10 +5,8 @@ import 'package:scored/domain/color.adapter.dart';
 import 'package:scored/domain/game.dart';
 import 'package:scored/domain/player.dart';
 import 'package:scored/notifiers/theme_notifier.dart';
-import 'package:scored/game/game_page.dart';
-import 'package:scored/history/history_page.dart';
+import 'package:scored/route_generator.dart';
 import 'package:scored/theme.dart';
-import 'package:scored/setup/setup_page.dart';
 import 'package:scored/utils/preferences.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -41,11 +39,7 @@ class MyApp extends StatelessWidget {
         builder: (_, ThemeNotifier themeNotifier, __) {
       return MaterialApp(
         theme: themeNotifier.isDark ? scoredThemeDark : scoredTheme,
-        home: HistoryPage(),
-        routes: <String, WidgetBuilder>{
-          '/game': (BuildContext context) => GamePage(),
-          '/setup': (BuildContext context) => SetupPage(),
-        },
+        onGenerateRoute: RouteGenerator.generateRoute,
       );
     });
   }

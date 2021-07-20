@@ -6,16 +6,19 @@ import 'package:scored/partials/layout.dart';
 import 'package:scored/setup/setup_list.dart';
 
 class SetupPage extends StatelessWidget {
-  const SetupPage({Key? key}) : super(key: key);
+  SetupPage(this.name, this.playerCount, {Key? key}) : super(key: key) {
+    game = Game.named(name, playerCount);
+  }
+
+  final String name;
+  final int playerCount;
+  late final Game game;
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as SetupPageArgs;
-    final game = Game.named(args.name, args.playerCount);
-
     return Layout(
         scaffoldKey: 'SetupPage',
-        title: args.name,
+        title: name,
         fabIcon: Icon(Icons.play_arrow),
         fabAction: () {
           Hive.box<Game>('games').add(game);

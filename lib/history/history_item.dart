@@ -12,8 +12,8 @@ class HistoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(game.name),
-      trailing: Text(game.date.toReadable()),
-      subtitle: Text.rich(TextSpan(children: _playersDetails())),
+      trailing: Text(game.date.toReadable(), style: TextStyle(color: Theme.of(context).hintColor)),
+      subtitle: Text.rich(TextSpan(children: _playersDetails()), maxLines: 1,),
       onTap: () {
         Navigator.of(context).pushNamedAndRemoveUntil(
             '/game', ModalRoute.withName('/'),
@@ -22,10 +22,10 @@ class HistoryItem extends StatelessWidget {
     );
   }
 
-  List<TextSpan> _playersDetails() {
+  List<Padding> _playersDetails() {
     final players = game.players;
     players.sort((a, b) {
-      final diff = a.score - b.score;
+      final diff = b.score - a.score;
       return diff != 0 ? diff : (a.name ?? '').compareTo(b.name ?? '');
     });
     return players
