@@ -195,11 +195,10 @@ class _GamePageState extends State<GamePage> {
       height: height,
       width: width,
       child: GameTile(
-        onDecrement: () => _decrement(idx),
-        onIncrement: () => _increment(idx),
-        player: player,
-        mode: widget.mode
-      ),
+          onDecrement: () => _decrement(idx),
+          onIncrement: () => _increment(idx),
+          player: player,
+          mode: widget.mode),
     );
   }
 }
