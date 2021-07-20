@@ -12,7 +12,7 @@ class HistoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(game.name),
-      trailing: Text(_date()),
+      trailing: Text(game.date.toReadable()),
       subtitle: Text.rich(
         TextSpan(
           children: _playersDetails()
@@ -24,20 +24,6 @@ class HistoryItem extends StatelessWidget {
             arguments: GamePageArgs(game, GamePageMode.VIEW));
       },
     );
-  }
-
-  String _date() {
-    var date = '';
-    if (game.date.isToday()) {
-      date += 'Today at ';
-    } else if (game.date.isYesterday()) {
-      date += 'Yesterday at ';
-    } else {
-      date += DateFormat.yMMMMd('fr_FR').format(game.date) + ' at ';
-    }
-
-    date += DateFormat.jm('fr_FR').format(game.date);
-    return date;
   }
 
   List<TextSpan> _playersDetails() {
@@ -67,4 +53,18 @@ extension DateHelpers on DateTime {
         yesterday.month == this.month &&
         yesterday.year == this.year;
   }
+
+    String toReadable() {
+      var date = '';
+      if (isToday()) {
+        date += 'Today ';
+      } else if (isYesterday()) {
+        date += 'Yesterday ';
+      } else {
+        date += DateFormat.yMMMMd('fr_FR').format(this) + ' ';
+      }
+
+      date += DateFormat.jm('fr_FR').format(this);
+      return date;
+    }
 }
