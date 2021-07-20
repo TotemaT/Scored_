@@ -2,16 +2,19 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:scored/domain/player.dart';
+import 'package:scored/game/game_page.dart';
 
 class GameTile extends StatefulWidget {
   const GameTile(
       {required this.onDecrement,
       required this.onIncrement,
-      required this.player});
+      required this.player,
+      required this.mode});
 
   final VoidCallback onDecrement;
   final VoidCallback onIncrement;
   final Player player;
+  final GamePageMode mode;
 
   @override
   _GameTileState createState() => _GameTileState();
@@ -33,6 +36,9 @@ class _GameTileState extends State<GameTile> {
             color: Colors.transparent,
             child: InkWell(
               onTap: () {
+                if (widget.mode == GamePageMode.VIEW) {
+                  return;
+                }
                 setState(() {
                   widget.onIncrement();
                 });
@@ -100,6 +106,10 @@ class _GameTileState extends State<GameTile> {
       color.computeLuminance() > .5 ? Colors.black : Colors.white;
 
   void _startDecrement(LongPressStartDetails details) {
+    if (widget.mode == GamePageMode.VIEW) {
+      return;
+    }
+
     setState(() {
       widget.onDecrement();
     });
@@ -107,6 +117,9 @@ class _GameTileState extends State<GameTile> {
   }
 
   void _stopDecrement(LongPressEndDetails details) {
+    if (widget.mode == GamePageMode.VIEW) {
+      return;
+    }
     timer?.cancel();
   }
 

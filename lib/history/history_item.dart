@@ -13,8 +13,7 @@ class HistoryItem extends StatelessWidget {
     return ListTile(
       title: Text(game.name),
       trailing: Text(game.date.toReadable(),
-          style: TextStyle(color: Theme.of(context).hintColor)
-      ),
+          style: TextStyle(color: Theme.of(context).hintColor)),
       subtitle: Text(
         _playersDetails(),
         maxLines: 1,

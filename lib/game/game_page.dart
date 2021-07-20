@@ -48,6 +48,7 @@ class _GamePageState extends State<GamePage> {
         onDecrement: () => _decrement(0),
         onIncrement: () => _increment(0),
         player: players[0],
+        mode: widget.mode,
       );
     }
 
@@ -197,6 +198,7 @@ class _GamePageState extends State<GamePage> {
         onDecrement: () => _decrement(idx),
         onIncrement: () => _increment(idx),
         player: player,
+        mode: widget.mode
       ),
     );
   }
