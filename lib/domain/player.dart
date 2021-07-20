@@ -8,7 +8,7 @@ part 'player.g.dart';
 final List<Color> colors = Colors.primaries;
 final Random rand = Random();
 
-@HiveType(typeId: 2)
+@HiveType(typeId: 1)
 class Player {
   @HiveField(0)
   Color color = colors[rand.nextInt(colors.length)];

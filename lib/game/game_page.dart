@@ -15,13 +15,10 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  DateTime? _backPressedTime;
-
   @override
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[]);
-    widget.game.state = GameState.RUNNING;
   }
 
   @override
@@ -32,12 +29,10 @@ class _GamePageState extends State<GamePage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        child: OrientationBuilder(
-            builder: (BuildContext ctx2, Orientation orientation) {
-          return _content(widget.game.players, orientation);
-        }),
-        onWillPop: () => _onBackPressed(widget.game));
+    return OrientationBuilder(
+        builder: (BuildContext ctx2, Orientation orientation) {
+      return _content(widget.game.players, orientation);
+    });
   }
 
   Widget _content(List<Player> players, Orientation orientation) {
@@ -70,25 +65,6 @@ class _GamePageState extends State<GamePage> {
 
   void _increment(int idx) {
     widget.game.players[idx]..score += 1;
-    widget.game.save();
-  }
-
-  Future<bool> _onBackPressed(Game game) {
-    final DateTime now = DateTime.now();
-    if (_backPressedTime == null ||
-        now.difference(_backPressedTime!) > Duration(seconds: 2)) {
-      _backPressedTime = now;
-
-      // Fluttertoast.showToast(msg: S.of(context).leave_confirm);
-
-      return Future<bool>.value(false);
-    }
-    _saveGame();
-    return Future<bool>.value(true);
-  }
-
-  void _saveGame() async {
-    widget.game.state = GameState.SAVED;
     widget.game.save();
   }
 
