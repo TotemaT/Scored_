@@ -24,7 +24,7 @@ class SetupPage extends StatelessWidget {
           Hive.box<Game>('games').add(game);
           Navigator.of(context).pushNamedAndRemoveUntil(
               '/game', ModalRoute.withName('/'),
-              arguments: GamePageArgs(game, GamePageMode.PLAY));
+              arguments: GamePageArgs(game, GameMode.PLAY));
         },
         child: SetupList(game.players));
   }

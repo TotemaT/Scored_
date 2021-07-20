@@ -22,7 +22,7 @@ class HistoryItem extends StatelessWidget {
       onTap: () {
         Navigator.of(context).pushNamedAndRemoveUntil(
             '/game', ModalRoute.withName('/'),
-            arguments: GamePageArgs(game, GamePageMode.VIEW));
+            arguments: GamePageArgs(game, GameMode.VIEW));
       },
     );
   }
