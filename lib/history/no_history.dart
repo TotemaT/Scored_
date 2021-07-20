@@ -1,41 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class NoHistory extends StatelessWidget {
   const NoHistory({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final titleStyle = Theme.of(context).textTheme.headline4;
+    final subtitleStyle = Theme.of(context).textTheme.subtitle1;
+
     return Center(
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 128),
+            padding: EdgeInsets.only(top: 160),
             child: Text(
               'No history found :(',
-              style: Theme.of(context).textTheme.headline4,
+              style: titleStyle
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 32, bottom: 8),
+            padding: EdgeInsets.only(top: 48, bottom: 8),
             child: Text(
-              'Log in to get your previous parties',
-              style: Theme.of(context).textTheme.bodyText1,
+              'Click on the button',
+              style: subtitleStyle,
             )
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: 64),
+            padding: EdgeInsets.only(bottom: 32),
             child: Text(
-              'or launch a new party now !',
-              style: Theme.of(context).textTheme.bodyText1,
+              'and start a new party now !',
+              style: subtitleStyle,
             )
           ),
-          SvgPicture.asset(
-            'assets/arrow_down.svg',
-            semanticsLabel: 'Arrow pointing to the create party button',
-            height: 32,
-            color: Theme.of(context).textTheme.bodyText1?.color,
-          )
+          Icon(Icons.arrow_downward, size: 32, color: subtitleStyle?.color,)
         ],
       ),
     );
