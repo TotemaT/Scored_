@@ -17,7 +17,6 @@ void main() async {
 
   await Hive.initFlutter();
   Hive.registerAdapter(GameAdapter());
-  Hive.registerAdapter(GameStateAdapter());
   Hive.registerAdapter(PlayerAdapter());
   Hive.registerAdapter(ColorAdapter());
   await Hive.openBox<Game>('games', keyComparator: (a, b) {
@@ -40,6 +39,7 @@ class MyApp extends StatelessWidget {
       return MaterialApp(
         theme: themeNotifier.isDark ? scoredThemeDark : scoredTheme,
         onGenerateRoute: RouteGenerator.generateRoute,
+        initialRoute: '/',
       );
     });
   }
