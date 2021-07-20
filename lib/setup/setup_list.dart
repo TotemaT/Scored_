@@ -29,11 +29,10 @@ class SetupList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      separatorBuilder: (BuildContext ctx, int idx) => const SizedBox(
-        height: 8,
-      ),
-      itemBuilder: (BuildContext ctx, int idx) => _playerItem(idx),
-      itemCount: players.length
-    );
+        separatorBuilder: (BuildContext ctx, int idx) => const SizedBox(
+              height: 8,
+            ),
+        itemBuilder: (BuildContext ctx, int idx) => _playerItem(idx),
+        itemCount: players.length);
   }
 }

@@ -13,11 +13,7 @@ class HistoryItem extends StatelessWidget {
     return ListTile(
       title: Text(game.name),
       trailing: Text(game.date.toReadable()),
-      subtitle: Text.rich(
-        TextSpan(
-          children: _playersDetails()
-        )
-      ),
+      subtitle: Text.rich(TextSpan(children: _playersDetails())),
       onTap: () {
         Navigator.of(context).pushNamedAndRemoveUntil(
             '/game', ModalRoute.withName('/'),
@@ -32,10 +28,10 @@ class HistoryItem extends StatelessWidget {
       final diff = a.score - b.score;
       return diff != 0 ? diff : (a.name ?? '').compareTo(b.name ?? '');
     });
-    return players.map((p) => TextSpan(
-      text: p.toDetail(),
-      style: TextStyle(color: p.color)
-    )).toList();
+    return players
+        .map((p) =>
+            TextSpan(text: p.toDetail(), style: TextStyle(color: p.color)))
+        .toList();
   }
 }
 
@@ -54,17 +50,17 @@ extension DateHelpers on DateTime {
         yesterday.year == this.year;
   }
 
-    String toReadable() {
-      var date = '';
-      if (isToday()) {
-        date += 'Today ';
-      } else if (isYesterday()) {
-        date += 'Yesterday ';
-      } else {
-        date += DateFormat.yMMMMd('fr_FR').format(this) + ' ';
-      }
-
-      date += DateFormat.jm('fr_FR').format(this);
-      return date;
+  String toReadable() {
+    var date = '';
+    if (isToday()) {
+      date += 'Today ';
+    } else if (isYesterday()) {
+      date += 'Yesterday ';
+    } else {
+      date += DateFormat.yMMMMd('fr_FR').format(this) + ' ';
     }
+
+    date += DateFormat.jm('fr_FR').format(this);
+    return date;
+  }
 }

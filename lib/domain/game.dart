@@ -5,7 +5,9 @@ part 'game.g.dart';
 
 @HiveType(typeId: 0)
 class Game extends HiveObject {
-  Game(): name = 'Unnamed Party', players = [];
+  Game()
+      : name = 'Unnamed Party',
+        players = [];
 
   Game.named(this.name, int playerCount) {
     players = List.generate(playerCount, (_) => Player());

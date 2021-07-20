@@ -77,22 +77,22 @@ class HistoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Layout(
-      scaffoldKey: 'HistoryScaffold',
-      fabIcon: Icon(Icons.add),
-      fabAction: () => _showCreatePartyDialog(context),
-      child: ValueListenableBuilder(
-        valueListenable: Hive.box<Game>('games').listenable(),
-        builder: (BuildContext context, Box<Game> box, Widget? widget) {
-          if (box.isEmpty) {
-            return NoHistory();
-          }
-          return ListView.separated(
-            itemBuilder: (context, listIndex) => HistoryItem(box.getAt(listIndex) as Game),
-            itemCount: box.length,
-            separatorBuilder: (_, __) => Divider(),
-          );
-        },
-      )
-    );
+        scaffoldKey: 'HistoryScaffold',
+        fabIcon: Icon(Icons.add),
+        fabAction: () => _showCreatePartyDialog(context),
+        child: ValueListenableBuilder(
+          valueListenable: Hive.box<Game>('games').listenable(),
+          builder: (BuildContext context, Box<Game> box, Widget? widget) {
+            if (box.isEmpty) {
+              return NoHistory();
+            }
+            return ListView.separated(
+              itemBuilder: (context, listIndex) =>
+                  HistoryItem(box.getAt(listIndex) as Game),
+              itemCount: box.length,
+              separatorBuilder: (_, __) => Divider(),
+            );
+          },
+        ));
   }
 }
