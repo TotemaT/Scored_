@@ -12,8 +12,14 @@ class HistoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(game.name),
-      trailing: Text(game.date.toReadable(), style: TextStyle(color: Theme.of(context).hintColor)),
-      subtitle: Text.rich(TextSpan(children: _playersDetails()), maxLines: 1,),
+      trailing: Text(game.date.toReadable(),
+          style: TextStyle(color: Theme.of(context).hintColor)
+      ),
+      subtitle: Text(
+        _playersDetails(),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
       onTap: () {
         Navigator.of(context).pushNamedAndRemoveUntil(
             '/game', ModalRoute.withName('/'),
@@ -22,16 +28,13 @@ class HistoryItem extends StatelessWidget {
     );
   }
 
-  List<Padding> _playersDetails() {
+  String _playersDetails() {
     final players = game.players;
     players.sort((a, b) {
       final diff = b.score - a.score;
       return diff != 0 ? diff : (a.name ?? '').compareTo(b.name ?? '');
     });
-    return players
-        .map((p) =>
-            TextSpan(text: p.toDetail(), style: TextStyle(color: p.color)))
-        .toList();
+    return players.map((p) => p.toDetail()).join(', ');
   }
 }
 
