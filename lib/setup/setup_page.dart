@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:scored/domain/game.dart';
@@ -20,9 +18,7 @@ class SetupPage extends StatelessWidget {
         title: args.name,
         fabIcon: Icon(Icons.play_arrow),
         fabAction: () {
-          final box = Hive.box<Game>('games');
-          box.add(game);
-          log(box.toMap().toString());
+          Hive.box<Game>('games').add(game);
           Navigator.of(context).pushNamedAndRemoveUntil(
               '/game', ModalRoute.withName('/'),
               arguments: GamePageArgs(game, GamePageMode.PLAY));

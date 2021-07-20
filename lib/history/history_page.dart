@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:scored/domain/game.dart';
+import 'package:scored/history/history_item.dart';
 import 'package:scored/history/no_history.dart';
 import 'package:scored/setup/setup_page.dart';
 import 'package:scored/partials/layout.dart';
@@ -85,11 +86,10 @@ class HistoryPage extends StatelessWidget {
           if (box.isEmpty) {
             return NoHistory();
           }
-          return ListView.builder(
-            itemBuilder: (context, listIndex) {
-              return Text(box.getAt(listIndex)?.name ?? 'Prout');
-            },
-            itemCount: box.length
+          return ListView.separated(
+            itemBuilder: (context, listIndex) => HistoryItem(box.getAt(listIndex) as Game),
+            itemCount: box.length,
+            separatorBuilder: (_, __) => Divider(),
           );
         },
       )

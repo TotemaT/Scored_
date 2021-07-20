@@ -10,13 +10,14 @@ final Random rand = Random();
 
 @HiveType(typeId: 2)
 class Player {
-
   @HiveField(0)
   Color color = colors[rand.nextInt(colors.length)];
   @HiveField(1)
   String? name;
   @HiveField(2)
   int score = 0;
+
+  String toDetail() => '${name ?? ''} ($score)';
 
   @override
   String toString() => '''

@@ -10,6 +10,7 @@ import 'package:scored/history/history_page.dart';
 import 'package:scored/theme.dart';
 import 'package:scored/setup/setup_page.dart';
 import 'package:scored/utils/preferences.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +22,11 @@ void main() async {
   Hive.registerAdapter(GameStateAdapter());
   Hive.registerAdapter(PlayerAdapter());
   Hive.registerAdapter(ColorAdapter());
-  await Hive.openBox<Game>('games');
+  await Hive.openBox<Game>('games', keyComparator: (a, b) {
+    return b - a;
+  });
+
+  await initializeDateFormatting('fr_FR', null);
 
   runApp(ChangeNotifierProvider<ThemeNotifier>(
     create: (_) => ThemeNotifier(darkMode),
