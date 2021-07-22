@@ -1,4 +1,4 @@
-package com.example.scored
+package be.tteo.scored
 
 import io.flutter.embedding.android.FlutterActivity
 

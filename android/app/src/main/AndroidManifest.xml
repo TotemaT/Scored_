@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.scored">
+    package="be.tteo.scored">
    <application
         android:label="scored"
         android:icon="@mipmap/ic_launcher">
