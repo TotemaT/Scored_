@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:scored/domain/game.dart';
+import 'package:scored/domain/player.dart';
 import 'package:scored/game/game_page.dart';
 
 class HistoryItem extends StatelessWidget {
@@ -12,7 +13,7 @@ class HistoryItem extends StatelessWidget {
 
   String _playersDetails() {
     final players = game.players;
-    players.sort((a, b) {
+    players.sort((Player a, Player b) {
       final diff = b.score - a.score;
       return diff != 0 ? diff : (a.name ?? '').compareTo(b.name ?? '');
     });

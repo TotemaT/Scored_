@@ -29,9 +29,12 @@ class _GamePageState extends State<GamePage> {
 
   @override
   Widget build(BuildContext context) {
-    return OrientationBuilder(
+    return WillPopScope(child: OrientationBuilder(
         builder: (BuildContext ctx2, Orientation orientation) {
       return _content(widget.game.players, orientation);
+    }), onWillPop: () async {
+      await widget.game.save();
+      return true;
     });
   }
 
@@ -40,8 +43,6 @@ class _GamePageState extends State<GamePage> {
 
     if (count == 1) {
       return GameTile(
-        onDecrement: () => _decrement(0),
-        onIncrement: () => _increment(0),
         player: players[0],
         mode: widget.mode,
       );
@@ -56,16 +57,6 @@ class _GamePageState extends State<GamePage> {
     return orientation == Orientation.portrait
         ? _twoColumnsBody(players)
         : _twoRowsBody(players);
-  }
-
-  void _decrement(int idx) {
-    widget.game.players[idx]..score -= 1;
-    widget.game.save();
-  }
-
-  void _increment(int idx) {
-    widget.game.players[idx]..score += 1;
-    widget.game.save();
   }
 
   Column _singleColumnBody(List<Player> players) {
@@ -170,11 +161,7 @@ class _GamePageState extends State<GamePage> {
     return Container(
       height: height,
       width: width,
-      child: GameTile(
-          onDecrement: () => _decrement(idx),
-          onIncrement: () => _increment(idx),
-          player: player,
-          mode: widget.mode),
+      child: GameTile(player: player, mode: widget.mode),
     );
   }
 }

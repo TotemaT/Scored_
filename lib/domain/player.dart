@@ -9,7 +9,7 @@ final List<Color> colors = Colors.primaries;
 final Random rand = Random();
 
 @HiveType(typeId: 1)
-class Player {
+class Player extends HiveObject {
   Player();
 
   Player.copy(Player player) {

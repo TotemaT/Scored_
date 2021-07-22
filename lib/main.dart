@@ -19,6 +19,7 @@ void main() async {
   Hive.registerAdapter(GameAdapter());
   Hive.registerAdapter(PlayerAdapter());
   Hive.registerAdapter(ColorAdapter());
+  await Hive.openBox<Player>('players');
   await Hive.openBox<Game>('games', keyComparator: (a, b) {
     return b - a;
   });

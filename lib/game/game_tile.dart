@@ -1,28 +1,36 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:scored/domain/game.dart';
 import 'package:scored/domain/player.dart';
 
 class GameTile extends StatefulWidget {
-  const GameTile(
-      {required this.onDecrement,
-      required this.onIncrement,
-      required this.player,
-      required this.mode});
+  const GameTile({required this.player, required this.mode});
 
-  final VoidCallback onDecrement;
-  final VoidCallback onIncrement;
   final Player player;
   final GameMode mode;
 
   @override
-  _GameTileState createState() => _GameTileState();
+  _GameTileState createState() => _GameTileState(player);
 }
 
 class _GameTileState extends State<GameTile> {
+  _GameTileState(this.player);
+
   final List<int> durations = <int>[500, 500, 250, 100, 50];
   Timer? timer;
+  Player player;
+
+  @override
+  void initState() {
+    super.initState();
+    Hive.box<Player>('players').watch(key: player.key).listen((event) {
+      setState(() {
+        this.player = event.value;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,18 +39,11 @@ class _GameTileState extends State<GameTile> {
       onLongPressEnd: _stopDecrement,
       child: SizedBox.expand(
         child: Container(
-          color: widget.player.color,
+          color: player.color,
           child: Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: () {
-                if (widget.mode == GameMode.VIEW) {
-                  return;
-                }
-                setState(() {
-                  widget.onIncrement();
-                });
-              },
+              onTap: _doIncrement,
               child: LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
                 return Column(
@@ -73,9 +74,9 @@ class _GameTileState extends State<GameTile> {
 
   FittedBox _playerName() {
     return _playerText(Text(
-      widget.player.name ?? ' ',
+      player.name ?? ' ',
       style: TextStyle(
-        color: _getTextColor(widget.player.color),
+        color: _getTextColor(player.color),
       ),
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
@@ -84,9 +85,9 @@ class _GameTileState extends State<GameTile> {
 
   FittedBox _playerScore() {
     return _playerText(Text(
-      '${widget.player.score}',
+      '${player.score}',
       style: TextStyle(
-        color: _getTextColor(widget.player.color),
+        color: _getTextColor(player.color),
       ),
       textAlign: TextAlign.center,
     ));
@@ -109,10 +110,7 @@ class _GameTileState extends State<GameTile> {
     if (widget.mode == GameMode.VIEW) {
       return;
     }
-
-    setState(() {
-      widget.onDecrement();
-    });
+    _doDecrement();
     _decrement(0);
   }
 
@@ -128,10 +126,18 @@ class _GameTileState extends State<GameTile> {
     final int nextIdx = ++i < durations.length ? i : durations.length - 1;
 
     timer = Timer(duration, () {
-      setState(() {
-        widget.onDecrement();
-      });
+      _doDecrement();
       _decrement(nextIdx);
     });
+  }
+
+  _doIncrement() {
+    player.score++;
+    player.save();
+  }
+
+  _doDecrement() {
+    player.score--;
+    player.save();
   }
 }
