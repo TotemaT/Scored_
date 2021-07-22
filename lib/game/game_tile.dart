@@ -52,7 +52,7 @@ class _GameTileState extends State<GameTile> {
           child: Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: widget.mode == GameMode.VIEW ? null :_doIncrement,
+              onTap: widget.mode == GameMode.VIEW ? null : _doIncrement,
               child: LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
                 return Column(

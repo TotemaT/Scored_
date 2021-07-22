@@ -163,7 +163,8 @@ class _GamePageState extends State<GamePage> {
         builder: (BuildContext ctx2, Orientation orientation) {
       if (Platform.isAndroid || kIsWeb) {
         final size = MediaQuery.of(context).size;
-        return _content(widget.game.players!, orientation, size.width, size.height);
+        return _content(
+            widget.game.players!, orientation, size.width, size.height);
       }
 
       return Scaffold(

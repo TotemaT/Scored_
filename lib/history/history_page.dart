@@ -16,7 +16,6 @@ class HistoryPage extends StatelessWidget {
   Future<void> _showCreatePartyDialog(BuildContext context) async {
     var playerCount = 1;
     return await showDialog(
-
         context: context,
         barrierDismissible: false,
         builder: (context) {
