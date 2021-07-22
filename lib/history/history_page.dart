@@ -16,24 +16,35 @@ class HistoryPage extends StatelessWidget {
   Future<void> _showCreatePartyDialog(BuildContext context) async {
     var playerCount = 1;
     return await showDialog(
+
         context: context,
         barrierDismissible: false,
         builder: (context) {
           return StatefulBuilder(builder: (context, setState) {
             return AlertDialog(
+              clipBehavior: Clip.hardEdge,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(0))),
               content: Form(
                   key: _formKey,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       TextFormField(
+                        autofocus: true,
                         controller: _textEditingController,
                         validator: (value) {
                           return value != null && value.isNotEmpty
                               ? null
                               : "Enter a name";
                         },
-                        decoration: InputDecoration(labelText: "Party Name"),
+                        decoration: InputDecoration(
+                            labelText: "Party Name",
+                            border: OutlineInputBorder(),
+                            prefixIcon: Icon(
+                              Icons.remove,
+                              color: Colors.transparent,
+                            )),
                       ),
                       Padding(padding: EdgeInsets.only(bottom: 16)),
                       SpinBox(
@@ -42,8 +53,10 @@ class HistoryPage extends StatelessWidget {
                         value: playerCount.toDouble(),
                         step: 1,
                         onChanged: (value) => playerCount = value.toInt(),
-                        decoration:
-                            InputDecoration(labelText: 'Number of Players'),
+                        decoration: InputDecoration(
+                          labelText: 'Number of Players',
+                          border: OutlineInputBorder(),
+                        ),
                       )
                     ],
                   )),
