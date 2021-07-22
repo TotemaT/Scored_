@@ -44,15 +44,15 @@ class _GameTileState extends State<GameTile> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPressStart: _startDecrement,
-      onLongPressEnd: _stopDecrement,
+      onLongPressStart: widget.mode == GameMode.VIEW ? null : _startDecrement,
+      onLongPressEnd: widget.mode == GameMode.VIEW ? null : _stopDecrement,
       child: SizedBox.expand(
         child: Container(
           color: player.color,
           child: Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: _doIncrement,
+              onTap: widget.mode == GameMode.VIEW ? null :_doIncrement,
               child: LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
                 return Column(
@@ -116,17 +116,11 @@ class _GameTileState extends State<GameTile> {
       color.computeLuminance() > .5 ? Colors.black : Colors.white;
 
   void _startDecrement(LongPressStartDetails details) {
-    if (widget.mode == GameMode.VIEW) {
-      return;
-    }
     _doDecrement();
     _decrement(0);
   }
 
   void _stopDecrement(LongPressEndDetails details) {
-    if (widget.mode == GameMode.VIEW) {
-      return;
-    }
     timer?.cancel();
   }
 
@@ -141,11 +135,17 @@ class _GameTileState extends State<GameTile> {
   }
 
   _doIncrement() {
+    if (widget.mode == GameMode.VIEW) {
+      return;
+    }
     player.score++;
     player.save();
   }
 
   _doDecrement() {
+    if (widget.mode == GameMode.VIEW) {
+      return;
+    }
     player.score--;
     player.save();
   }
