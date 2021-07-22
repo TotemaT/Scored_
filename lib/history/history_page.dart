@@ -65,6 +65,7 @@ class HistoryPage extends StatelessWidget {
                       Navigator.of(context).popAndPushNamed('/setup',
                           arguments: SetupPageArgs(
                               _textEditingController.text, playerCount));
+                      _textEditingController.clear();
                     }
                   },
                 ),
