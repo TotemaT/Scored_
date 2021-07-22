@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
-set(BINARY_NAME "scored_")
-set(APPLICATION_ID "com.example.scored_")
+set(BINARY_NAME "Scored!")
+set(APPLICATION_ID "be.tteo.scored")
 
 cmake_policy(SET CMP0063 NEW)
 
