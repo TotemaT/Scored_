@@ -8,7 +8,14 @@
 
 ## How to build
 
-`flutter build appbundle`
+### In the terminal
+
+-   Install the dependencies `flutter pub get`
+-   Web : `flutter build web`
+-   Android : `flutter build appbundle`
+-   MacOS (only on a mac) : `flutter build macos`
+-   Windows (only on windows) : `flutter build macos`
+-   Linux (only on linux) : `flutter build linux`
 
 ## How to add an entity
 
