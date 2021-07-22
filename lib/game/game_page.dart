@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:scored/domain/game.dart';
 import 'package:scored/domain/player.dart';
 import 'package:scored/game/game_tile.dart';
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class GamePage extends StatefulWidget {
   GamePage(this.game, this.mode, {Key? key}) : super(key: key);
@@ -16,29 +18,19 @@ class GamePage extends StatefulWidget {
 
 class _GamePageState extends State<GamePage> {
   @override
-  void initState() {
-    super.initState();
-    SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[]);
-  }
-
-  @override
   void dispose() {
     super.dispose();
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
   }
 
   @override
-  Widget build(BuildContext context) {
-    return WillPopScope(child: OrientationBuilder(
-        builder: (BuildContext ctx2, Orientation orientation) {
-      return _content(widget.game.players, orientation);
-    }), onWillPop: () async {
-      await widget.game.save();
-      return true;
-    });
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[]);
   }
 
-  Widget _content(List<Player> players, Orientation orientation) {
+  Widget _content(List<Player> players, Orientation orientation, double width,
+      double height) {
     final int count = players.length;
 
     if (count == 1) {
@@ -50,56 +42,65 @@ class _GamePageState extends State<GamePage> {
 
     if (count <= 3) {
       return orientation == Orientation.portrait
-          ? _singleColumnBody(players)
-          : _singleRowBody(players);
+          ? _singleColumnBody(players, height)
+          : _singleRowBody(players, width);
     }
 
     return orientation == Orientation.portrait
-        ? _twoColumnsBody(players)
-        : _twoRowsBody(players);
+        ? _twoColumnsBody(players, width, height)
+        : _twoRowsBody(players, width, height);
   }
 
-  Column _singleColumnBody(List<Player> players) {
+  Container _gameTile(Player player, int idx, {double? height, double? width}) {
+    return Container(
+      height: height,
+      width: width,
+      child: GameTile(player: player, mode: widget.mode),
+    );
+  }
+
+  Column _singleColumnBody(List<Player> players, double height) {
     final List<Widget> children = <Widget>[];
 
-    final double height = MediaQuery.of(context).size.height / players.length;
+    final tileHeight = height / players.length;
     for (int i = 0; i < players.length; i++) {
-      children.add(_gameTile(players[i], i, height: height));
+      children.add(_gameTile(players[i], i, height: tileHeight));
     }
 
     return Column(children: children);
   }
 
-  Row _singleRowBody(List<Player> players) {
+  Row _singleRowBody(List<Player> players, double width) {
     final List<Widget> children = <Widget>[];
 
-    final double width = MediaQuery.of(context).size.width / players.length;
+    final tileWidth = width / players.length;
     for (int i = 0; i < players.length; i++) {
-      children.add(_gameTile(players[i], i, width: width));
+      children.add(_gameTile(players[i], i, width: tileWidth));
     }
 
     return Row(children: children);
   }
 
-  Column _twoColumnsBody(List<Player> players) {
+  Column _twoColumnsBody(List<Player> players, double width, double height) {
     final List<Widget> children = <Widget>[];
-    final double width = MediaQuery.of(context).size.width / 2;
+    final tileWidth = width / 2;
     final int count = players.length;
 
     int rows = count ~/ 2;
-    double height = MediaQuery.of(context).size.height / rows;
+    double tileHeight = height / rows;
 
     if (count.isOdd) {
       rows += 1;
-      height = MediaQuery.of(context).size.height / rows;
-      height += height / (1.5 * count);
+      tileHeight = height / rows;
+      tileHeight += tileHeight / (1.5 * count);
     }
 
     for (int i = 0; i < players.length - 1; i += 2) {
       children.add(Row(
         children: <Widget>[
-          _gameTile(players[i], i, height: height, width: width),
-          _gameTile(players[i + 1], i + 1, height: height, width: width),
+          _gameTile(players[i], i, height: tileHeight, width: tileWidth),
+          _gameTile(players[i + 1], i + 1,
+              height: tileHeight, width: tileWidth),
         ],
       ));
     }
@@ -108,8 +109,7 @@ class _GamePageState extends State<GamePage> {
       children.add(Row(
         children: <Widget>[
           _gameTile(players.last, count - 1,
-              height: MediaQuery.of(context).size.height - (rows - 1) * height,
-              width: MediaQuery.of(context).size.width)
+              height: height - (rows - 1) * tileHeight, width: width)
         ],
       ));
     }
@@ -119,25 +119,26 @@ class _GamePageState extends State<GamePage> {
     );
   }
 
-  Row _twoRowsBody(List<Player> players) {
+  Row _twoRowsBody(List<Player> players, double width, double height) {
     final List<Widget> children = <Widget>[];
-    final double height = MediaQuery.of(context).size.height / 2;
+    final double tileHeight = height / 2;
     final int count = players.length;
 
     int cols = count ~/ 2;
-    double width = MediaQuery.of(context).size.width / cols;
+    double tileWidth = width / cols;
 
     if (count.isOdd) {
       cols++;
-      width = MediaQuery.of(context).size.width / cols;
-      width += width / (1.5 * count);
+      tileWidth = width / cols;
+      tileWidth += tileWidth / (1.5 * count);
     }
 
     for (int i = 1; i < players.length; i += 2) {
       children.add(Column(
         children: <Widget>[
-          _gameTile(players[i], i, height: height, width: width),
-          _gameTile(players[i - 1], i - 1, height: height, width: width),
+          _gameTile(players[i], i, height: tileHeight, width: tileWidth),
+          _gameTile(players[i - 1], i - 1,
+              height: tileHeight, width: tileWidth),
         ],
       ));
     }
@@ -146,8 +147,7 @@ class _GamePageState extends State<GamePage> {
       children.add(Column(
         children: <Widget>[
           _gameTile(players.last, count - 1,
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width - (cols - 1) * width)
+              height: height, width: width - (cols - 1) * tileWidth)
         ],
       ));
     }
@@ -157,12 +157,42 @@ class _GamePageState extends State<GamePage> {
     );
   }
 
-  Container _gameTile(Player player, int idx, {double? height, double? width}) {
-    return Container(
-      height: height,
-      width: width,
-      child: GameTile(player: player, mode: widget.mode),
-    );
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(child: OrientationBuilder(
+        builder: (BuildContext ctx2, Orientation orientation) {
+      if (Platform.isAndroid || kIsWeb) {
+        final size = MediaQuery.of(context).size;
+        return _content(
+            widget.game.players, orientation, size.width, size.height);
+      }
+
+      return Scaffold(
+          body: LayoutBuilder(
+            builder: (context, constraints) {
+              final width = constraints.biggest.width;
+              final height = constraints.biggest.height;
+              return _content(widget.game.players, orientation, width, height);
+            },
+          ),
+          bottomNavigationBar: BottomAppBar(
+              color: Theme.of(context).primaryColor,
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    color: Colors.white,
+                    onPressed: () async {
+                      await widget.game.save();
+                      Navigator.popUntil(context, ModalRoute.withName('/'));
+                    },
+                  )
+                ],
+              )));
+    }), onWillPop: () async {
+      await widget.game.save();
+      return true;
+    });
   }
 }
 
