@@ -163,8 +163,7 @@ class _GamePageState extends State<GamePage> {
         builder: (BuildContext ctx2, Orientation orientation) {
       if (Platform.isAndroid || kIsWeb) {
         final size = MediaQuery.of(context).size;
-        return _content(
-            widget.game.players, orientation, size.width, size.height);
+        return _content(widget.game.players!, orientation, size.width, size.height);
       }
 
       return Scaffold(
@@ -172,7 +171,7 @@ class _GamePageState extends State<GamePage> {
             builder: (context, constraints) {
               final width = constraints.biggest.width;
               final height = constraints.biggest.height;
-              return _content(widget.game.players, orientation, width, height);
+              return _content(widget.game.players!, orientation, width, height);
             },
           ),
           bottomNavigationBar: BottomAppBar(

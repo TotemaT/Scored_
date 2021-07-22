@@ -12,7 +12,7 @@ class HistoryItem extends StatelessWidget {
   final Game game;
 
   String _playersDetails() {
-    final players = game.players;
+    final players = game.players ?? <Player>[];
     players.sort((Player a, Player b) {
       final diff = b.score - a.score;
       return diff != 0 ? diff : (a.name ?? '').compareTo(b.name ?? '');

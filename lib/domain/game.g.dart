@@ -19,7 +19,7 @@ class GameAdapter extends TypeAdapter<Game> {
     return Game()
       ..date = fields[0] as DateTime
       ..name = fields[1] as String?
-      ..hivePlayers = (fields[2] as HiveList?)?.castHiveList();
+      ..players = (fields[2] as HiveList?)?.castHiveList();
   }
 
   @override
@@ -31,7 +31,7 @@ class GameAdapter extends TypeAdapter<Game> {
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.hivePlayers);
+      ..write(obj.players);
   }
 
   @override

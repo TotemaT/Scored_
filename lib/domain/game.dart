@@ -7,9 +7,26 @@ part 'game.g.dart';
 class Game extends HiveObject {
   Game();
 
+  Game.withPlayers(int playerCount) {
+    final playerBox = Hive.box<Player>('players');
+    players = HiveList(playerBox,
+        objects: List.generate(playerCount, (player) {
+          final player = Player();
+          playerBox.add(player);
+          return player;
+        }).toList());
+  }
+
   Game.copy(Game game) {
     name = game.name;
-    players = game.players.map((player) => Player.copy(player)).toList();
+    players = HiveList(Hive.box<Player>('players'),
+        objects: game.players?.map((player) {
+          final playerBox = Hive.box<Player>('players');
+
+          final playerCopy = Player.copy(player);
+          playerBox.add(playerCopy);
+          return playerCopy;
+        }).toList());
   }
 
   @HiveField(0)
@@ -19,13 +36,11 @@ class Game extends HiveObject {
   String? name;
 
   @HiveField(2)
-  HiveList<Player>? hivePlayers;
-
-  List<Player> players = [];
+  HiveList<Player>? players;
 
   @override
   String toString() {
-    return "[$name]:[$date] - $hivePlayers";
+    return "[$name]:[$date] - $players";
   }
 }
 
