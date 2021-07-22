@@ -22,14 +22,23 @@ class _GameTileState extends State<GameTile> {
   Timer? timer;
   Player player;
 
+  late StreamSubscription _playerSubscription;
+
   @override
   void initState() {
     super.initState();
-    Hive.box<Player>('players').watch(key: player.key).listen((event) {
+    _playerSubscription =
+        Hive.box<Player>('players').watch(key: player.key).listen((event) {
       setState(() {
         this.player = event.value;
       });
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _playerSubscription.cancel();
   }
 
   @override
