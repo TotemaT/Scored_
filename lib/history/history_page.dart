@@ -50,10 +50,7 @@ class HistoryPage extends StatelessWidget {
               title: Text('Create a Party'),
               actions: <Widget>[
                 TextButton(
-                  child: Text(
-                    'CANCEL',
-                    style: Theme.of(context).textTheme.button,
-                  ),
+                  child: Text('CANCEL'),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
