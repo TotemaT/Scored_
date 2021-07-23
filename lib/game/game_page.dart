@@ -4,7 +4,7 @@ import 'package:scored/domain/game.dart';
 import 'package:scored/domain/player.dart';
 import 'package:scored/game/game_tile.dart';
 import 'dart:io' show Platform;
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart';
 
 class GamePage extends StatefulWidget {
   GamePage(this.game, this.mode, {Key? key}) : super(key: key);
@@ -161,7 +161,7 @@ class _GamePageState extends State<GamePage> {
   Widget build(BuildContext context) {
     return WillPopScope(child: OrientationBuilder(
         builder: (BuildContext ctx2, Orientation orientation) {
-      if (Platform.isAndroid || kIsWeb) {
+      if (kIsWeb || Platform.isAndroid) {
         final size = MediaQuery.of(context).size;
         return _content(
             widget.game.players!, orientation, size.width, size.height);
