@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="be.tteo.scored">
    <application
-        android:label="scored"
+        android:label="Scored!"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

@@ -17,6 +17,11 @@
 -   Windows (only on windows) : `flutter build macos`
 -   Linux (only on linux) : `flutter build linux`
 
+## How to deploy
+
+-   To internal testing : `fastlane internal`
+-   To production : `fastlane production`
+
 ## How to add an entity
 
 -   Create the domain class (eg. game.dart)

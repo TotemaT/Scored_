@@ -1,0 +1,17 @@
+update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Deploy to Internal Test"
+  lane :internal do
+    gradle(task: "clean bundleRelease")
+    upload_to_play_store(track: "internal", aab: "../build/app/outputs/bundle/release/app-release.aab")
+  end
+
+  desc "Deploy to Production"
+  lane :production do
+    gradle(task: "clean bundleRelease")
+    upload_to_play_store(track: "production", aab: "../build/app/outputs/bundle/release/app-release.aab")
+  end
+end
