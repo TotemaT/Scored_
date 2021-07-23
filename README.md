@@ -19,8 +19,8 @@
 
 ## How to deploy
 
--   To internal testing : `fastlane internal`
--   To production : `fastlane production`
+-   To internal testing : `bundle exec fastlane internal`
+-   To production : `bundle exec fastlane production`
 
 ## How to add an entity
 
