@@ -22,7 +22,6 @@ class SetupList extends StatelessWidget {
     return ListView.separated(
         separatorBuilder: (_, __) => const SizedBox(height: 8),
         itemBuilder: (_, int idx) => _playerItem(players[idx]),
-        itemCount: players.length
-      );
+        itemCount: players.length);
   }
 }

@@ -5,13 +5,13 @@ import 'package:scored/setup/text_input_state.dart';
 import '../domain/player.dart';
 
 class SetupItem extends StatefulWidget {
-  SetupItem({
-      this.last = false,
+  SetupItem(
+      {this.last = false,
       required this.onChangeName,
       required this.onSelectColor,
       required this.player,
-      Key? key
-  }) : super(key: key);
+      Key? key})
+      : super(key: key);
 
   final bool last;
   final ValueChanged<String> onChangeName;
@@ -25,7 +25,15 @@ class SetupItem extends StatefulWidget {
 class _SetupItemState extends State<SetupItem> {
   _SetupItemState();
 
-  late final TextInputState inputState = TextInputState();
+  final TextInputState inputState = TextInputState();
+
+  @override
+  void initState() {
+    super.initState();
+    inputState.focusNode.addListener(() {
+      setState(() {});
+    });
+  }
 
   @override
   dispose() {
@@ -43,8 +51,12 @@ class _SetupItemState extends State<SetupItem> {
       height: 40,
       borderRadius: 40,
       spacing: 4,
-      heading: Text('Select color',),
-      subheading: Text('Select color shade',),
+      heading: Text(
+        'Select color',
+      ),
+      subheading: Text(
+        'Select color shade',
+      ),
       pickersEnabled: const <ColorPickerType, bool>{
         ColorPickerType.both: false,
         ColorPickerType.primary: true,
@@ -62,28 +74,37 @@ class _SetupItemState extends State<SetupItem> {
   Widget build(BuildContext context) {
     return ListTile(
         leading: ColorIndicator(
-            width: 40,
-            height: 40,
-            borderRadius: 22,
-            color: widget.player.color,
-            onSelectFocus: false,
-            onSelect: () async {
-                final color = await _colorPickerDialog(context);
-                widget.onSelectColor(color);
-                setState(() => widget.player.color = color);
-            },
+          width: 40,
+          height: 40,
+          borderRadius: 22,
+          color: widget.player.color,
+          onSelectFocus: false,
+          onSelect: () async {
+            final color = await _colorPickerDialog(context);
+            widget.onSelectColor(color);
+            setState(() => widget.player.color = color);
+          },
         ),
         title: TextField(
-            decoration: InputDecoration(
-                labelText: "Player name",
-            ),
-            controller: inputState.controller,
-            cursorColor: widget.player.color,
-            focusNode: inputState.focusNode,
-            onChanged: (String value) => widget.onChangeName(value),
-            textCapitalization: TextCapitalization.words,
-            textInputAction: widget.last ? TextInputAction.done : TextInputAction.next,
-        )
-    );
+          decoration: InputDecoration(
+              labelText: "Player name",
+              labelStyle: TextStyle(
+                  color: inputState.focusNode.hasFocus
+                      ? widget.player.color
+                      : Theme.of(context).hintColor),
+              border: OutlineInputBorder(),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: widget.player.color,
+                ),
+              )),
+          controller: inputState.controller,
+          cursorColor: widget.player.color,
+          focusNode: inputState.focusNode,
+          onChanged: (String value) => widget.onChangeName(value),
+          textCapitalization: TextCapitalization.words,
+          textInputAction:
+              widget.last ? TextInputAction.done : TextInputAction.next,
+        ));
   }
 }
