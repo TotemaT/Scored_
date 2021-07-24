@@ -13,15 +13,14 @@ class GameTile extends StatefulWidget {
   final GameMode mode;
 
   @override
-  _GameTileState createState() => _GameTileState(player);
+  _GameTileState createState() => _GameTileState();
 }
 
 class _GameTileState extends State<GameTile> {
-  _GameTileState(this.player);
+  _GameTileState();
 
   final List<int> durations = <int>[500, 500, 250, 100, 50];
   Timer? timer;
-  Player player;
 
   late StreamSubscription _playerSubscription;
 
@@ -29,9 +28,9 @@ class _GameTileState extends State<GameTile> {
   void initState() {
     super.initState();
     _playerSubscription =
-        Hive.box<Player>('players').watch(key: player.key).listen((event) {
+        Hive.box<Player>('players').watch(key: widget.player.key).listen((event) {
       setState(() {
-        this.player = event.value;
+        widget.player.score = event.value.score;
       });
     });
   }
@@ -49,7 +48,7 @@ class _GameTileState extends State<GameTile> {
       onLongPressEnd: widget.mode == GameMode.VIEW ? null : _stopDecrement,
       child: SizedBox.expand(
         child: Container(
-          color: player.color,
+          color: widget.player.color,
           child: Material(
             color: Colors.transparent,
             child: InkWell(
@@ -84,9 +83,9 @@ class _GameTileState extends State<GameTile> {
 
   FittedBox _playerName() {
     return _playerText(Text(
-      player.name ?? ' ',
+      widget.player.name ?? ' ',
       style: TextStyle(
-        color: _getTextColor(player.color),
+        color: _getTextColor(widget.player.color),
       ),
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
@@ -95,9 +94,9 @@ class _GameTileState extends State<GameTile> {
 
   FittedBox _playerScore() {
     return _playerText(Text(
-      '${player.score}',
+      '${widget.player.score}',
       style: TextStyle(
-        color: _getTextColor(player.color),
+        color: _getTextColor(widget.player.color),
       ),
       textAlign: TextAlign.center,
     ));
@@ -139,15 +138,15 @@ class _GameTileState extends State<GameTile> {
     if (widget.mode == GameMode.VIEW) {
       return;
     }
-    player.score++;
-    player.save();
+    widget.player.score++;
+    widget.player.save();
   }
 
   _doDecrement() {
     if (widget.mode == GameMode.VIEW) {
       return;
     }
-    player.score--;
-    player.save();
+    widget.player.score--;
+    widget.player.save();
   }
 }

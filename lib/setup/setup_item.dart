@@ -19,18 +19,13 @@ class SetupItem extends StatefulWidget {
   final Player player;
 
   @override
-  _SetupItemState createState() =>
-      _SetupItemState(last, onChangeName, onSelectColor, player);
+  _SetupItemState createState() => _SetupItemState();
 }
 
 class _SetupItemState extends State<SetupItem> {
-  _SetupItemState(this.last, this.onChangeName, this.onSelectColor, this.player);
+  _SetupItemState();
 
   late final TextInputState inputState = TextInputState();
-  final bool last;
-  final ValueChanged<String> onChangeName;
-  final ValueChanged<Color> onSelectColor;
-  final Player player;
 
   @override
   dispose() {
@@ -39,10 +34,10 @@ class _SetupItemState extends State<SetupItem> {
   }
 
   Future<Color> _colorPickerDialog(BuildContext context) async {
-    Color selectedColor = player.color;
+    Color selectedColor = widget.player.color;
 
     await ColorPicker(
-      color: player.color,
+      color: widget.player.color,
       onColorChanged: (Color color) => selectedColor = color,
       width: 40,
       height: 40,
@@ -70,12 +65,12 @@ class _SetupItemState extends State<SetupItem> {
             width: 40,
             height: 40,
             borderRadius: 22,
-            color: player.color,
+            color: widget.player.color,
             onSelectFocus: false,
             onSelect: () async {
                 final color = await _colorPickerDialog(context);
-                onSelectColor(color);
-                setState(() => player.color = color);
+                widget.onSelectColor(color);
+                setState(() => widget.player.color = color);
             },
         ),
         title: TextField(
@@ -83,11 +78,11 @@ class _SetupItemState extends State<SetupItem> {
                 labelText: "Player name",
             ),
             controller: inputState.controller,
-            cursorColor: player.color,
+            cursorColor: widget.player.color,
             focusNode: inputState.focusNode,
-            onChanged: (String value) => onChangeName(value),
+            onChanged: (String value) => widget.onChangeName(value),
             textCapitalization: TextCapitalization.words,
-            textInputAction: last ? TextInputAction.done : TextInputAction.next,
+            textInputAction: widget.last ? TextInputAction.done : TextInputAction.next,
         )
     );
   }
