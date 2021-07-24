@@ -73,6 +73,7 @@ class _SetupItemState extends State<SetupItem> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+        contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
         leading: ColorIndicator(
           width: 40,
           height: 40,
