@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:scored/domain/game.dart';
-import 'package:scored/domain/player.dart';
+
+import '../domain/game.dart';
+import '../domain/player.dart';
 
 class GameTile extends StatefulWidget {
   const GameTile({required this.player, required this.mode});

@@ -1,10 +1,12 @@
+import 'dart:io' show Platform;
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:scored/domain/game.dart';
-import 'package:scored/domain/player.dart';
-import 'package:scored/game/game_tile.dart';
-import 'dart:io' show Platform;
-import 'package:flutter/foundation.dart';
+
+import '../domain/game.dart';
+import '../domain/player.dart';
+import 'game_tile.dart';
 
 class GamePage extends StatefulWidget {
   GamePage(this.game, this.mode, {Key? key}) : super(key: key);

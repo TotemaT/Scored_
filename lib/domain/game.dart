@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
-import 'package:scored/domain/player.dart';
+
+import 'player.dart';
 
 part 'game.g.dart';
 

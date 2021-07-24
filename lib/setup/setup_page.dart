@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:scored/domain/game.dart';
-import 'package:scored/game/game_page.dart';
-import 'package:scored/partials/layout.dart';
-import 'package:scored/setup/setup_list.dart';
+
+import '../domain/game.dart';
+import '../game/game_page.dart';
+import '../partials/layout.dart';
+import 'setup_list.dart';
 
 class SetupPage extends StatelessWidget {
   SetupPage(this.name, this.playerCount, {Key? key}) : super(key: key) {

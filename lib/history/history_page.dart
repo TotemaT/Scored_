@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:scored/domain/game.dart';
-import 'package:scored/history/history_item.dart';
-import 'package:scored/history/no_history.dart';
-import 'package:scored/setup/setup_page.dart';
-import 'package:scored/partials/layout.dart';
+
+import '../domain/game.dart';
+import '../partials/layout.dart';
+import '../setup/setup_page.dart';
+import 'history_item.dart';
+import 'no_history.dart';
 
 class HistoryPage extends StatelessWidget {
   HistoryPage({Key? key}) : super(key: key);

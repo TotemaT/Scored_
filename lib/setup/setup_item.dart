@@ -1,6 +1,7 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:scored/domain/player.dart';
+
+import '../domain/player.dart';
 
 class SetupItem extends StatefulWidget {
   SetupItem(

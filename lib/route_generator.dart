@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:scored/game/game_page.dart';
-import 'package:scored/history/history_page.dart';
-import 'package:scored/partials/layout.dart';
-import 'package:scored/setup/setup_page.dart';
+
+import 'game/game_page.dart';
+import 'history/history_page.dart';
+import 'partials/layout.dart';
+import 'setup/setup_page.dart';
 
 class RouteGenerator {
   static _notFound(RouteSettings settings) {

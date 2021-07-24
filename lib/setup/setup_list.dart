@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:scored/domain/player.dart';
-import 'package:scored/setup/text_input_state.dart';
-import 'package:scored/setup/setup_item.dart';
+
+import '../domain/player.dart';
+import 'setup_item.dart';
+import 'text_input_state.dart';
 
 class SetupList extends StatelessWidget {
   SetupList(this.players) {

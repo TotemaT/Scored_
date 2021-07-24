@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:scored/partials/bottom_bar.dart';
+
+import 'bottom_bar.dart';
 
 class Layout extends StatelessWidget {
   Layout(

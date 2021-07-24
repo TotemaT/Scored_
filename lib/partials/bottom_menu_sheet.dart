@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:scored/notifiers/theme_notifier.dart';
-import 'package:scored/utils/preferences.dart';
+
+import '../notifiers/theme_notifier.dart';
+import '../utils/preferences.dart';
 
 class BottomMenuSheet extends StatelessWidget {
   void _setDarkMode(bool? isDarkMode, ThemeNotifier themeNotifier) {
