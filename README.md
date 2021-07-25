@@ -2,7 +2,6 @@
 	<img src="./web/apple-touch-icon.png"/>
 </div>
 
-
 # Scored!
 
 Scored! is a simple Flutter app that allows you to keep track of all countable things.
@@ -29,8 +28,16 @@ Unlike the v1 of Scored!, your parties are now saved and can be either restarted
 
 ## How to deploy
 
--   To internal testing : `bundle exec fastlane internal`
--   To production : `bundle exec fastlane production`
+### Deploy Web
+
+The Gitlab pipeline found in [.gitlab-cy.yml](./gitlab-ci.yml) automatically build and deploy the web version on [Gitlab pages](https://scored.gitlab.io)
+
+### Deploy Android
+
+Deployment is handled by fastlane, with different lanes :
+
+-   Internal testing : `bundle exec fastlane internal`
+-   Production : `bundle exec fastlane production`
 
 ## How to add an entity
 
