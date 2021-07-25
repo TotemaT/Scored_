@@ -31,7 +31,7 @@ class RouteGenerator {
             TextButton(
                 onPressed: () =>
                     Navigator.popUntil(context, ModalRoute.withName('/')),
-                child: Text(s.notFoundButton))
+                child: Text(s.notFoundButton.toUpperCase()))
           ])));
         });
   }

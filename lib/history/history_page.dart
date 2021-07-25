@@ -65,13 +65,13 @@ class HistoryPage extends StatelessWidget {
               title: Text(s.createParty),
               actions: <Widget>[
                 TextButton(
-                  child: Text(s.cancel),
+                  child: Text(s.cancel.toUpperCase()),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                 ),
                 TextButton(
-                  child: Text(s.start),
+                  child: Text(s.start.toUpperCase()),
                   onPressed: () {
                     if (_formKey.currentState?.validate() == true) {
                       Navigator.of(context).popAndPushNamed('/setup',
