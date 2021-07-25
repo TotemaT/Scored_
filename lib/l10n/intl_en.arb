@@ -5,6 +5,7 @@
     "darkMode": "Dark Mode",
     "delete": "Delete",
     "historyDate": "{date} {time}",
+    "language": "Language",
     "noHistoryBody1": "Click on the button",
     "noHistoryBody2": "and start a new party now!",
     "noHistoryTitle": "No history found :(",

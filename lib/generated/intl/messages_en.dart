@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "historyDate": m0,
+        "language": MessageLookupByLibrary.simpleMessage("Language"),
         "noHistoryBody1":
             MessageLookupByLibrary.simpleMessage("Click on the button"),
         "noHistoryBody2":

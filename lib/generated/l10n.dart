@@ -110,6 +110,16 @@ class S {
     );
   }
 
+  /// `Language`
+  String get language {
+    return Intl.message(
+      'Language',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Click on the button`
   String get noHistoryBody1 {
     return Intl.message(
@@ -269,7 +279,6 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'de'),
       Locale.fromSubtags(languageCode: 'fr'),
-      Locale.fromSubtags(languageCode: 'nl'),
     ];
   }
 
