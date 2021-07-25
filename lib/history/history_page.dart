@@ -56,7 +56,7 @@ class HistoryPage extends StatelessWidget {
                         step: 1,
                         onChanged: (value) => playerCount = value.toInt(),
                         decoration: InputDecoration(
-                          labelText: s.partyName,
+                          labelText: s.playerCount,
                           border: OutlineInputBorder(),
                         ),
                       )

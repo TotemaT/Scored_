@@ -1,1 +1,23 @@
-{}
+{
+    "cancel": "Annuler",
+    "continueParty": "Reprendre",
+    "createParty": "Créer la partie",
+    "darkMode": "Thème Sombre",
+    "delete": "Supprimer",
+    "historyDate": "{date} {time}",
+    "noHistoryBody1": "Clique sur le bouton",
+    "noHistoryBody2": "et commence une nouvelle partie maintenant",
+    "noHistoryTitle": "Aucun historique trouvé :(",
+    "noNameError": "Nom requis",
+    "notFoundBody": "Cette page n'existe pas.. Peut être veux-tu",
+    "notFoundButton": "Retourner à l'accueil",
+    "partyName": "Nom de la partie",
+    "playerCount": "Nombre de joueurs",
+    "playerName": "Nom du joueur",
+    "restart": " Redémarrer",
+    "selectColor": "Sélectionne une couleur",
+    "selectColorShade": "Sélectionne une nuance",
+    "start": "Démarrer",
+    "today": "Aujourd'hui",
+    "yesterday": "Hier"
+}
