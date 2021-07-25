@@ -9,6 +9,12 @@ import '../notifiers/theme_notifier.dart';
 import '../utils/preferences.dart';
 
 class BottomMenuSheet extends StatelessWidget {
+  final _langs = [
+    _LocaleToLabel('de', 'Deutsch'),
+    _LocaleToLabel('en', 'English'),
+    _LocaleToLabel('fr', 'Français'),
+  ];
+
   void _setDarkMode(bool? isDarkMode, ThemeNotifier themeNotifier) {
     isDarkMode = isDarkMode ?? false;
     setIsDarkMode(isDarkMode);
@@ -37,7 +43,10 @@ class BottomMenuSheet extends StatelessWidget {
       ListTile(
         title: Text(S.of(context).language),
         trailing: DropdownButton<String>(
-          items: _items(),
+          items: _langs.map((lang) => DropdownMenuItem(
+            value: lang.code,
+            child: Text(lang.label)
+          )).toList(),
           value: langNotifier.locale.languageCode,
           onChanged: (String? lang) => _setLang(lang, langNotifier),
         ),
@@ -54,10 +63,9 @@ class BottomMenuSheet extends StatelessWidget {
   Widget _aboutChildren(BuildContext context) {
     final textStyle = Theme.of(context).textTheme.bodyText1;
     final linkStyle = textStyle?.copyWith(
-      decorationStyle: TextDecorationStyle.solid,
-      decoration: TextDecoration.underline,
-      color: Theme.of(context).accentColor
-    );
+        decorationStyle: TextDecorationStyle.solid,
+        decoration: TextDecoration.underline,
+        color: Theme.of(context).accentColor);
 
     return Padding(
         padding: const EdgeInsets.only(top: 24),
@@ -87,29 +95,6 @@ class BottomMenuSheet extends StatelessWidget {
           ),
         ])));
   }
-
-  _items() {
-    final list = S.delegate.supportedLocales.map((Locale locale) {
-      return DropdownMenuItem<String>(
-        value: locale.languageCode,
-        child: Text(_language(locale.languageCode)),
-      );
-    }).toList();
-    return list;
-  }
-
-  String _language(String code) {
-    switch (code) {
-      case 'de':
-        return 'Deutsch';
-      case 'en':
-        return 'English';
-      case 'fr':
-        return 'French';
-      default:
-        throw Exception('Unsupported locale : $code');
-    }
-  }
 }
 
 // cf https://github.com/flutter/flutter/blob/master/examples/flutter_gallery/lib/gallery/about.dart
@@ -122,4 +107,10 @@ class _LinkTextSpan extends TextSpan {
                 ? null
                 : (TapGestureRecognizer()
                   ..onTap = () => launch(url, forceWebView: false)));
+}
+
+class _LocaleToLabel {
+  _LocaleToLabel(this.code, this.label);
+  String code;
+  String label;
 }
