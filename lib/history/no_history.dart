@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:scored/generated/l10n.dart';
 
 class NoHistory extends StatelessWidget {
   const NoHistory({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final s = S.of(context);
     final titleStyle = Theme.of(context).textTheme.headline4;
     final subtitleStyle = Theme.of(context).textTheme.subtitle1;
 
@@ -13,18 +15,18 @@ class NoHistory extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.only(top: 160),
-            child: Text('No history found :(', style: titleStyle),
+            child: Text(s.noHistoryTitle, style: titleStyle),
           ),
           Padding(
               padding: EdgeInsets.only(top: 48, bottom: 8),
               child: Text(
-                'Click on the button',
+                s.noHistoryBody1,
                 style: subtitleStyle,
               )),
           Padding(
               padding: EdgeInsets.only(bottom: 32),
               child: Text(
-                'and start a new party now !',
+                s.noHistoryBody2,
                 style: subtitleStyle,
               )),
           Icon(

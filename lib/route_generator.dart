@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scored/generated/l10n.dart';
 
 import 'game/game_page.dart';
 import 'history/history_page.dart';
@@ -12,6 +13,7 @@ class RouteGenerator {
         builder: (context) {
           final titleStyle = Theme.of(context).textTheme.headline4;
           final subtitleStyle = Theme.of(context).textTheme.subtitle1;
+          final s = S.of(context);
 
           return Layout(
               child: Center(
@@ -23,13 +25,13 @@ class RouteGenerator {
             Padding(
                 padding: EdgeInsets.only(top: 48, bottom: 8),
                 child: Text(
-                  'This page doesn\'t exists... Maybe try to ',
+                  s.notFoundBody,
                   style: subtitleStyle,
                 )),
             TextButton(
                 onPressed: () =>
                     Navigator.popUntil(context, ModalRoute.withName('/')),
-                child: Text('Go Back Home'))
+                child: Text(s.notFoundButton))
           ])));
         });
   }

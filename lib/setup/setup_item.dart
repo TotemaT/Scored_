@@ -1,5 +1,6 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:scored/generated/l10n.dart';
 import 'package:scored/setup/text_input_state.dart';
 
 import '../domain/player.dart';
@@ -42,6 +43,7 @@ class _SetupItemState extends State<SetupItem> {
   }
 
   Future<Color> _colorPickerDialog(BuildContext context) async {
+    final s = S.of(context);
     Color selectedColor = widget.player.color;
 
     await ColorPicker(
@@ -51,12 +53,8 @@ class _SetupItemState extends State<SetupItem> {
       height: 40,
       borderRadius: 40,
       spacing: 4,
-      heading: Text(
-        'Select color',
-      ),
-      subheading: Text(
-        'Select color shade',
-      ),
+      heading: Text(s.selectColor),
+      subheading: Text(s.selectColorShade),
       pickersEnabled: const <ColorPickerType, bool>{
         ColorPickerType.both: false,
         ColorPickerType.primary: true,
@@ -88,7 +86,7 @@ class _SetupItemState extends State<SetupItem> {
         ),
         title: TextField(
           decoration: InputDecoration(
-              labelText: "Player name",
+              labelText: S.of(context).playerName,
               labelStyle: TextStyle(
                   color: inputState.focusNode.hasFocus
                       ? widget.player.color

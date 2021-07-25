@@ -1,5 +1,6 @@
 name: scored
-description: Scored! allows you to keep track of all your scores, or whatever else you may want to keep track off!
+description: Scored! allows you to keep track of all your scores, or whatever else you may
+    want to keep track off!
 publish_to: 'none'
 version: 2.0.0+9
 
@@ -7,9 +8,11 @@ environment:
     sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
+    flex_color_picker: ^2.1.2
     flutter:
         sdk: flutter
-    flex_color_picker: ^2.1.2
+    flutter_localizations:
+        sdk: flutter
     flutter_slidable: ^0.6.0
     flutter_spinbox: ^0.5.2
     hive: ^2.0.4
@@ -27,3 +30,5 @@ dev_dependencies:
 
 flutter:
     uses-material-design: true
+flutter_intl:
+    enabled: true

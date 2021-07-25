@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:scored/generated/l10n.dart';
 
 import '../domain/game.dart';
 import '../domain/player.dart';
@@ -23,6 +24,8 @@ class HistoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final s = S.of(context);
+
     return Slidable(
       child: ListTile(
         title: Text(game.name ?? ''),
@@ -42,7 +45,7 @@ class HistoryItem extends StatelessWidget {
       actionPane: SlidableDrawerActionPane(),
       actions: [
         IconSlideAction(
-          caption: 'Delete',
+          caption: s.delete,
           icon: Icons.highlight_remove,
           color: Colors.red,
           onTap: () => game.delete(),
@@ -50,7 +53,7 @@ class HistoryItem extends StatelessWidget {
       ],
       secondaryActions: [
         IconSlideAction(
-          caption: 'Continue',
+          caption: s.continueParty,
           icon: Icons.play_arrow,
           color: Colors.blue,
           onTap: () {
@@ -60,7 +63,7 @@ class HistoryItem extends StatelessWidget {
           },
         ),
         IconSlideAction(
-          caption: 'Restart',
+          caption: s.restart,
           icon: Icons.replay,
           color: Colors.green,
           onTap: () {
@@ -92,16 +95,19 @@ extension DateHelpers on DateTime {
   }
 
   String toReadable() {
-    var date = '';
+    final s = S.current;
+    final locale = Intl.defaultLocale;
+    final time = DateFormat.jm(locale).format(this);
+
     if (isToday()) {
-      date += 'Today ';
-    } else if (isYesterday()) {
-      date += 'Yesterday ';
-    } else {
-      date += DateFormat.yMMMMd('fr_FR').format(this) + ' ';
+      return s.historyDate(s.today, time);
     }
 
-    date += DateFormat.jm('fr_FR').format(this);
-    return date;
+    if (isYesterday()) {
+      return s.historyDate(s.yesterday, time);
+    }
+
+    final day = DateFormat.yMMMMd(locale).format(this);
+    return s.historyDate(day, time);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:scored/generated/l10n.dart';
 
 import '../domain/game.dart';
 import '../partials/layout.dart';
@@ -15,6 +16,7 @@ class HistoryPage extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();
 
   Future<void> _showCreatePartyDialog(BuildContext context) async {
+    final s = S.of(context);
     var playerCount = 1;
     return await showDialog(
         context: context,
@@ -36,10 +38,10 @@ class HistoryPage extends StatelessWidget {
                         validator: (value) {
                           return value != null && value.isNotEmpty
                               ? null
-                              : "Enter a name";
+                              : s.noNameError;
                         },
                         decoration: InputDecoration(
-                            labelText: "Party Name",
+                            labelText: s.partyName,
                             border: OutlineInputBorder(),
                             prefixIcon: Icon(
                               Icons.remove,
@@ -54,22 +56,22 @@ class HistoryPage extends StatelessWidget {
                         step: 1,
                         onChanged: (value) => playerCount = value.toInt(),
                         decoration: InputDecoration(
-                          labelText: 'Number of Players',
+                          labelText: s.partyName,
                           border: OutlineInputBorder(),
                         ),
                       )
                     ],
                   )),
-              title: Text('Create a Party'),
+              title: Text(s.createParty),
               actions: <Widget>[
                 TextButton(
-                  child: Text('CANCEL'),
+                  child: Text(s.cancel),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                 ),
                 TextButton(
-                  child: const Text('START'),
+                  child: Text(s.start),
                   onPressed: () {
                     if (_formKey.currentState?.validate() == true) {
                       Navigator.of(context).popAndPushNamed('/setup',

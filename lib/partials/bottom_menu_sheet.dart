@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:scored/generated/l10n.dart';
 
 import '../notifiers/theme_notifier.dart';
 import '../utils/preferences.dart';
@@ -20,7 +21,7 @@ class BottomMenuSheet extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         CheckboxListTile(
-          title: Text("Dark mode"),
+          title: Text(S.of(context).darkMode),
           value: themeNotifier.isDark,
           onChanged: (bool? value) => _setDarkMode(value, themeNotifier),
         ),

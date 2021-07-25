@@ -1,0 +1,23 @@
+{
+    "cancel": "Cancel",
+    "continueParty": "Continue",
+    "createParty": "Create the party",
+    "darkMode": "Dark Mode",
+    "delete": "Delete",
+    "historyDate": "{date} {time}",
+    "noHistoryBody1": "Click on the button",
+    "noHistoryBody2": "and start a new party now!",
+    "noHistoryTitle": "No history found :(",
+    "noNameError": "Name is required",
+    "notFoundBody": "This page doesn't exist maybe you want to",
+    "notFoundButton": "Go back home",
+    "partyName": "Party Name",
+    "playerCount": "Number of players",
+    "playerName": "Player Name",
+    "restart": " Restart",
+    "selectColor": "Select a main color",
+    "selectColorShade": "Select a color shade",
+    "start": "Start",
+    "today": "Today",
+    "yesterday": "Yesterday"
+}
