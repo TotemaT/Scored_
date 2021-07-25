@@ -1,3 +1,8 @@
+<div align="center">
+	<img src="./web/apple-touch-icon.png"/>
+</div>
+
+
 # Scored!
 
 Scored! is a simple Flutter app that allows you to keep track of all countable things.
