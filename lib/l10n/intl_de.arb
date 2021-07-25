@@ -1,1 +1,23 @@
-{}
+{
+    "cancel": "Abbrechen",
+    "continueParty": "Weiter",
+    "createParty": "Erstelle eine Gruppe",
+    "darkMode": "Dark Mode",
+    "delete": "Löschen",
+    "historyDate": "{date} {time}",
+    "noHistoryBody1": "Drücke den Button",
+    "noHistoryBody2": "Und started jetzt eine neue Gruppe!",
+    "noHistoryTitle": "Keine Historie gefunden :(",
+    "noNameError": "Name ist notwendig",
+    "notFoundBody": "Diese Seite existiert nicht vielleicht möchtest du",
+    "notFoundButton": "Zurück zum Hauptbildschirm",
+    "partyName": "Gruppenname",
+    "playerCount": "Anzahl der Spieler",
+    "playerName": "Spielername",
+    "restart": " Neustart",
+    "selectColor": "Wähle eine Hauptfarbe",
+    "selectColorShade": "Wähle einen Farbton",
+    "start": "Start",
+    "today": "Heute",
+    "yesterday": "Morgen"
+}

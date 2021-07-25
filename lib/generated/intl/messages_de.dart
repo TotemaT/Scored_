@@ -19,6 +19,40 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'de';
 
+  static String m0(date, time) => "${date} ${time}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{};
+  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "cancel": MessageLookupByLibrary.simpleMessage("Abbrechen"),
+        "continueParty": MessageLookupByLibrary.simpleMessage("Weiter"),
+        "createParty":
+            MessageLookupByLibrary.simpleMessage("Erstelle eine Gruppe"),
+        "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
+        "delete": MessageLookupByLibrary.simpleMessage("Löschen"),
+        "historyDate": m0,
+        "noHistoryBody1":
+            MessageLookupByLibrary.simpleMessage("Drücke den Button"),
+        "noHistoryBody2": MessageLookupByLibrary.simpleMessage(
+            "Und started jetzt eine neue Gruppe!"),
+        "noHistoryTitle":
+            MessageLookupByLibrary.simpleMessage("Keine Historie gefunden :("),
+        "noNameError":
+            MessageLookupByLibrary.simpleMessage("Name ist notwendig"),
+        "notFoundBody": MessageLookupByLibrary.simpleMessage(
+            "Diese Seite existiert nicht vielleicht möchtest du"),
+        "notFoundButton":
+            MessageLookupByLibrary.simpleMessage("Zurück zum Hauptbildschirm"),
+        "partyName": MessageLookupByLibrary.simpleMessage("Gruppenname"),
+        "playerCount":
+            MessageLookupByLibrary.simpleMessage("Anzahl der Spieler"),
+        "playerName": MessageLookupByLibrary.simpleMessage("Spielername"),
+        "restart": MessageLookupByLibrary.simpleMessage(" Neustart"),
+        "selectColor":
+            MessageLookupByLibrary.simpleMessage("Wähle eine Hauptfarbe"),
+        "selectColorShade":
+            MessageLookupByLibrary.simpleMessage("Wähle einen Farbton"),
+        "start": MessageLookupByLibrary.simpleMessage("Start"),
+        "today": MessageLookupByLibrary.simpleMessage("Heute"),
+        "yesterday": MessageLookupByLibrary.simpleMessage("Morgen")
+      };
 }
