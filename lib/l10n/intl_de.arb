@@ -5,6 +5,7 @@
     "darkMode": "Dark Mode",
     "delete": "Löschen",
     "historyDate": "{date} {time}",
+    "language": "Sprache",
     "noHistoryBody1": "Drücke den Button",
     "noHistoryBody2": "Und started jetzt eine neue Gruppe!",
     "noHistoryTitle": "Keine Historie gefunden :(",
