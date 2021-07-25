@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:scored/generated/l10n.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,7 +28,7 @@ void setIsDarkMode(bool isDarkMode) async {
 }
 
 Locale _getLocale(String? lang) {
-  Locale locale = lang != null ? Locale(lang, '') : Locale(Platform.localeName);
+  Locale locale = lang != null ? Locale(lang, '') : Locale(Intl.systemLocale);
 
   if (!S.delegate.supportedLocales.contains(locale)) {
     locale = const Locale('en');
