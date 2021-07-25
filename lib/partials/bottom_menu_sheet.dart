@@ -1,7 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scored/generated/l10n.dart';
 import 'package:scored/notifiers/lang_notifier.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../notifiers/theme_notifier.dart';
 import '../utils/preferences.dart';
@@ -26,24 +28,59 @@ class BottomMenuSheet extends StatelessWidget {
     final LangNotifier langNotifier =
         Provider.of<LangNotifier>(context, listen: false);
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        CheckboxListTile(
-          title: Text(S.of(context).darkMode),
-          value: themeNotifier.isDark,
-          onChanged: (bool? value) => _setDarkMode(value, themeNotifier),
+    return Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+      CheckboxListTile(
+        title: Text(S.of(context).darkMode),
+        value: themeNotifier.isDark,
+        onChanged: (bool? value) => _setDarkMode(value, themeNotifier),
+      ),
+      ListTile(
+        title: Text(S.of(context).language),
+        trailing: DropdownButton<String>(
+          items: _items(),
+          value: langNotifier.locale.languageCode,
+          onChanged: (String? lang) => _setLang(lang, langNotifier),
         ),
-        ListTile(
-          title: Text(S.of(context).language),
-          trailing: DropdownButton<String>(
-            items: _items(),
-            value: langNotifier.locale.languageCode,
-            onChanged: (String? lang) => _setLang(lang, langNotifier),
-          ),
-        ),
-      ],
+      ),
+      AboutListTile(
+          // applicationIcon: Image.asset('logo.png'),
+          applicationName: 'Scored!',
+          applicationVersion: '2.0.0',
+          applicationLegalese: '\u{a9} 2019 Matteo Taroli',
+          aboutBoxChildren: [_aboutChildren(context)])
+    ]);
+  }
+
+  Widget _aboutChildren(BuildContext context) {
+    final TextStyle linkStyle = TextStyle(
+      color: Theme.of(context).accentColor,
+      decorationStyle: TextDecorationStyle.solid,
     );
+
+    return Padding(
+        padding: const EdgeInsets.only(top: 24),
+        child: RichText(
+            text: TextSpan(children: <TextSpan>[
+          TextSpan(
+            text: 'Scored! is an open-source application made with Flutter by ',
+          ),
+          _LinkTextSpan(
+            text: 'Matteo Taroli',
+            style: linkStyle,
+            url: 'https://tteo.be',
+          ),
+          TextSpan(
+            text: '.\n\nThe source code can be found in the ',
+          ),
+          _LinkTextSpan(
+            text: 'Scored! Gitlab repository',
+            style: linkStyle,
+            url: 'https://gitlab.com/scored/scored.gitlab.io',
+          ),
+          TextSpan(
+            text: '.',
+          ),
+        ])));
   }
 
   _items() {
@@ -68,4 +105,16 @@ class BottomMenuSheet extends StatelessWidget {
         throw Exception('Unsupported locale : $code');
     }
   }
+}
+
+// cf https://github.com/flutter/flutter/blob/master/examples/flutter_gallery/lib/gallery/about.dart
+class _LinkTextSpan extends TextSpan {
+  _LinkTextSpan({TextStyle? style, String? url, String? text})
+      : super(
+            style: style,
+            text: text ?? url,
+            recognizer: url == null
+                ? null
+                : (TapGestureRecognizer()
+                  ..onTap = () => launch(url, forceWebView: false)));
 }

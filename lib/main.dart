@@ -30,7 +30,8 @@ void main() async {
 
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider<ThemeNotifier>(create: (_) => ThemeNotifier(darkMode)),
+      ChangeNotifierProvider<ThemeNotifier>(
+          create: (_) => ThemeNotifier(darkMode)),
       ChangeNotifierProvider<LangNotifier>(create: (_) => LangNotifier(locale))
     ],
     child: MyApp(),
@@ -41,21 +42,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer2<ThemeNotifier, LangNotifier>(
-      builder: (_, themeNotifier, langNotifier, __) {
-        return MaterialApp(
-          locale: langNotifier.locale,
-          localizationsDelegates: [
-            S.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: S.delegate.supportedLocales,
-          theme: themeNotifier.isDark ? scoredThemeDark : scoredTheme,
-          onGenerateRoute: RouteGenerator.generateRoute,
-          initialRoute: '/',
-        );
-      }
-    );
+        builder: (_, themeNotifier, langNotifier, __) {
+      return MaterialApp(
+        locale: langNotifier.locale,
+        localizationsDelegates: [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+        theme: themeNotifier.isDark ? scoredThemeDark : scoredTheme,
+        onGenerateRoute: RouteGenerator.generateRoute,
+        initialRoute: '/',
+      );
+    });
   }
 }
