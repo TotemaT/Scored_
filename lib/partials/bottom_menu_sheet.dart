@@ -52,9 +52,11 @@ class BottomMenuSheet extends StatelessWidget {
   }
 
   Widget _aboutChildren(BuildContext context) {
-    final TextStyle linkStyle = TextStyle(
-      color: Theme.of(context).accentColor,
+    final textStyle = Theme.of(context).textTheme.bodyText1;
+    final linkStyle = textStyle?.copyWith(
       decorationStyle: TextDecorationStyle.solid,
+      decoration: TextDecoration.underline,
+      color: Theme.of(context).accentColor
     );
 
     return Padding(
@@ -62,6 +64,7 @@ class BottomMenuSheet extends StatelessWidget {
         child: RichText(
             text: TextSpan(children: <TextSpan>[
           TextSpan(
+            style: textStyle,
             text: 'Scored! is an open-source application made with Flutter by ',
           ),
           _LinkTextSpan(
@@ -70,6 +73,7 @@ class BottomMenuSheet extends StatelessWidget {
             url: 'https://tteo.be',
           ),
           TextSpan(
+            style: textStyle,
             text: '.\n\nThe source code can be found in the ',
           ),
           _LinkTextSpan(
@@ -78,6 +82,7 @@ class BottomMenuSheet extends StatelessWidget {
             url: 'https://gitlab.com/scored/scored.gitlab.io',
           ),
           TextSpan(
+            style: textStyle,
             text: '.',
           ),
         ])));
