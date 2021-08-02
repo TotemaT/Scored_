@@ -34,6 +34,8 @@ The Gitlab pipeline found in [.gitlab-cy.yml](./gitlab-ci.yml) automatically bui
 
 ### Deploy Android
 
+First, update the version code in pubspec.yaml and run `flutter build apk` or `flutter run` to update the version where needed.
+
 Deployment is handled by fastlane, with different lanes :
 
 -   Internal testing : `bundle exec fastlane internal`
