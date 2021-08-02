@@ -13,14 +13,15 @@ class GameTile extends StatefulWidget {
   final GameMode mode;
 
   @override
-  _GameTileState createState() => _GameTileState();
+  _GameTileState createState() => _GameTileState(player);
 }
 
 class _GameTileState extends State<GameTile> {
-  _GameTileState();
+  _GameTileState(this.player);
 
   final List<int> durations = <int>[500, 500, 250, 100, 50];
   Timer? timer;
+  Player player;
 
   late StreamSubscription _playerSubscription;
 
@@ -28,10 +29,10 @@ class _GameTileState extends State<GameTile> {
   void initState() {
     super.initState();
     _playerSubscription = Hive.box<Player>('players')
-        .watch(key: widget.player.key)
+        .watch(key: player.key)
         .listen((event) {
       setState(() {
-        widget.player.score = event.value.score;
+        player.score = event.value.score;
       });
     });
   }
@@ -49,7 +50,7 @@ class _GameTileState extends State<GameTile> {
       onLongPressEnd: widget.mode == GameMode.VIEW ? null : _stopDecrement,
       child: SizedBox.expand(
         child: Container(
-          color: widget.player.color,
+          color: player.color,
           child: Material(
             color: Colors.transparent,
             child: InkWell(
@@ -84,9 +85,9 @@ class _GameTileState extends State<GameTile> {
 
   FittedBox _playerName() {
     return _playerText(Text(
-      widget.player.name ?? ' ',
+      player.name ?? ' ',
       style: TextStyle(
-        color: _getTextColor(widget.player.color),
+        color: _getTextColor(player.color),
       ),
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
@@ -95,9 +96,9 @@ class _GameTileState extends State<GameTile> {
 
   FittedBox _playerScore() {
     return _playerText(Text(
-      '${widget.player.score}',
+      '${player.score}',
       style: TextStyle(
-        color: _getTextColor(widget.player.color),
+        color: _getTextColor(player.color),
       ),
       textAlign: TextAlign.center,
     ));
@@ -139,15 +140,15 @@ class _GameTileState extends State<GameTile> {
     if (widget.mode == GameMode.VIEW) {
       return;
     }
-    widget.player.score++;
-    widget.player.save();
+    player.score++;
+    player.save();
   }
 
   _doDecrement() {
     if (widget.mode == GameMode.VIEW) {
       return;
     }
-    widget.player.score--;
-    widget.player.save();
+    player.score--;
+    player.save();
   }
 }
