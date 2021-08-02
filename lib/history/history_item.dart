@@ -42,16 +42,8 @@ class HistoryItem extends StatelessWidget {
               arguments: GamePageArgs(game, GameMode.VIEW));
         },
       ),
-      actionPane: SlidableDrawerActionPane(),
+      actionPane: SlidableStrechActionPane(),
       actions: [
-        IconSlideAction(
-          caption: s.delete,
-          icon: Icons.highlight_remove,
-          color: Colors.red,
-          onTap: () => game.delete(),
-        )
-      ],
-      secondaryActions: [
         IconSlideAction(
           caption: s.continueParty,
           icon: Icons.play_arrow,
@@ -73,6 +65,12 @@ class HistoryItem extends StatelessWidget {
                 '/game', ModalRoute.withName('/'),
                 arguments: GamePageArgs(newGame, GameMode.PLAY));
           },
+        ),
+        IconSlideAction(
+          caption: s.delete,
+          icon: Icons.highlight_remove,
+          color: Colors.red,
+          onTap: () => game.delete(),
         )
       ],
     );
