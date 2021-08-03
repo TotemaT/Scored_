@@ -11,6 +11,8 @@ class SetupItem extends StatefulWidget {
       required this.onChangeName,
       required this.onSelectColor,
       required this.player,
+      required this.inputState,
+      required this.onSubmitted,
       Key? key})
       : super(key: key);
 
@@ -18,6 +20,9 @@ class SetupItem extends StatefulWidget {
   final ValueChanged<String> onChangeName;
   final ValueChanged<Color> onSelectColor;
   final Player player;
+  final TextInputState inputState;
+  final VoidCallback onSubmitted;
+
 
   @override
   _SetupItemState createState() => _SetupItemState();
@@ -26,12 +31,10 @@ class SetupItem extends StatefulWidget {
 class _SetupItemState extends State<SetupItem> {
   _SetupItemState();
 
-  final TextInputState inputState = TextInputState();
-
   @override
   void initState() {
     super.initState();
-    inputState.focusNode.addListener(() {
+    widget.inputState.focusNode.addListener(() {
       setState(() {});
     });
   }
@@ -39,7 +42,7 @@ class _SetupItemState extends State<SetupItem> {
   @override
   dispose() {
     super.dispose();
-    inputState.dispose();
+    widget.inputState.dispose();
   }
 
   Future<Color> _colorPickerDialog(BuildContext context) async {
@@ -88,7 +91,7 @@ class _SetupItemState extends State<SetupItem> {
           decoration: InputDecoration(
               labelText: S.of(context).playerName,
               labelStyle: TextStyle(
-                  color: inputState.focusNode.hasFocus
+                  color: widget.inputState.focusNode.hasFocus
                       ? widget.player.color
                       : Theme.of(context).hintColor),
               border: OutlineInputBorder(),
@@ -97,13 +100,14 @@ class _SetupItemState extends State<SetupItem> {
                   color: widget.player.color,
                 ),
               )),
-          controller: inputState.controller,
+          controller: widget.inputState.controller,
           cursorColor: widget.player.color,
-          focusNode: inputState.focusNode,
+          focusNode: widget.inputState.focusNode,
           onChanged: (String value) => widget.onChangeName(value),
           textCapitalization: TextCapitalization.words,
           textInputAction:
               widget.last ? TextInputAction.done : TextInputAction.next,
+              onSubmitted: (_) => widget.onSubmitted(),
         ));
   }
 }
