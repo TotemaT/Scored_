@@ -16,17 +16,16 @@ class SetupList extends StatelessWidget {
     final inputState = inputStates[idx];
 
     return SetupItem(
-      last: players.indexOf(player) == players.length - 1,
-      onChangeName: (String name) => player.name = name,
-      onSelectColor: (Color color) => player.color = color,
-      player: player,
-      inputState: inputState,
-      onSubmitted: () {
-        if (idx < inputStates.length - 1) {
-          FocusScope.of(context).requestFocus(inputStates[idx + 1].focusNode);
-        }
-      }
-    );
+        last: players.indexOf(player) == players.length - 1,
+        onChangeName: (String name) => player.name = name,
+        onSelectColor: (Color color) => player.color = color,
+        player: player,
+        inputState: inputState,
+        onSubmitted: () {
+          if (idx < inputStates.length - 1) {
+            FocusScope.of(context).requestFocus(inputStates[idx + 1].focusNode);
+          }
+        });
   }
 
   @override

@@ -23,7 +23,6 @@ class SetupItem extends StatefulWidget {
   final TextInputState inputState;
   final VoidCallback onSubmitted;
 
-
   @override
   _SetupItemState createState() => _SetupItemState();
 }
@@ -107,7 +106,7 @@ class _SetupItemState extends State<SetupItem> {
           textCapitalization: TextCapitalization.words,
           textInputAction:
               widget.last ? TextInputAction.done : TextInputAction.next,
-              onSubmitted: (_) => widget.onSubmitted(),
+          onSubmitted: (_) => widget.onSubmitted(),
         ));
   }
 }

@@ -43,10 +43,10 @@ class BottomMenuSheet extends StatelessWidget {
       ListTile(
         title: Text(S.of(context).language),
         trailing: DropdownButton<String>(
-          items: _langs.map((lang) => DropdownMenuItem(
-            value: lang.code,
-            child: Text(lang.label)
-          )).toList(),
+          items: _langs
+              .map((lang) =>
+                  DropdownMenuItem(value: lang.code, child: Text(lang.label)))
+              .toList(),
           value: langNotifier.locale.languageCode,
           onChanged: (String? lang) => _setLang(lang, langNotifier),
         ),

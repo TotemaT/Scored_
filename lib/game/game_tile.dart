@@ -28,9 +28,8 @@ class _GameTileState extends State<GameTile> {
   @override
   void initState() {
     super.initState();
-    _playerSubscription = Hive.box<Player>('players')
-        .watch(key: player.key)
-        .listen((event) {
+    _playerSubscription =
+        Hive.box<Player>('players').watch(key: player.key).listen((event) {
       setState(() {
         player.score = event.value.score;
       });
