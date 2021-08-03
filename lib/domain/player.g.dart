@@ -16,22 +16,26 @@ class PlayerAdapter extends TypeAdapter<Player> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Player()
+    return Player(
+      fields[3] as int,
+    )
       ..color = fields[0] as Color
-      ..name = fields[1] as String?
+      ..name = fields[1] as String
       ..score = fields[2] as int;
   }
 
   @override
   void write(BinaryWriter writer, Player obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.color)
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.score);
+      ..write(obj.score)
+      ..writeByte(3)
+      ..write(obj.index);
   }
 
   @override

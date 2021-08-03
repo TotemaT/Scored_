@@ -31,8 +31,13 @@ class _GamePageState extends State<GamePage> {
     SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[]);
   }
 
-  Widget _content(List<Player> players, Orientation orientation, double width,
-      double height) {
+  Widget _content(
+      List<Player> players,
+      Orientation orientation,
+      double width,
+      double height
+  ) {
+    players.sort((p1, p2) => p1.index.compareTo(p2.index));
     final int count = players.length;
 
     if (count == 1) {

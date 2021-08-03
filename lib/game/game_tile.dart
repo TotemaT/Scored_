@@ -84,7 +84,7 @@ class _GameTileState extends State<GameTile> {
 
   FittedBox _playerName() {
     return _playerText(Text(
-      player.name ?? ' ',
+      player.name,
       style: TextStyle(
         color: _getTextColor(player.color),
       ),

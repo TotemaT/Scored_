@@ -10,21 +10,23 @@ final Random rand = Random();
 
 @HiveType(typeId: 1)
 class Player extends HiveObject {
-  Player();
+  Player(this.index);
 
-  Player.copy(Player player) {
-    name = player.name;
-    color = player.color;
-  }
+  Player.copy(Player player)
+      : name = player.name,
+        color = player.color,
+        index = player.index;
 
   @HiveField(0)
   Color color = colors[rand.nextInt(colors.length)];
   @HiveField(1)
-  String? name;
+  String name = '';
   @HiveField(2)
   int score = 0;
+  @HiveField(3)
+  int index;
 
-  String toDetail() => '${name ?? ''} ($score)';
+  String toDetail() => '$name ($score)';
 
   @override
   String toString() => '''

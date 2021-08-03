@@ -17,7 +17,7 @@ class HistoryItem extends StatelessWidget {
     final players = game.players ?? <Player>[];
     players.sort((Player a, Player b) {
       final diff = b.score - a.score;
-      return diff != 0 ? diff : (a.name ?? '').compareTo(b.name ?? '');
+      return diff != 0 ? diff : a.name.compareTo(b.name);
     });
     return players.map((p) => p.toDetail()).join(', ');
   }

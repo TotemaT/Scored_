@@ -11,8 +11,8 @@ class Game extends HiveObject {
   Game.withPlayers(int playerCount) {
     final playerBox = Hive.box<Player>('players');
     players = HiveList(playerBox,
-        objects: List.generate(playerCount, (player) {
-          final player = Player();
+        objects: List.generate(playerCount, (idx) {
+          final player = Player(idx);
           playerBox.add(player);
           return player;
         }).toList());
