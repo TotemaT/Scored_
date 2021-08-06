@@ -41,7 +41,7 @@ Scored! allow you to keep track of everything you want!
 
 ### Deploy Web
 
-The Gitlab pipeline found in [.gitlab-cy.yml](./gitlab-ci.yml) automatically build and deploy the web version on [Gitlab pages](https://scored.gitlab.io)
+The Gitlab pipeline found in [.gitlab-cy.yml](./.gitlab-ci.yml) automatically build and deploy the web version on [Gitlab pages](https://scored.gitlab.io)
 
 ### Deploy Android
 
