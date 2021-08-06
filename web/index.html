@@ -34,8 +34,58 @@
 
         <title>Scored!</title>
         <link rel="manifest" href="manifest.json" />
+        <style>
+            .loader {
+                height: 4rem;
+            }
+
+            .loader path {
+                transform: translateY(-100%);
+            }
+            .loader path#pink {
+                animation: drop 3000ms ease-in-out infinite;
+            }
+            .loader path#blue {
+                animation: drop 3000ms ease-in-out 200ms infinite;
+            }
+            .loader path#orange {
+                animation: drop 3000ms ease-in-out 400ms infinite;
+            }
+            .loader path#green {
+                animation: drop 3000ms ease-in-out 600ms infinite;
+            }
+
+            @keyframes drop {
+                0% {
+                    transform: translateY(-100%);
+                }
+                20%,
+                60% {
+                    transform: translateY(0);
+                }
+                80%,
+                100% {
+                    transform: translateY(100%);
+                }
+            }
+            body {
+                height: 100vh;
+                width: 100vw;
+                overflow: hidden;
+                background: #f2f2f2;
+                display: grid;
+                place-items: center;
+            }
+        </style>
     </head>
     <body>
+        <svg class="loader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" stroke-linejoin="round">
+            <path id="green" d="M1024 170l-964 854 515-457 -62-71 62 71 449-397Zm-617 205l-327-375 741 0 -414 375Z" fill="#8dc14f" />
+            <path id="pink" d="M60 1024l964-854 0 854 -964 0Z" fill="#e83f77" />
+            <path id="blue" d="M80 0l495 567 -515 457 -60 1 0-1025 80 0Z" fill="#4e5eb9" />
+            <path id="orange" d="M407 375l414-375 203 0 0 170 -449 397 -168-192Z" fill="#fa5825" />
+        </svg>
+
         <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
