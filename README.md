@@ -4,10 +4,23 @@
 
 # Scored!
 
-Scored! is a simple Flutter app that allows you to keep track of all countable things.
-Use it to keep track of your board games scores, the number of yellow cars you passed, how many times your least favourite politician lied during their speech,...
+Scored! allow you to keep track of everything you want!
 
-Unlike the v1 of Scored!, your parties are now saved and can be either restarted from 0 with the same setup, or continued from where it stopped 👍
+## Links
+
+-   [Web App](https://scored.gitlab.io)
+-   [Google Play](https://play.google.com/store/apps/details?id=be.tteo.scored)
+
+## Screenshots
+
+<div style="display: grid;grid-template-columns: repeat(3, 1fr);grid-template-rows: repeat(2, 1fr);grid-column-gap: 8px;grid-row-gap: 8px;">
+    <img alt="Phone - Empty history page" src="./screenshots/phone_01_history.png"/>
+    <img alt="Phone - Creating a new party" src="./screenshots/phone_02_create.png" />
+    <img alt="Phone - Setting up the new party" src="./screenshots/phone_03_setup.png" />
+    <img alt="Phone - New party created" src="./screenshots/phone_04_game.png" />
+    <img alt="Phone - Ongoing party, players with scores" src="./screenshots/phone_05_game2.png" />
+    <img alt="Phone - History page with the party saved" src="./screenshots/phone_06_history2.png" />
+</div>
 
 ## Stack
 
