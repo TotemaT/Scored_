@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 import 'player.dart';
@@ -8,16 +9,6 @@ part 'game.g.dart';
 class Game extends HiveObject {
   Game();
 
-  Game.withPlayers(int playerCount) {
-    final playerBox = Hive.box<Player>('players');
-    players = HiveList(playerBox,
-        objects: List.generate(playerCount, (idx) {
-          final player = Player(idx);
-          playerBox.add(player);
-          return player;
-        }).toList());
-  }
-
   Game.copy(Game game) {
     name = game.name;
     players = HiveList(Hive.box<Player>('players'),
@@ -27,6 +18,17 @@ class Game extends HiveObject {
           final playerCopy = Player.copy(player);
           playerBox.add(playerCopy);
           return playerCopy;
+        }).toList());
+  }
+
+  Game.withPlayers(int playerCount) {
+    final colors = List.from(Colors.primaries)..shuffle();
+    final playerBox = Hive.box<Player>('players');
+    players = HiveList(playerBox,
+        objects: List.generate(playerCount, (idx) {
+          final player = Player(idx, colors[idx % colors.length]);
+          playerBox.add(player);
+          return player;
         }).toList());
   }
 
