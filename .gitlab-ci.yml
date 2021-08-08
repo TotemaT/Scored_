@@ -5,8 +5,10 @@ before_script:
 
 analyze:
     stage: build
-    script: flutter analyze
-    only: master
+    script: 
+        - flutter analyze
+    only: 
+        - master
 
 pages:
     stage: deploy
