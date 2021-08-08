@@ -18,8 +18,8 @@ class PlayerAdapter extends TypeAdapter<Player> {
     };
     return Player(
       fields[3] as int,
+      fields[0] as Color,
     )
-      ..color = fields[0] as Color
       ..name = fields[1] as String
       ..score = fields[2] as int;
   }

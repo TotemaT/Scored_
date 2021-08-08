@@ -1,16 +1,11 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 part 'player.g.dart';
 
-final List<Color> colors = Colors.primaries;
-final Random rand = Random();
-
 @HiveType(typeId: 1)
 class Player extends HiveObject {
-  Player(this.index);
+  Player(this.index, this.color);
 
   Player.copy(Player player)
       : name = player.name,
@@ -18,15 +13,16 @@ class Player extends HiveObject {
         index = player.index;
 
   @HiveField(0)
-  Color color = colors[rand.nextInt(colors.length)];
-  @HiveField(1)
-  String name = '';
-  @HiveField(2)
-  int score = 0;
+  Color color;
+
   @HiveField(3)
   int index;
 
-  String toDetail() => '$name ($score)';
+  @HiveField(1)
+  String name = '';
+
+  @HiveField(2)
+  int score = 0;
 
   @override
   String toString() => '''
@@ -34,4 +30,6 @@ class Player extends HiveObject {
       score: $score,
       color: $color
       ''';
+
+  String toDetail() => '$name ($score)';
 }
