@@ -36,16 +36,22 @@ class RouteGenerator {
         });
   }
 
-  static Route<dynamic> generateRoute(RouteSettings settings) {
+  static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
             settings: settings, builder: (_) => HistoryPage());
       case '/game':
+        if (settings.arguments == null) {
+          return null;
+        }
         final args = settings.arguments as GamePageArgs;
         return MaterialPageRoute(
             settings: settings, builder: (_) => GamePage(args.game, args.mode));
       case '/setup':
+        if (settings.arguments == null) {
+          return null;
+        }
         final args = settings.arguments as SetupPageArgs;
         return MaterialPageRoute(
             settings: settings,
