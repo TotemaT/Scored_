@@ -14,11 +14,13 @@
     "notFoundButton": "Go back home",
     "partyName": "Party Name",
     "playerCount": "Number of players",
-    "playerName": "Player Name",
+    "playerName": "Name",
+    "playerScore": "Score",
     "restart": " Restart",
     "selectColor": "Select a main color",
     "selectColorShade": "Select a color shade",
     "start": "Start",
     "today": "Today",
+    "viewScores": "View Scores",
     "yesterday": "Yesterday"
 }

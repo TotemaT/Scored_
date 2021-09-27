@@ -14,11 +14,13 @@
     "notFoundButton": "Zurück zum Hauptbildschirm",
     "partyName": "Gruppenname",
     "playerCount": "Anzahl der Spieler",
-    "playerName": "Spielername",
+    "playerName": "Name",
+    "playerScore": "Spielstände",
     "restart": " Neustart",
     "selectColor": "Wähle eine Hauptfarbe",
     "selectColorShade": "Wähle einen Farbton",
     "start": "Start",
     "today": "Heute",
+    "viewScores": "Spielstände ansehen",
     "yesterday": "Morgen"
 }

@@ -200,11 +200,21 @@ class S {
     );
   }
 
-  /// `Player Name`
+  /// `Name`
   String get playerName {
     return Intl.message(
-      'Player Name',
+      'Name',
       name: 'playerName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Score`
+  String get playerScore {
+    return Intl.message(
+      'Score',
+      name: 'playerScore',
       desc: '',
       args: [],
     );
@@ -255,6 +265,16 @@ class S {
     return Intl.message(
       'Today',
       name: 'today',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View Scores`
+  String get viewScores {
+    return Intl.message(
+      'View Scores',
+      name: 'viewScores',
       desc: '',
       args: [],
     );

@@ -14,11 +14,13 @@
     "notFoundButton": "Retourner à l'accueil",
     "partyName": "Nom de la partie",
     "playerCount": "Nombre de joueurs",
-    "playerName": "Nom du joueur",
+    "playerName": "Nom",
+    "playerScore": "Score",
     "restart": " Redémarrer",
     "selectColor": "Sélectionne une couleur",
     "selectColorShade": "Sélectionne une nuance",
     "start": "Démarrer",
     "today": "Aujourd'hui",
+    "viewScores": "Voir les Scores",
     "yesterday": "Hier"
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:scored/generated/l10n.dart';
@@ -26,53 +25,95 @@ class HistoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final s = S.of(context);
 
-    return Slidable(
-      child: ListTile(
-        title: Text(game.name ?? ''),
-        trailing: Text(game.date.toReadable(),
-            style: TextStyle(color: Theme.of(context).hintColor)),
-        subtitle: Text(
-          _playersDetails(),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-        onTap: () {
-          Navigator.of(context).pushNamedAndRemoveUntil(
-              '/game', ModalRoute.withName('/'),
-              arguments: GamePageArgs(game, GameMode.VIEW));
-        },
+    return ListTile(
+      title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(game.name ?? ''),
+            Text(game.date.toReadable(),
+                style:
+                    TextStyle(color: Theme.of(context).hintColor, fontSize: 12))
+          ]),
+      subtitle: Text(
+        _playersDetails(),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
-      actionPane: SlidableStrechActionPane(),
-      actions: [
-        IconSlideAction(
-          caption: s.continueParty,
-          icon: Icons.play_arrow,
-          color: Colors.blue,
-          onTap: () {
+      trailing: PopupMenuButton<HistoryItemChoice>(itemBuilder: (context) {
+        return [
+          PopupMenuItem(
+            child: Row(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(right: 16),
+                  child: Icon(Icons.play_arrow),
+                ),
+                Text(s.continueParty),
+              ],
+            ),
+            value: HistoryItemChoice.Continue,
+          ),
+          PopupMenuItem(
+            child: Row(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(right: 16),
+                  child: Icon(Icons.replay),
+                ),
+                Text(s.restart),
+              ],
+            ),
+            value: HistoryItemChoice.Restart,
+          ),
+          PopupMenuItem(
+            child: Row(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(right: 16),
+                  child: Icon(Icons.visibility),
+                ),
+                Text(s.viewScores),
+              ],
+            ),
+            value: HistoryItemChoice.View,
+          ),
+          PopupMenuItem(
+            child: Row(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(right: 16),
+                  child: Icon(Icons.delete, color: Colors.red),
+                ),
+                Text(s.delete, style: TextStyle(color: Colors.red)),
+              ],
+            ),
+            value: HistoryItemChoice.Delete,
+          ),
+        ];
+      }, onSelected: (HistoryItemChoice choice) {
+        switch (choice) {
+          case HistoryItemChoice.Continue:
             Navigator.of(context).pushNamedAndRemoveUntil(
                 '/game', ModalRoute.withName('/'),
                 arguments: GamePageArgs(game, GameMode.PLAY));
-          },
-        ),
-        IconSlideAction(
-          caption: s.restart,
-          icon: Icons.replay,
-          color: Colors.green,
-          onTap: () {
+            break;
+          case HistoryItemChoice.Delete:
+            game.delete();
+            break;
+          case HistoryItemChoice.Restart:
             Game newGame = Game.copy(game);
             Hive.box<Game>('games').add(newGame);
             Navigator.of(context).pushNamedAndRemoveUntil(
                 '/game', ModalRoute.withName('/'),
                 arguments: GamePageArgs(newGame, GameMode.PLAY));
-          },
-        ),
-        IconSlideAction(
-          caption: s.delete,
-          icon: Icons.highlight_remove,
-          color: Colors.red,
-          onTap: () => game.delete(),
-        )
-      ],
+            break;
+          case HistoryItemChoice.View:
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                '/game', ModalRoute.withName('/'),
+                arguments: GamePageArgs(game, GameMode.VIEW));
+            break;
+        }
+      }),
     );
   }
 }
@@ -109,3 +150,5 @@ extension DateHelpers on DateTime {
     return s.historyDate(day, time);
   }
 }
+
+enum HistoryItemChoice { Continue, Delete, Restart, View }

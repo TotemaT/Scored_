@@ -43,7 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "partyName": MessageLookupByLibrary.simpleMessage("Party Name"),
         "playerCount":
             MessageLookupByLibrary.simpleMessage("Number of players"),
-        "playerName": MessageLookupByLibrary.simpleMessage("Player Name"),
+        "playerName": MessageLookupByLibrary.simpleMessage("Name"),
+        "playerScore": MessageLookupByLibrary.simpleMessage("Score"),
         "restart": MessageLookupByLibrary.simpleMessage(" Restart"),
         "selectColor":
             MessageLookupByLibrary.simpleMessage("Select a main color"),
@@ -51,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Select a color shade"),
         "start": MessageLookupByLibrary.simpleMessage("Start"),
         "today": MessageLookupByLibrary.simpleMessage("Today"),
+        "viewScores": MessageLookupByLibrary.simpleMessage("View Scores"),
         "yesterday": MessageLookupByLibrary.simpleMessage("Yesterday")
       };
 }

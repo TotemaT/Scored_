@@ -46,7 +46,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "partyName": MessageLookupByLibrary.simpleMessage("Gruppenname"),
         "playerCount":
             MessageLookupByLibrary.simpleMessage("Anzahl der Spieler"),
-        "playerName": MessageLookupByLibrary.simpleMessage("Spielername"),
+        "playerName": MessageLookupByLibrary.simpleMessage("Name"),
+        "playerScore": MessageLookupByLibrary.simpleMessage("Spielstände"),
         "restart": MessageLookupByLibrary.simpleMessage(" Neustart"),
         "selectColor":
             MessageLookupByLibrary.simpleMessage("Wähle eine Hauptfarbe"),
@@ -54,6 +55,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Wähle einen Farbton"),
         "start": MessageLookupByLibrary.simpleMessage("Start"),
         "today": MessageLookupByLibrary.simpleMessage("Heute"),
+        "viewScores":
+            MessageLookupByLibrary.simpleMessage("Spielstände ansehen"),
         "yesterday": MessageLookupByLibrary.simpleMessage("Morgen")
       };
 }
