@@ -7,7 +7,7 @@ import 'package:scored/setup/text_input_state.dart';
 import '../domain/player.dart';
 
 class SetupItem extends StatefulWidget {
-  SetupItem(
+  const SetupItem(
       {this.last = false,
       required this.onChangeName,
       required this.onChangeScore,
@@ -91,7 +91,7 @@ class _SetupItemState extends State<SetupItem> {
     return Expanded(
         flex: 3,
         child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             child: TextField(
               decoration: _fieldDecoration(
                   S.of(context).playerName, widget.nameInputState.focusNode),
@@ -129,7 +129,7 @@ class _SetupItemState extends State<SetupItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
+      padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
       child: Row(
         children: [
           ColorIndicator(

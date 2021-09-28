@@ -6,7 +6,7 @@ import 'package:scored/generated/l10n.dart';
 
 class HistoryItemMenu extends StatelessWidget {
   final Game game;
-  HistoryItemMenu(this.game, {Key? key}) : super(key: key);
+  const HistoryItemMenu(this.game, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,64 +17,64 @@ class HistoryItemMenu extends StatelessWidget {
         PopupMenuItem(
           child: Row(
             children: <Widget>[
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(right: 16),
                 child: Icon(Icons.play_arrow),
               ),
               Text(s.continueParty),
             ],
           ),
-          value: HistoryItemChoice.Continue,
+          value: HistoryItemChoice.continueGame,
         ),
         PopupMenuItem(
           child: Row(
             children: <Widget>[
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(right: 16),
                 child: Icon(Icons.replay),
               ),
               Text(s.restart),
             ],
           ),
-          value: HistoryItemChoice.Restart,
+          value: HistoryItemChoice.restartGame,
         ),
         PopupMenuItem(
           child: Row(
             children: <Widget>[
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(right: 16),
                 child: Icon(Icons.visibility),
               ),
               Text(s.viewScores),
             ],
           ),
-          value: HistoryItemChoice.View,
+          value: HistoryItemChoice.viewScores,
         ),
         PopupMenuItem(
           child: Row(
             children: <Widget>[
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(right: 16),
                 child: Icon(Icons.delete, color: Colors.red),
               ),
-              Text(s.delete, style: TextStyle(color: Colors.red)),
+              Text(s.delete, style: const TextStyle(color: Colors.red)),
             ],
           ),
-          value: HistoryItemChoice.Delete,
+          value: HistoryItemChoice.deleteGame,
         ),
       ];
     }, onSelected: (HistoryItemChoice choice) {
       switch (choice) {
-        case HistoryItemChoice.Continue:
+        case HistoryItemChoice.continueGame:
           _continue(game, context);
           break;
-        case HistoryItemChoice.Delete:
+        case HistoryItemChoice.deleteGame:
           _delete(game, context);
           break;
-        case HistoryItemChoice.Restart:
+        case HistoryItemChoice.restartGame:
           _restart(game, context);
           break;
-        case HistoryItemChoice.View:
+        case HistoryItemChoice.viewScores:
           _view(game, context);
           break;
       }
@@ -84,7 +84,7 @@ class HistoryItemMenu extends StatelessWidget {
   void _continue(Game game, BuildContext context) {
     Navigator.of(context).pushNamedAndRemoveUntil(
         '/game', ModalRoute.withName('/'),
-        arguments: GamePageArgs(game, GameMode.PLAY));
+        arguments: GamePageArgs(game, GameMode.play));
   }
 
   void _delete(Game game, BuildContext context) {
@@ -94,7 +94,7 @@ class HistoryItemMenu extends StatelessWidget {
         content: Text(s.deletedParty(game.name ?? '')),
         action: SnackBarAction(
             label: s.cancel,
-            textColor: Theme.of(context).accentColor,
+            textColor: Theme.of(context).colorScheme.secondary,
             onPressed: () {
               Hive.box<Game>('games').add(game);
             })));
@@ -105,14 +105,14 @@ class HistoryItemMenu extends StatelessWidget {
     Hive.box<Game>('games').add(newGame);
     Navigator.of(context).pushNamedAndRemoveUntil(
         '/game', ModalRoute.withName('/'),
-        arguments: GamePageArgs(newGame, GameMode.PLAY));
+        arguments: GamePageArgs(newGame, GameMode.play));
   }
 
   void _view(Game game, BuildContext context) {
     Navigator.of(context).pushNamedAndRemoveUntil(
         '/game', ModalRoute.withName('/'),
-        arguments: GamePageArgs(game, GameMode.VIEW));
+        arguments: GamePageArgs(game, GameMode.view));
   }
 }
 
-enum HistoryItemChoice { Continue, Delete, Restart, View }
+enum HistoryItemChoice { continueGame, deleteGame, restartGame, viewScores }

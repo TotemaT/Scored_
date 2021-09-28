@@ -47,4 +47,4 @@ class Game extends HiveObject {
   }
 }
 
-enum GameMode { VIEW, PLAY }
+enum GameMode { view, play }

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 final ThemeData scoredTheme = ThemeData(
     primarySwatch: Colors.green,
     brightness: Brightness.light,
-    accentColor: Colors.orange);
+    colorScheme: const ColorScheme.light().copyWith(secondary: Colors.orange),
+    appBarTheme: const AppBarTheme(backgroundColor: Colors.green));
 
 final ThemeData scoredThemeDark = ThemeData(
     primarySwatch: Colors.green,
     brightness: Brightness.dark,
-    accentColor: Colors.orange);
+    colorScheme: const ColorScheme.light().copyWith(secondary: Colors.orange),
+    appBarTheme: const AppBarTheme(backgroundColor: Colors.green));

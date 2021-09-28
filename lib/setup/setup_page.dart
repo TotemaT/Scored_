@@ -20,12 +20,12 @@ class SetupPage extends StatelessWidget {
     return Layout(
         scaffoldKey: 'SetupPage',
         title: name,
-        fabIcon: Icon(Icons.play_arrow),
+        fabIcon: const Icon(Icons.play_arrow),
         fabAction: () {
           Hive.box<Game>('games').add(game);
           Navigator.of(context).pushNamedAndRemoveUntil(
               '/game', ModalRoute.withName('/'),
-              arguments: GamePageArgs(game, GameMode.PLAY));
+              arguments: GamePageArgs(game, GameMode.play));
         },
         child: SetupList(game.players!));
   }

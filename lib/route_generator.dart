@@ -19,11 +19,11 @@ class RouteGenerator {
               child: Center(
                   child: Column(children: [
             Padding(
-              padding: EdgeInsets.only(top: 160),
+              padding: const EdgeInsets.only(top: 160),
               child: Text('404', style: titleStyle),
             ),
             Padding(
-                padding: EdgeInsets.only(top: 48, bottom: 8),
+                padding: const EdgeInsets.only(top: 48, bottom: 8),
                 child: Text(
                   s.notFoundBody,
                   style: subtitleStyle,
@@ -40,7 +40,7 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
-            settings: settings, builder: (_) => HistoryPage());
+            settings: settings, builder: (_) => const HistoryPage());
       case '/game':
         if (settings.arguments == null) {
           return null;

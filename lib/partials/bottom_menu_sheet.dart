@@ -9,6 +9,8 @@ import '../notifiers/theme_notifier.dart';
 import '../utils/preferences.dart';
 
 class BottomMenuSheet extends StatelessWidget {
+  BottomMenuSheet({Key? key}) : super(key: key);
+
   final _langs = [
     _LocaleToLabel('de', 'Deutsch'),
     _LocaleToLabel('en', 'English'),
@@ -65,7 +67,7 @@ class BottomMenuSheet extends StatelessWidget {
     final linkStyle = textStyle?.copyWith(
         decorationStyle: TextDecorationStyle.solid,
         decoration: TextDecoration.underline,
-        color: Theme.of(context).accentColor);
+        color: Theme.of(context).colorScheme.secondary);
 
     return Padding(
         padding: const EdgeInsets.only(top: 24),

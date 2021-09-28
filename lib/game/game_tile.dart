@@ -7,27 +7,29 @@ import '../domain/game.dart';
 import '../domain/player.dart';
 
 class GameTile extends StatefulWidget {
-  const GameTile({required this.player, required this.mode});
+  const GameTile({required this.player, required this.mode, Key? key})
+      : super(key: key);
 
   final Player player;
   final GameMode mode;
 
   @override
-  _GameTileState createState() => _GameTileState(player);
+  _GameTileState createState() => _GameTileState();
 }
 
 class _GameTileState extends State<GameTile> {
-  _GameTileState(this.player);
+  _GameTileState();
 
   final List<int> durations = <int>[500, 500, 250, 100, 50];
   Timer? timer;
-  Player player;
+  late Player player;
 
   late StreamSubscription _playerSubscription;
 
   @override
   void initState() {
     super.initState();
+    player = widget.player;
     _playerSubscription =
         Hive.box<Player>('players').watch(key: player.key).listen((event) {
       setState(() {
@@ -45,30 +47,30 @@ class _GameTileState extends State<GameTile> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPressStart: widget.mode == GameMode.VIEW ? null : _startDecrement,
-      onLongPressEnd: widget.mode == GameMode.VIEW ? null : _stopDecrement,
+      onLongPressStart: widget.mode == GameMode.view ? null : _startDecrement,
+      onLongPressEnd: widget.mode == GameMode.view ? null : _stopDecrement,
       child: SizedBox.expand(
         child: Container(
           color: player.color,
           child: Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: widget.mode == GameMode.VIEW ? null : _doIncrement,
+              onTap: widget.mode == GameMode.view ? null : _doIncrement,
               child: LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Container(
+                    SizedBox(
                       height: constraints.maxHeight / 5,
                       child: _playerName(),
                     ),
-                    Container(
+                    SizedBox(
                       height: constraints.maxHeight / 2,
                       child: _playerScore(),
                     ),
-                    Container(
+                    SizedBox(
                       height: constraints.maxHeight / 5,
                       child: null,
                     ),
@@ -136,7 +138,7 @@ class _GameTileState extends State<GameTile> {
   }
 
   _doIncrement() {
-    if (widget.mode == GameMode.VIEW) {
+    if (widget.mode == GameMode.view) {
       return;
     }
     player.score++;
@@ -144,7 +146,7 @@ class _GameTileState extends State<GameTile> {
   }
 
   _doDecrement() {
-    if (widget.mode == GameMode.VIEW) {
+    if (widget.mode == GameMode.view) {
       return;
     }
     player.score--;

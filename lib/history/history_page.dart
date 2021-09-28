@@ -10,7 +10,7 @@ import 'history_item.dart';
 import 'no_history.dart';
 
 class HistoryPage extends StatefulWidget {
-  HistoryPage({Key? key}) : super(key: key);
+  const HistoryPage({Key? key}) : super(key: key);
 
   @override
   _HistoryPageState createState() => _HistoryPageState();
@@ -19,7 +19,7 @@ class HistoryPage extends StatefulWidget {
 class _HistoryPageState extends State {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _textEditingController = TextEditingController();
-  final _selectedGames = Set<Game>();
+  final _selectedGames = <Game>{};
   bool _selecting = false;
 
   Future<void> _showCreatePartyDialog(BuildContext context) async {
@@ -32,7 +32,7 @@ class _HistoryPageState extends State {
           return StatefulBuilder(builder: (context, setState) {
             return AlertDialog(
               clipBehavior: Clip.hardEdge,
-              shape: RoundedRectangleBorder(
+              shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(0))),
               content: Form(
                   key: _formKey,
@@ -49,13 +49,13 @@ class _HistoryPageState extends State {
                         },
                         decoration: InputDecoration(
                             labelText: s.partyName,
-                            border: OutlineInputBorder(),
-                            prefixIcon: Icon(
+                            border: const OutlineInputBorder(),
+                            prefixIcon: const Icon(
                               Icons.remove,
                               color: Colors.transparent,
                             )),
                       ),
-                      Padding(padding: EdgeInsets.only(bottom: 16)),
+                      const Padding(padding: EdgeInsets.only(bottom: 16)),
                       SpinBox(
                         min: 1,
                         max: 15,
@@ -64,7 +64,7 @@ class _HistoryPageState extends State {
                         onChanged: (value) => playerCount = value.toInt(),
                         decoration: InputDecoration(
                           labelText: s.playerCount,
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                         ),
                       )
                     ],
@@ -100,7 +100,7 @@ class _HistoryPageState extends State {
         appBar: _selecting
             ? AppBar(
                 leading: IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.arrow_back),
                   onPressed: () {
                     setState(() {
                       _selecting = false;
@@ -108,13 +108,14 @@ class _HistoryPageState extends State {
                     });
                   },
                 ),
-                title: Text(S.of(context).selectedParties(_selectedGames.length)),
+                title:
+                    Text(S.of(context).selectedParties(_selectedGames.length)),
                 actions: <Widget>[
                   Padding(
-                      padding: EdgeInsets.only(right: 20.0),
+                      padding: const EdgeInsets.only(right: 20.0),
                       child: GestureDetector(
                         onTap: _deleteSelected,
-                        child: Icon(
+                        child: const Icon(
                           Icons.delete,
                           size: 26.0,
                         ),
@@ -123,13 +124,13 @@ class _HistoryPageState extends State {
               )
             : null,
         scaffoldKey: 'HistoryScaffold',
-        fabIcon: Icon(Icons.add),
+        fabIcon: const Icon(Icons.add),
         fabAction: () => _showCreatePartyDialog(context),
         child: ValueListenableBuilder(
           valueListenable: Hive.box<Game>('games').listenable(),
           builder: (BuildContext context, Box<Game> box, Widget? widget) {
             if (box.isEmpty) {
-              return NoHistory();
+              return const NoHistory();
             }
             return ListView.separated(
               itemBuilder: (context, listIndex) {
@@ -138,7 +139,7 @@ class _HistoryPageState extends State {
                     _selecting, () => _toggleSelected(game));
               },
               itemCount: box.length,
-              separatorBuilder: (_, __) => Divider(),
+              separatorBuilder: (_, __) => const Divider(),
             );
           },
         ));
@@ -160,7 +161,10 @@ class _HistoryPageState extends State {
     final s = S.of(context);
     final deletedGames = Set.from(_selectedGames);
 
-    _selectedGames.forEach((game) => game.delete());
+    deleteGame(game) => game.delete();
+    reAddGame(game) => Hive.box<Game>('games').add(game);
+
+    _selectedGames.forEach(deleteGame);
     setState(() {
       _selecting = false;
       _selectedGames.clear();
@@ -169,9 +173,9 @@ class _HistoryPageState extends State {
         content: Text(s.deletedParties(deletedGames.length)),
         action: SnackBarAction(
             label: s.cancel,
-            textColor: Theme.of(context).accentColor,
+            textColor: Theme.of(context).colorScheme.secondary,
             onPressed: () {
-              deletedGames.forEach((game) => Hive.box<Game>('games').add(game));
+              deletedGames.forEach(reAddGame);
             })));
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'bottom_bar.dart';
 
 class Layout extends StatelessWidget {
-  Layout(
+  const Layout(
       {this.child,
       this.title,
       this.scaffoldKey,
@@ -29,8 +29,8 @@ class Layout extends StatelessWidget {
               title: Text(title ?? 'Scored!'),
               centerTitle: false,
             ),
-        body: SafeArea(child: child ?? Center()),
-        bottomNavigationBar: BottomBar(),
+        body: SafeArea(child: child ?? const Center()),
+        bottomNavigationBar: const BottomBar(),
         floatingActionButton: fabIcon != null
             ? FloatingActionButton(
                 onPressed: fabAction,

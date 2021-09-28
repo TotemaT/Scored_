@@ -14,17 +14,17 @@ class NoHistory extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 160),
+            padding: const EdgeInsets.only(top: 160),
             child: Text(s.noHistoryTitle, style: titleStyle),
           ),
           Padding(
-              padding: EdgeInsets.only(top: 48, bottom: 8),
+              padding: const EdgeInsets.only(top: 48, bottom: 8),
               child: Text(
                 s.noHistoryBody1,
                 style: subtitleStyle,
               )),
           Padding(
-              padding: EdgeInsets.only(bottom: 32),
+              padding: const EdgeInsets.only(bottom: 32),
               child: Text(
                 s.noHistoryBody2,
                 style: subtitleStyle,

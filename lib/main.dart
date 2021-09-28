@@ -34,18 +34,20 @@ void main() async {
           create: (_) => ThemeNotifier(darkMode)),
       ChangeNotifierProvider<LangNotifier>(create: (_) => LangNotifier(locale))
     ],
-    child: MyApp(),
+    child: const ScoredApp(),
   ));
 }
 
-class MyApp extends StatelessWidget {
+class ScoredApp extends StatelessWidget {
+  const ScoredApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Consumer2<ThemeNotifier, LangNotifier>(
         builder: (_, themeNotifier, langNotifier, __) {
       return MaterialApp(
         locale: langNotifier.locale,
-        localizationsDelegates: [
+        localizationsDelegates: const [
           S.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
