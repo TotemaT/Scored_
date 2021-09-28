@@ -21,6 +21,7 @@
     "restart": " Redémarrer",
     "selectColor": "Sélectionne une couleur",
     "selectColorShade": "Sélectionne une nuance",
+    "selectedParties": "{count, plural, one{1 partie sélectionnée} other{{count} parties sélectionnées}}",
     "start": "Démarrer",
     "today": "Aujourd'hui",
     "viewScores": "Voir les Scores",

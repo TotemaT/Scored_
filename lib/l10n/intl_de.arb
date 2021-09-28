@@ -21,6 +21,7 @@
     "restart": " Neustart",
     "selectColor": "Wähle eine Hauptfarbe",
     "selectColorShade": "Wähle einen Farbton",
+    "selectedParties": "{count, plural, one{1 Gruppe ausgewählt} other{{count} Gruppen ausgewählt}}",
     "start": "Start",
     "today": "Heute",
     "viewScores": "Spielstände ansehen",

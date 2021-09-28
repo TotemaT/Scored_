@@ -9,11 +9,18 @@ import '../setup/setup_page.dart';
 import 'history_item.dart';
 import 'no_history.dart';
 
-class HistoryPage extends StatelessWidget {
+class HistoryPage extends StatefulWidget {
   HistoryPage({Key? key}) : super(key: key);
 
+  @override
+  _HistoryPageState createState() => _HistoryPageState();
+}
+
+class _HistoryPageState extends State {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _textEditingController = TextEditingController();
+  final _selectedGames = Set<Game>();
+  bool _selecting = false;
 
   Future<void> _showCreatePartyDialog(BuildContext context) async {
     final s = S.of(context);
@@ -90,6 +97,31 @@ class HistoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Layout(
+        appBar: _selecting
+            ? AppBar(
+                leading: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    setState(() {
+                      _selecting = false;
+                      _selectedGames.clear();
+                    });
+                  },
+                ),
+                title: Text(S.of(context).selectedParties(_selectedGames.length)),
+                actions: <Widget>[
+                  Padding(
+                      padding: EdgeInsets.only(right: 20.0),
+                      child: GestureDetector(
+                        onTap: _deleteSelected,
+                        child: Icon(
+                          Icons.delete,
+                          size: 26.0,
+                        ),
+                      ))
+                ],
+              )
+            : null,
         scaffoldKey: 'HistoryScaffold',
         fabIcon: Icon(Icons.add),
         fabAction: () => _showCreatePartyDialog(context),
@@ -100,12 +132,46 @@ class HistoryPage extends StatelessWidget {
               return NoHistory();
             }
             return ListView.separated(
-              itemBuilder: (context, listIndex) =>
-                  HistoryItem(box.getAt(listIndex) as Game),
+              itemBuilder: (context, listIndex) {
+                final game = box.getAt(listIndex) as Game;
+                return HistoryItem(game, _selectedGames.contains(game),
+                    _selecting, () => _toggleSelected(game));
+              },
               itemCount: box.length,
               separatorBuilder: (_, __) => Divider(),
             );
           },
         ));
+  }
+
+  void _toggleSelected(Game game) {
+    setState(() {
+      _selectedGames.contains(game)
+          ? _selectedGames.remove(game)
+          : _selectedGames.add(game);
+
+      if (!_selecting && _selectedGames.isNotEmpty) {
+        _selecting = true;
+      }
+    });
+  }
+
+  void _deleteSelected() {
+    final s = S.of(context);
+    final deletedGames = Set.from(_selectedGames);
+
+    _selectedGames.forEach((game) => game.delete());
+    setState(() {
+      _selecting = false;
+      _selectedGames.clear();
+    });
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(s.deletedParties(deletedGames.length)),
+        action: SnackBarAction(
+            label: s.cancel,
+            textColor: Theme.of(context).accentColor,
+            onPressed: () {
+              deletedGames.forEach((game) => Hive.box<Game>('games').add(game));
+            })));
   }
 }

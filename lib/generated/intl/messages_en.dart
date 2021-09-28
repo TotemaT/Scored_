@@ -25,6 +25,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m2(date, time) => "${date} ${time}";
 
+  static String m3(count) =>
+      "${Intl.plural(count, one: '1 party selected', other: '${count} parties selected')}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
@@ -56,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Select a main color"),
         "selectColorShade":
             MessageLookupByLibrary.simpleMessage("Select a color shade"),
+        "selectedParties": m3,
         "start": MessageLookupByLibrary.simpleMessage("Start"),
         "today": MessageLookupByLibrary.simpleMessage("Today"),
         "viewScores": MessageLookupByLibrary.simpleMessage("View Scores"),

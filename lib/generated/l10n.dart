@@ -270,6 +270,18 @@ class S {
     );
   }
 
+  /// `{count, plural, one{1 party selected} other{{count} parties selected}}`
+  String selectedParties(num count) {
+    return Intl.plural(
+      count,
+      one: '1 party selected',
+      other: '$count parties selected',
+      name: 'selectedParties',
+      desc: '',
+      args: [count],
+    );
+  }
+
   /// `Start`
   String get start {
     return Intl.message(

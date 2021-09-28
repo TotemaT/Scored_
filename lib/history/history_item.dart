@@ -7,9 +7,14 @@ import '../domain/game.dart';
 import '../domain/player.dart';
 
 class HistoryItem extends StatelessWidget {
-  const HistoryItem(this.game, {Key? key}) : super(key: key);
+  const HistoryItem(this.game, this.selected, this.selecting, this.onSelected,
+      {Key? key})
+      : super(key: key);
 
   final Game game;
+  final bool selected;
+  final bool selecting;
+  final VoidCallback onSelected;
 
   String _playersDetails() {
     final players = game.players ?? <Player>[];
@@ -23,6 +28,11 @@ class HistoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      leading: selecting
+          ? Checkbox(value: selected, onChanged: (bool? _) => onSelected())
+          : null,
+      onLongPress: onSelected,
+      onTap: selecting ? onSelected : null,
       title: Text(game.name ?? ''),
       subtitle: Text(
         _playersDetails(),
