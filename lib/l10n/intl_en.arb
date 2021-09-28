@@ -4,6 +4,8 @@
     "createParty": "Create the party",
     "darkMode": "Dark Mode",
     "delete": "Delete",
+    "deletedParty": "Deleted {name}",
+    "deletedParties": "Deleted {count} parties",
     "historyDate": "{date} {time}",
     "language": "Language",
     "noHistoryBody1": "Click on the button",

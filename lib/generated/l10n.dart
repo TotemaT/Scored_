@@ -100,6 +100,26 @@ class S {
     );
   }
 
+  /// `Deleted {name}`
+  String deletedParty(Object name) {
+    return Intl.message(
+      'Deleted $name',
+      name: 'deletedParty',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `Deleted {count} parties`
+  String deletedParties(Object count) {
+    return Intl.message(
+      'Deleted $count parties',
+      name: 'deletedParties',
+      desc: '',
+      args: [count],
+    );
+  }
+
   /// `{date} {time}`
   String historyDate(Object date, Object time) {
     return Intl.message(

@@ -4,6 +4,8 @@
     "createParty": "Erstelle eine Gruppe",
     "darkMode": "Dark Mode",
     "delete": "Löschen",
+    "deletedParty": "gelöscht {name}",
+    "deletedParties": "gelöschte {count} Gruppen",
     "historyDate": "{date} {time}",
     "language": "Sprache",
     "noHistoryBody1": "Drücke den Button",

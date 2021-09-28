@@ -19,7 +19,11 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'de';
 
-  static String m0(date, time) => "${date} ${time}";
+  static String m0(count) => "gelöschte ${count} Gruppen";
+
+  static String m1(name) => "gelöscht ${name}";
+
+  static String m2(date, time) => "${date} ${time}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -29,7 +33,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Erstelle eine Gruppe"),
         "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
         "delete": MessageLookupByLibrary.simpleMessage("Löschen"),
-        "historyDate": m0,
+        "deletedParties": m0,
+        "deletedParty": m1,
+        "historyDate": m2,
         "language": MessageLookupByLibrary.simpleMessage("Sprache"),
         "noHistoryBody1":
             MessageLookupByLibrary.simpleMessage("Drücke den Button"),

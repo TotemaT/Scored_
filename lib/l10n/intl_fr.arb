@@ -4,6 +4,8 @@
     "createParty": "Créer la partie",
     "darkMode": "Thème Sombre",
     "delete": "Supprimer",
+    "deletedParty": "{name} supprimé",
+    "deletedParties": "{count} parties supprimées",
     "historyDate": "{date} {time}",
     "language": "Langue",
     "noHistoryBody1": "Clique sur le bouton",
