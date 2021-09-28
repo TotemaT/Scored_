@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:scored/generated/l10n.dart';
+import 'package:scored/history/history_item_menu.dart';
 
 import '../domain/game.dart';
 import '../domain/player.dart';
-import '../game/game_page.dart';
 
 class HistoryItem extends StatelessWidget {
   const HistoryItem(this.game, {Key? key}) : super(key: key);
@@ -23,97 +22,21 @@ class HistoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final s = S.of(context);
-
     return ListTile(
-      title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(game.name ?? ''),
-            Text(game.date.toReadable(),
-                style:
-                    TextStyle(color: Theme.of(context).hintColor, fontSize: 12))
-          ]),
+      title: Text(game.name ?? ''),
       subtitle: Text(
         _playersDetails(),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
-      trailing: PopupMenuButton<HistoryItemChoice>(itemBuilder: (context) {
-        return [
-          PopupMenuItem(
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(right: 16),
-                  child: Icon(Icons.play_arrow),
-                ),
-                Text(s.continueParty),
-              ],
-            ),
-            value: HistoryItemChoice.Continue,
-          ),
-          PopupMenuItem(
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(right: 16),
-                  child: Icon(Icons.replay),
-                ),
-                Text(s.restart),
-              ],
-            ),
-            value: HistoryItemChoice.Restart,
-          ),
-          PopupMenuItem(
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(right: 16),
-                  child: Icon(Icons.visibility),
-                ),
-                Text(s.viewScores),
-              ],
-            ),
-            value: HistoryItemChoice.View,
-          ),
-          PopupMenuItem(
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(right: 16),
-                  child: Icon(Icons.delete, color: Colors.red),
-                ),
-                Text(s.delete, style: TextStyle(color: Colors.red)),
-              ],
-            ),
-            value: HistoryItemChoice.Delete,
-          ),
-        ];
-      }, onSelected: (HistoryItemChoice choice) {
-        switch (choice) {
-          case HistoryItemChoice.Continue:
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                '/game', ModalRoute.withName('/'),
-                arguments: GamePageArgs(game, GameMode.PLAY));
-            break;
-          case HistoryItemChoice.Delete:
-            game.delete();
-            break;
-          case HistoryItemChoice.Restart:
-            Game newGame = Game.copy(game);
-            Hive.box<Game>('games').add(newGame);
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                '/game', ModalRoute.withName('/'),
-                arguments: GamePageArgs(newGame, GameMode.PLAY));
-            break;
-          case HistoryItemChoice.View:
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                '/game', ModalRoute.withName('/'),
-                arguments: GamePageArgs(game, GameMode.VIEW));
-            break;
-        }
-      }),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(game.date.toReadable(),
+              style: TextStyle(color: Theme.of(context).hintColor)),
+          HistoryItemMenu(game)
+        ],
+      ),
     );
   }
 }
@@ -150,5 +73,3 @@ extension DateHelpers on DateTime {
     return s.historyDate(day, time);
   }
 }
-
-enum HistoryItemChoice { Continue, Delete, Restart, View }
