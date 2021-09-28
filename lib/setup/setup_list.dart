@@ -6,10 +6,11 @@ import 'setup_item.dart';
 
 class SetupList extends StatelessWidget {
   SetupList(this.players)
-      : inputStates = List.generate(players.length, (_) => TextInputState());
+      : inputStates = List.generate(players.length,
+            (_) => Pair(TextInputState(), TextInputState(initialValue: '0')));
 
   final List<Player> players;
-  final List<TextInputState> inputStates;
+  final List<Pair<TextInputState, TextInputState>> inputStates;
 
   SetupItem _playerItem(BuildContext context, int idx) {
     final player = players[idx];
@@ -18,12 +19,15 @@ class SetupList extends StatelessWidget {
     return SetupItem(
         last: players.indexOf(player) == players.length - 1,
         onChangeName: (String name) => player.name = name,
+        onChangeScore: (int score) => player.score = score,
         onSelectColor: (Color color) => player.color = color,
         player: player,
-        inputState: inputState,
+        nameInputState: inputState.first,
+        scoreInputState: inputState.second,
         onSubmitted: () {
           if (idx < inputStates.length - 1) {
-            FocusScope.of(context).requestFocus(inputStates[idx + 1].focusNode);
+            FocusScope.of(context)
+                .requestFocus(inputStates[idx + 1].first.focusNode);
           }
         });
   }
@@ -34,4 +38,11 @@ class SetupList extends StatelessWidget {
         itemBuilder: (_, int idx) => _playerItem(context, idx),
         itemCount: players.length);
   }
+}
+
+class Pair<T1, T2> {
+  final T1 first;
+  final T2 second;
+
+  Pair(this.first, this.second);
 }
