@@ -1,7 +1,7 @@
 name: scored
 description: Scored! allows you to keep track of all your scores, or whatever else you may want to keep track off!
 publish_to: 'none'
-version: 2.0.1+14
+version: 2.1.0+15
 
 environment:
     sdk: '>=2.12.0 <3.0.0'
