@@ -56,7 +56,7 @@ class BottomMenuSheet extends StatelessWidget {
       AboutListTile(
           // applicationIcon: Image.asset('logo.png'),
           applicationName: 'Scored!',
-          applicationVersion: '2.1.1',
+          applicationVersion: '2.1.2',
           applicationLegalese: '\u{a9} 2019 Matteo Taroli',
           aboutBoxChildren: [_aboutChildren(context)])
     ]);
