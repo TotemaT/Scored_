@@ -9,5 +9,5 @@ final ThemeData scoredTheme = ThemeData(
 final ThemeData scoredThemeDark = ThemeData(
     primarySwatch: Colors.green,
     brightness: Brightness.dark,
-    colorScheme: const ColorScheme.light().copyWith(secondary: Colors.orange),
+    colorScheme: const ColorScheme.dark().copyWith(secondary: Colors.orange),
     appBarTheme: const AppBarTheme(backgroundColor: Colors.green));
