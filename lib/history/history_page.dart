@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinbox/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:scored/generated/l10n.dart';
 import 'package:scored/history/create_party_modal.dart';
@@ -7,7 +6,6 @@ import 'package:scored/utils/extensions.dart';
 
 import '../domain/game.dart';
 import '../partials/layout.dart';
-import '../setup/setup_page.dart';
 import 'history_item.dart';
 import 'no_history.dart';
 
