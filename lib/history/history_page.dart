@@ -70,9 +70,13 @@ class _HistoryPageState extends State {
             if (box.isEmpty) {
               return const NoHistory();
             }
+
+            final list = box.values.toList();
+            list.sort((game1, game2) => game2.date.compareTo(game1.date));
+
             return ListView.separated(
               itemBuilder: (context, listIndex) {
-                final game = box.getAt(listIndex) as Game;
+                final game = list[listIndex];
                 return HistoryItem(game, _selectedGames.contains(game),
                     _selecting, () => _toggleSelected(game));
               },
