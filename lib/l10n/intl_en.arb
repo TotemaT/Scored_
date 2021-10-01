@@ -24,6 +24,7 @@
     "selectedParties": "{count, plural, one{1 party selected} other{{count} parties selected}}",
     "start": "Start",
     "today": "Today",
+    "undo": "Undo",
     "viewScores": "View Scores",
     "yesterday": "Yesterday"
 }

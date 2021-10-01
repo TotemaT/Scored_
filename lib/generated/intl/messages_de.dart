@@ -19,9 +19,9 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'de';
 
-  static String m0(count) => "gelöschte ${count} Gruppen";
+  static String m0(count) => "Gelöschte ${count} Gruppen";
 
-  static String m1(name) => "gelöscht ${name}";
+  static String m1(name) => "Gelöscht ${name}";
 
   static String m2(date, time) => "${date} ${time}";
 
@@ -65,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectedParties": m3,
         "start": MessageLookupByLibrary.simpleMessage("Start"),
         "today": MessageLookupByLibrary.simpleMessage("Heute"),
+        "undo": MessageLookupByLibrary.simpleMessage("Zurück"),
         "viewScores":
             MessageLookupByLibrary.simpleMessage("Spielstände ansehen"),
         "yesterday": MessageLookupByLibrary.simpleMessage("Morgen")

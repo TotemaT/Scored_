@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:scored/generated/l10n.dart';
+import 'package:scored/utils/extensions.dart';
 
 import '../domain/game.dart';
 import '../partials/layout.dart';
@@ -169,13 +170,8 @@ class _HistoryPageState extends State {
       _selecting = false;
       _selectedGames.clear();
     });
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(s.deletedParties(deletedGames.length)),
-        action: SnackBarAction(
-            label: s.cancel,
-            textColor: Theme.of(context).colorScheme.secondary,
-            onPressed: () {
-              deletedGames.forEach(reAddGame);
-            })));
+    context.showSnackbar(s.deletedParties(deletedGames.length), s.undo, () {
+      deletedGames.forEach(reAddGame);
+    });
   }
 }

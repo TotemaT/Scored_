@@ -24,6 +24,7 @@
     "selectedParties": "{count, plural, one{1 partie sélectionnée} other{{count} parties sélectionnées}}",
     "start": "Démarrer",
     "today": "Aujourd'hui",
+    "undo": "Annuler",
     "viewScores": "Voir les Scores",
     "yesterday": "Hier"
 }

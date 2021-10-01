@@ -4,8 +4,8 @@
     "createParty": "Erstelle eine Gruppe",
     "darkMode": "Dark Mode",
     "delete": "Löschen",
-    "deletedParty": "gelöscht {name}",
-    "deletedParties": "gelöschte {count} Gruppen",
+    "deletedParty": "Gelöscht {name}",
+    "deletedParties": "Gelöschte {count} Gruppen",
     "historyDate": "{date} {time}",
     "language": "Sprache",
     "noHistoryBody1": "Drücke den Button",
@@ -24,6 +24,7 @@
     "selectedParties": "{count, plural, one{1 Gruppe ausgewählt} other{{count} Gruppen ausgewählt}}",
     "start": "Start",
     "today": "Heute",
+    "undo": "Zurück",
     "viewScores": "Spielstände ansehen",
     "yesterday": "Morgen"
 }

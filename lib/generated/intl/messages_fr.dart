@@ -63,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectedParties": m3,
         "start": MessageLookupByLibrary.simpleMessage("Démarrer"),
         "today": MessageLookupByLibrary.simpleMessage("Aujourd\'hui"),
+        "undo": MessageLookupByLibrary.simpleMessage("Annuler"),
         "viewScores": MessageLookupByLibrary.simpleMessage("Voir les Scores"),
         "yesterday": MessageLookupByLibrary.simpleMessage("Hier")
       };

@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:scored/domain/game.dart';
 import 'package:scored/game/game_page.dart';
 import 'package:scored/generated/l10n.dart';
+import 'package:scored/utils/extensions.dart';
 
 class HistoryItemMenu extends StatelessWidget {
   final Game game;
@@ -90,14 +91,9 @@ class HistoryItemMenu extends StatelessWidget {
   void _delete(Game game, BuildContext context) {
     final s = S.of(context);
     game.delete();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(s.deletedParty(game.name ?? '')),
-        action: SnackBarAction(
-            label: s.cancel,
-            textColor: Theme.of(context).colorScheme.secondary,
-            onPressed: () {
-              Hive.box<Game>('games').add(game);
-            })));
+    context.showSnackbar(s.deletedParty(game.name ?? ''), s.undo, () {
+      Hive.box<Game>('games').add(game);
+    });
   }
 
   void _restart(Game game, BuildContext context) {

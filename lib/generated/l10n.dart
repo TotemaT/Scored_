@@ -302,6 +302,16 @@ class S {
     );
   }
 
+  /// `Undo`
+  String get undo {
+    return Intl.message(
+      'Undo',
+      name: 'undo',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `View Scores`
   String get viewScores {
     return Intl.message(
