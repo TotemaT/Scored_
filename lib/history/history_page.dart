@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinbox/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:scored/generated/l10n.dart';
+import 'package:scored/history/create_party_modal.dart';
 import 'package:scored/utils/extensions.dart';
 
 import '../domain/game.dart';
@@ -18,80 +19,16 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _textEditingController = TextEditingController();
   final _selectedGames = <Game>{};
   bool _selecting = false;
 
   Future<void> _showCreatePartyDialog(BuildContext context) async {
-    final s = S.of(context);
-    var playerCount = 1;
     return await showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) {
-          return StatefulBuilder(builder: (context, setState) {
-            return AlertDialog(
-              clipBehavior: Clip.hardEdge,
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(0))),
-              content: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      TextFormField(
-                        autofocus: true,
-                        controller: _textEditingController,
-                        validator: (value) {
-                          return value != null && value.isNotEmpty
-                              ? null
-                              : s.noNameError;
-                        },
-                        decoration: InputDecoration(
-                            labelText: s.partyName,
-                            border: const OutlineInputBorder(),
-                            prefixIcon: const Icon(
-                              Icons.remove,
-                              color: Colors.transparent,
-                            )),
-                      ),
-                      const Padding(padding: EdgeInsets.only(bottom: 16)),
-                      SpinBox(
-                        min: 1,
-                        max: 15,
-                        value: playerCount.toDouble(),
-                        step: 1,
-                        onChanged: (value) => playerCount = value.toInt(),
-                        decoration: InputDecoration(
-                          labelText: s.playerCount,
-                          border: const OutlineInputBorder(),
-                        ),
-                      )
-                    ],
-                  )),
-              title: Text(s.createParty),
-              actions: <Widget>[
-                TextButton(
-                  child: Text(s.cancel.toUpperCase()),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                TextButton(
-                  child: Text(s.start.toUpperCase()),
-                  onPressed: () {
-                    if (_formKey.currentState?.validate() == true) {
-                      Navigator.of(context).popAndPushNamed('/setup',
-                          arguments: SetupPageArgs(
-                              _textEditingController.text, playerCount));
-                      _textEditingController.clear();
-                    }
-                  },
-                ),
-              ],
-            );
-          });
+          return StatefulBuilder(
+              builder: (context, setState) => CreatePartyModal());
         });
   }
 
