@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:scored/generated/l10n.dart';
 import 'package:scored/history/history_item_menu.dart';
+import 'package:scored/utils/extensions.dart';
 
 import '../domain/game.dart';
 import '../domain/player.dart';
@@ -42,42 +42,11 @@ class HistoryItem extends StatelessWidget {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Text(game.date.toReadable(),
+          Text(game.date.toReadable(S.of(context)),
               style: TextStyle(color: Theme.of(context).hintColor)),
           HistoryItemMenu(game)
         ],
       ),
     );
-  }
-}
-
-extension DateHelpers on DateTime {
-  bool isToday() {
-    final now = DateTime.now();
-    return now.day == day && now.month == month && now.year == year;
-  }
-
-  bool isYesterday() {
-    final yesterday = DateTime.now().subtract(const Duration(days: 1));
-    return yesterday.day == day &&
-        yesterday.month == month &&
-        yesterday.year == year;
-  }
-
-  String toReadable() {
-    final s = S.current;
-    final locale = Intl.defaultLocale;
-    final time = DateFormat.jm(locale).format(this);
-
-    if (isToday()) {
-      return s.historyDate(s.today, time);
-    }
-
-    if (isYesterday()) {
-      return s.historyDate(s.yesterday, time);
-    }
-
-    final day = DateFormat.yMMMMd(locale).format(this);
-    return s.historyDate(day, time);
   }
 }
