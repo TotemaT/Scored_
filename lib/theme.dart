@@ -12,6 +12,13 @@ final ThemeData scoredTheme = ThemeData(
 final ThemeData scoredThemeDark = ThemeData(
   brightness: Brightness.dark,
   primarySwatch: Colors.green,
+  checkboxTheme:
+      CheckboxThemeData(fillColor: MaterialStateColor.resolveWith((states) {
+    if (states.contains(MaterialState.selected)) {
+      return Colors.orange;
+    }
+    return ThemeData.dark().hintColor;
+  })),
   colorScheme: const ColorScheme.dark().copyWith(
       primary: Colors.green,
       secondary: Colors.orange,
