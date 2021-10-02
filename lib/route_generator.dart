@@ -59,7 +59,7 @@ class RouteGenerator {
               if (args.existingGame != null) {
                 return SetupPage.restart(args.existingGame!);
               } else {
-                  return SetupPage(args.name!, args.playerCount!);
+                return SetupPage(args.name!, args.playerCount!);
               }
             });
       default:
