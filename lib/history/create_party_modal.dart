@@ -66,7 +66,7 @@ class CreatePartyModal extends StatelessWidget {
           child: Text(s.start.toUpperCase()),
           onPressed: () {
             if (_formKey.currentState?.validate() == true) {
-              Navigator.of(context).popAndPushNamed('/setup',
+              Navigator.of(context).popAndPushNamed(SetupPage.route,
                   arguments:
                       SetupPageArgs(_textEditingController.text, playerCount));
               _textEditingController.clear();

@@ -87,7 +87,9 @@ class _SetupItemState extends State<SetupItem> {
         filled: true);
   }
 
-  Widget _nameField() {
+  Widget _nameField(String name) {
+    final controller = widget.nameInputState.controller;
+    controller.text = name;
     return Expanded(
         flex: 3,
         child: Padding(
@@ -95,7 +97,7 @@ class _SetupItemState extends State<SetupItem> {
             child: TextField(
               decoration: _fieldDecoration(
                   S.of(context).playerName, widget.nameInputState.focusNode),
-              controller: widget.nameInputState.controller,
+              controller: controller,
               cursorColor: widget.player.color,
               focusNode: widget.nameInputState.focusNode,
               onChanged: (String value) => widget.onChangeName(value),
@@ -142,7 +144,7 @@ class _SetupItemState extends State<SetupItem> {
               setState(() => widget.player.color = color);
             },
           ),
-          _nameField(),
+          _nameField(widget.player.name),
           _scoreField()
         ],
       ),

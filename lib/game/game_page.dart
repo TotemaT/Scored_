@@ -11,6 +11,8 @@ import 'game_tile.dart';
 class GamePage extends StatefulWidget {
   const GamePage(this.game, this.mode, {Key? key}) : super(key: key);
 
+  static const route = '/game';
+
   final Game game;
   final GameMode mode;
 

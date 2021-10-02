@@ -7,12 +7,17 @@ import '../partials/layout.dart';
 import 'setup_list.dart';
 
 class SetupPage extends StatelessWidget {
-  SetupPage(this.name, this.playerCount, {Key? key}) : super(key: key) {
+  SetupPage(this.name, playerCount, {Key? key}) : super(key: key) {
     game = Game.withPlayers(playerCount)..name = name;
   }
 
+  SetupPage.restart(this.game, {Key? key})
+      : name = game.name ?? '',
+        super(key: key);
+
+  static const route = '/setup';
+
   final String name;
-  final int playerCount;
   late final Game game;
 
   @override
@@ -24,7 +29,7 @@ class SetupPage extends StatelessWidget {
         fabAction: () {
           Hive.box<Game>('games').add(game);
           Navigator.of(context).pushNamedAndRemoveUntil(
-              '/game', ModalRoute.withName('/'),
+              GamePage.route, ModalRoute.withName('/'),
               arguments: GamePageArgs(game, GameMode.play));
         },
         child: SetupList(game.players!));
@@ -32,8 +37,10 @@ class SetupPage extends StatelessWidget {
 }
 
 class SetupPageArgs {
-  const SetupPageArgs(this.name, this.playerCount);
+  SetupPageArgs(this.name, this.playerCount);
+  SetupPageArgs.restart(this.existingGame);
 
-  final int playerCount;
-  final String name;
+  Game? existingGame;
+  int? playerCount;
+  String? name;
 }

@@ -9,6 +9,12 @@ platform :android do
     upload_to_play_store(track: "internal", aab: "../build/app/outputs/bundle/release/app-release.aab")
   end
 
+  desc "Deploy to Beta"
+  lane :beta do
+    gradle(task: "clean bundleRelease")
+    upload_to_play_store(track: "beta", aab: "../build/app/outputs/bundle/release/app-release.aab")
+  end
+
   desc "Deploy to Alpha"
   lane :alpha do
     gradle(task: "clean bundleRelease")

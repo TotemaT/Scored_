@@ -41,21 +41,27 @@ class RouteGenerator {
       case '/':
         return MaterialPageRoute(
             settings: settings, builder: (_) => const HistoryPage());
-      case '/game':
+      case GamePage.route:
         if (settings.arguments == null) {
           return null;
         }
         final args = settings.arguments as GamePageArgs;
         return MaterialPageRoute(
             settings: settings, builder: (_) => GamePage(args.game, args.mode));
-      case '/setup':
+      case SetupPage.route:
         if (settings.arguments == null) {
           return null;
         }
         final args = settings.arguments as SetupPageArgs;
         return MaterialPageRoute(
             settings: settings,
-            builder: (_) => SetupPage(args.name, args.playerCount));
+            builder: (_) {
+              if (args.existingGame != null) {
+                return SetupPage.restart(args.existingGame!);
+              } else {
+                  return SetupPage(args.name!, args.playerCount!);
+              }
+            });
       default:
         return _notFound(settings);
     }

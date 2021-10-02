@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:scored/domain/game.dart';
 import 'package:scored/game/game_page.dart';
 import 'package:scored/generated/l10n.dart';
+import 'package:scored/setup/setup_page.dart';
 import 'package:scored/utils/extensions.dart';
 
 class HistoryItemMenu extends StatelessWidget {
@@ -84,7 +85,7 @@ class HistoryItemMenu extends StatelessWidget {
 
   void _continue(Game game, BuildContext context) {
     Navigator.of(context).pushNamedAndRemoveUntil(
-        '/game', ModalRoute.withName('/'),
+        GamePage.route, ModalRoute.withName('/'),
         arguments: GamePageArgs(game, GameMode.play));
   }
 
@@ -100,13 +101,13 @@ class HistoryItemMenu extends StatelessWidget {
     Game newGame = Game.copy(game);
     Hive.box<Game>('games').add(newGame);
     Navigator.of(context).pushNamedAndRemoveUntil(
-        '/game', ModalRoute.withName('/'),
-        arguments: GamePageArgs(newGame, GameMode.play));
+        SetupPage.route, ModalRoute.withName('/'),
+        arguments: SetupPageArgs.restart(newGame));
   }
 
   void _view(Game game, BuildContext context) {
     Navigator.of(context).pushNamedAndRemoveUntil(
-        '/game', ModalRoute.withName('/'),
+        GamePage.route, ModalRoute.withName('/'),
         arguments: GamePageArgs(game, GameMode.view));
   }
 }
