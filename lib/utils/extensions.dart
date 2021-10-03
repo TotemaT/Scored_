@@ -46,7 +46,8 @@ extension DateHelpers on DateTime {
       return s.historyDate(s.yesterday, time);
     }
 
-    final formatter = isThisYear() ? DateFormat.MMMMd(locale) : DateFormat.yMMMMd(locale);
+    final formatter =
+        isThisYear() ? DateFormat.MMMMd(locale) : DateFormat.yMMMMd(locale);
     return s.historyDate(formatter.format(this), time);
   }
 }
