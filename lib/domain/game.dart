@@ -9,7 +9,9 @@ part 'game.g.dart';
 class Game extends HiveObject {
   Game();
 
-  final colors = List.from(Colors.primaries)..addAll(Colors.accents)..shuffle();
+  final colors = List.from(Colors.primaries)
+    ..addAll(Colors.accents)
+    ..shuffle();
   final playerBox = Hive.box<Player>('players');
 
   Game.copy(Game game) {
