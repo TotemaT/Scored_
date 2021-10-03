@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:scored/generated/l10n.dart';
-import 'package:scored/history/create_party_modal.dart';
+import 'package:scored/setup/setup_page.dart';
 import 'package:scored/utils/extensions.dart';
 
 import '../domain/game.dart';
@@ -19,16 +19,6 @@ class HistoryPage extends StatefulWidget {
 class _HistoryPageState extends State {
   final _selectedGames = <Game>{};
   bool _selecting = false;
-
-  Future<void> _showCreatePartyDialog(BuildContext context) async {
-    return await showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) {
-          return StatefulBuilder(
-              builder: (context, setState) => CreatePartyModal());
-        });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +51,8 @@ class _HistoryPageState extends State {
             : null,
         scaffoldKey: 'HistoryScaffold',
         fabIcon: const Icon(Icons.add),
-        fabAction: () => _showCreatePartyDialog(context),
+        fabAction: () => Navigator.of(context)
+            .pushNamed(SetupPage.route, arguments: SetupPageArgs()),
         child: ValueListenableBuilder(
           valueListenable: Hive.box<Game>('games').listenable(),
           builder: (BuildContext context, Box<Game> box, Widget? widget) {

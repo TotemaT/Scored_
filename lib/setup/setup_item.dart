@@ -88,8 +88,6 @@ class _SetupItemState extends State<SetupItem> {
   }
 
   Widget _nameField(String name) {
-    final controller = widget.nameInputState.controller;
-    controller.text = name;
     return Expanded(
         flex: 3,
         child: Padding(
@@ -97,7 +95,7 @@ class _SetupItemState extends State<SetupItem> {
             child: TextField(
               decoration: _fieldDecoration(
                   S.of(context).playerName, widget.nameInputState.focusNode),
-              controller: controller,
+              controller: widget.nameInputState.controller..text = name,
               cursorColor: widget.player.color,
               focusNode: widget.nameInputState.focusNode,
               onChanged: (String value) => widget.onChangeName(value),
@@ -108,18 +106,19 @@ class _SetupItemState extends State<SetupItem> {
             )));
   }
 
-  Widget _scoreField() {
+  Widget _scoreField(int score) {
     return Expanded(
       flex: 1,
       child: TextField(
         decoration: _fieldDecoration(
             S.of(context).playerScore, widget.scoreInputState.focusNode),
-        controller: widget.scoreInputState.controller,
+        controller: widget.scoreInputState.controller..text = score.toString(),
         keyboardType: TextInputType.number,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         cursorColor: widget.player.color,
         focusNode: widget.scoreInputState.focusNode,
-        onChanged: (String? value) => widget.onChangeScore(int.tryParse(value ?? '') ?? 0),
+        onChanged: (String? value) =>
+            widget.onChangeScore(int.tryParse(value ?? '') ?? 0),
         textCapitalization: TextCapitalization.words,
         textInputAction:
             widget.last ? TextInputAction.done : TextInputAction.next,
@@ -145,7 +144,7 @@ class _SetupItemState extends State<SetupItem> {
             },
           ),
           _nameField(widget.player.name),
-          _scoreField()
+          _scoreField(widget.player.score)
         ],
       ),
     );

@@ -9,6 +9,9 @@ part 'game.g.dart';
 class Game extends HiveObject {
   Game();
 
+  final colors = List.from(Colors.primaries)..addAll(Colors.accents)..shuffle();
+  final playerBox = Hive.box<Player>('players');
+
   Game.copy(Game game) {
     name = game.name;
     players = HiveList(Hive.box<Player>('players'),
@@ -22,8 +25,6 @@ class Game extends HiveObject {
   }
 
   Game.withPlayers(int playerCount) {
-    final colors = List.from(Colors.primaries)..shuffle();
-    final playerBox = Hive.box<Player>('players');
     players = HiveList(playerBox,
         objects: List.generate(playerCount, (idx) {
           final player = Player(idx, colors[idx % colors.length]);
@@ -40,6 +41,15 @@ class Game extends HiveObject {
 
   @HiveField(2)
   HiveList<Player>? players;
+
+  void addPlayer() {
+    players ??= HiveList(playerBox);
+
+    final idx = players!.length;
+    final player = Player(idx, colors[idx % colors.length]);
+    playerBox.add(player);
+    players!.add(player);
+  }
 
   @override
   String toString() {

@@ -102,7 +102,7 @@ class HistoryItemMenu extends StatelessWidget {
     Hive.box<Game>('games').add(newGame);
     Navigator.of(context).pushNamedAndRemoveUntil(
         SetupPage.route, ModalRoute.withName('/'),
-        arguments: SetupPageArgs.restart(newGame));
+        arguments: SetupPageArgs(game: newGame));
   }
 
   void _view(Game game, BuildContext context) {

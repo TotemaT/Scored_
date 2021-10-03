@@ -1,49 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:scored/setup/setup_app_bar.dart';
 
 import '../domain/game.dart';
 import '../game/game_page.dart';
 import '../partials/layout.dart';
 import 'setup_list.dart';
 
-class SetupPage extends StatelessWidget {
-  SetupPage(this.name, playerCount, {Key? key}) : super(key: key) {
-    game = Game.withPlayers(playerCount)..name = name;
-  }
-
-  SetupPage.restart(this.game, {Key? key})
-      : name = game.name ?? '',
+class SetupPage extends StatefulWidget {
+  SetupPage({Key? key})
+      : game = Game.withPlayers(1),
         super(key: key);
+
+  const SetupPage.restart(this.game, {Key? key}) : super(key: key);
 
   static const route = '/setup';
 
-  final String name;
-  late final Game game;
+  final Game game;
 
+  @override
+  _SetupPageState createState() => _SetupPageState();
+}
+
+class _SetupPageState extends State<SetupPage> {
   @override
   Widget build(BuildContext context) {
     return Layout(
         scaffoldKey: 'SetupPage',
-        title: name,
+        appBar: SetupAppBar(() => setState(() => widget.game.addPlayer()),
+            (String name) => setState(() => widget.game.name = name),
+            name: widget.game.name ?? ''),
         fabIcon: const Icon(Icons.play_arrow),
         fabAction: () {
           final box = Hive.box<Game>('games');
-          if (!box.containsKey(game.key)) {
-            box.add(game);
+          if (widget.game.key == null || !box.containsKey(widget.game.key)) {
+            box.add(widget.game);
           }
           Navigator.of(context).pushNamedAndRemoveUntil(
               GamePage.route, ModalRoute.withName('/'),
-              arguments: GamePageArgs(game, GameMode.play));
+              arguments: GamePageArgs(widget.game, GameMode.play));
         },
-        child: SetupList(game.players!));
+        child: SetupList(widget.game.players!));
   }
 }
 
 class SetupPageArgs {
-  SetupPageArgs(this.name, this.playerCount);
-  SetupPageArgs.restart(this.existingGame);
+  SetupPageArgs({this.game});
 
-  Game? existingGame;
-  int? playerCount;
-  String? name;
+  Game? game;
 }
