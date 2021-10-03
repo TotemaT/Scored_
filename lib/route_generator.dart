@@ -37,7 +37,9 @@ class RouteGenerator {
   }
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
-    switch (settings.name) {
+    final uri = Uri.parse(settings.name!);
+
+    switch (uri.path) {
       case '/':
         return MaterialPageRoute(
             settings: settings, builder: (_) => const HistoryPage());
@@ -49,17 +51,14 @@ class RouteGenerator {
         return MaterialPageRoute(
             settings: settings, builder: (_) => GamePage(args.game, args.mode));
       case SetupPage.route:
-        if (settings.arguments == null) {
-          return null;
-        }
-        final args = settings.arguments as SetupPageArgs;
+        final args = (settings.arguments as SetupPageArgs?) ?? SetupPageArgs();
         return MaterialPageRoute(
             settings: settings,
             builder: (_) {
-              if (args.existingGame != null) {
-                return SetupPage.restart(args.existingGame!);
+              if (args.game != null) {
+                return SetupPage.restart(args.game!);
               } else {
-                return SetupPage(args.name!, args.playerCount!);
+                return SetupPage();
               }
             });
       default:
