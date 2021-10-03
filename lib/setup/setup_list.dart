@@ -7,7 +7,7 @@ import 'setup_item.dart';
 class SetupList extends StatelessWidget {
   SetupList(this.players, {Key? key})
       : inputStates = List.generate(players.length,
-            (_) => Pair(TextInputState(), TextInputState(initialValue: '0'))),
+            (_) => Pair(TextInputState(), TextInputState())),
         super(key: key);
 
   final List<Player> players;

@@ -119,7 +119,7 @@ class _SetupItemState extends State<SetupItem> {
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         cursorColor: widget.player.color,
         focusNode: widget.scoreInputState.focusNode,
-        onChanged: (String value) => widget.onChangeScore(int.parse(value)),
+        onChanged: (String? value) => widget.onChangeScore(int.tryParse(value ?? '') ?? 0),
         textCapitalization: TextCapitalization.words,
         textInputAction:
             widget.last ? TextInputAction.done : TextInputAction.next,
