@@ -27,7 +27,10 @@ class SetupPage extends StatelessWidget {
         title: name,
         fabIcon: const Icon(Icons.play_arrow),
         fabAction: () {
-          Hive.box<Game>('games').add(game);
+          final box = Hive.box<Game>('games');
+          if (!box.containsKey(game.key)) {
+            box.add(game);
+          }
           Navigator.of(context).pushNamedAndRemoveUntil(
               GamePage.route, ModalRoute.withName('/'),
               arguments: GamePageArgs(game, GameMode.play));
