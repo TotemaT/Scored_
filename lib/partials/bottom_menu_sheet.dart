@@ -54,7 +54,10 @@ class BottomMenuSheet extends StatelessWidget {
         ),
       ),
       AboutListTile(
-          applicationIcon: Image.asset('assets/scored_logo.png', height: 48,),
+          applicationIcon: Image.asset(
+            'assets/scored_logo.png',
+            height: 48,
+          ),
           applicationName: 'Scored!',
           applicationVersion: '2.1.3',
           applicationLegalese: '\u{a9} 2019 Matteo Taroli',
