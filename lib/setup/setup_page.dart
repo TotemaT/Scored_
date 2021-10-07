@@ -34,6 +34,15 @@ class _SetupPageState extends State<SetupPage> {
         (_) => Pair(TextInputState(), TextInputState()));
   }
 
+  @override
+  void dispose() {
+    for (var element in inputStates) {
+      element.first.dispose();
+      element.second.dispose();
+    }
+    super.dispose();
+  }
+
   void _addPlayer() {
     setState(() {
       widget.game.addPlayer();
