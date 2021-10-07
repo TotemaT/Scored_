@@ -57,6 +57,14 @@ class Game extends HiveObject {
     playerBox.add(player);
     players!.add(player);
   }
+
+  void removePlayerAt(int idx) {
+    if (players == null || idx < 0 || idx >= players!.length) {
+      return;
+    }
+    final player = players!.removeAt(idx);
+    playerBox.delete(player);
+  }
 }
 
 enum GameMode { view, play }

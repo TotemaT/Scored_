@@ -6,20 +6,19 @@ import '../domain/player.dart';
 import 'setup_item.dart';
 
 class SetupList extends StatelessWidget {
-  const SetupList(this.players, this.inputStates, {Key? key}) : super(key: key);
+  const SetupList(this.players, this.inputStates, this.onRemovePlayer,
+      {Key? key})
+      : super(key: key);
 
+  final Function(int) onRemovePlayer;
   final List<Pair<TextInputState, TextInputState>> inputStates;
   final List<Player> players;
 
-  SetupItem _playerItem(BuildContext context, int idx) {
+  Widget _playerItem(BuildContext context, int idx) {
     final player = players[idx];
     final inputState = inputStates[idx];
 
-    if (idx == inputStates.length - 1) {
-      inputState.first.focusNode.requestFocus();
-    }
-
-    return SetupItem(
+    final playerItem = SetupItem(
         last: players.indexOf(player) == players.length - 1,
         onChangeName: (String name) => player.name = name,
         onChangeScore: (int score) => player.score = score,
@@ -33,13 +32,25 @@ class SetupList extends StatelessWidget {
                 .requestFocus(inputStates[idx + 1].first.focusNode);
           }
         });
+
+    if (players.length == 1) {
+      return playerItem;
+    }
+
+    return Dismissible(
+        background: Container(
+          color: Colors.red,
+        ),
+        onDismissed: (direction) => onRemovePlayer(players.indexOf(player)),
+        key: Key("player-${player.index}"),
+        child: playerItem);
   }
 
   @override
   Widget build(BuildContext context) {
-    FocusScope.of(context).unfocus();
-    return ListView.builder(
+    final list = ListView.builder(
         itemBuilder: (_, int idx) => _playerItem(context, idx),
         itemCount: players.length);
+    return list;
   }
 }

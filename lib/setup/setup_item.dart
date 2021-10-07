@@ -35,20 +35,6 @@ class SetupItem extends StatefulWidget {
 class _SetupItemState extends State<SetupItem> {
   _SetupItemState();
 
-  @override
-  dispose() {
-    super.dispose();
-    widget.nameInputState.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    widget.nameInputState.focusNode.addListener(() {
-      setState(() {});
-    });
-  }
-
   Future<Color> _colorPickerDialog(BuildContext context) async {
     final s = S.of(context);
     Color selectedColor = widget.player.color;
@@ -80,9 +66,7 @@ class _SetupItemState extends State<SetupItem> {
         isDense: true,
         labelText: label,
         labelStyle: TextStyle(
-            color: focusNode.hasFocus
-                ? widget.player.color
-                : Theme.of(context).hintColor),
+            color: Theme.of(context).hintColor),
         border: InputBorder.none,
         filled: true);
   }

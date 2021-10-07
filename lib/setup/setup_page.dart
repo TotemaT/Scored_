@@ -50,12 +50,23 @@ class _SetupPageState extends State<SetupPage> {
     });
   }
 
+  void _removePlayer(int idx) {
+    setState(() {
+      widget.game.removePlayerAt(idx);
+      final state = inputStates.removeAt(idx);
+      state.first.dispose();
+      state.second.dispose();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Layout(
         scaffoldKey: 'SetupPage',
-        appBar: SetupAppBar(
-            _addPlayer, (String name) => widget.game.name = name,
+        appBar: SetupAppBar(() {
+          FocusScope.of(context).unfocus();
+          _addPlayer();
+        }, (String name) => widget.game.name = name,
             name: widget.game.name ?? ''),
         fabIcon: const Icon(Icons.play_arrow),
         fabAction: () {
@@ -67,7 +78,10 @@ class _SetupPageState extends State<SetupPage> {
               GamePage.route, ModalRoute.withName('/'),
               arguments: GamePageArgs(widget.game, GameMode.play));
         },
-        child: SetupList(widget.game.players!, inputStates));
+        child: SetupList(widget.game.players!, inputStates, (idx) {
+          FocusScope.of(context).unfocus();
+          _removePlayer(idx);
+        }));
   }
 }
 
