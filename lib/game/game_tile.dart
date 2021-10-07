@@ -7,34 +7,24 @@ import '../domain/game.dart';
 import '../domain/player.dart';
 
 class GameTile extends StatefulWidget {
-  const GameTile({required this.player, required this.mode});
+  const GameTile({required this.player, required this.mode, Key? key})
+      : super(key: key);
 
-  final Player player;
   final GameMode mode;
+  final Player player;
 
   @override
-  _GameTileState createState() => _GameTileState(player);
+  _GameTileState createState() => _GameTileState();
 }
 
 class _GameTileState extends State<GameTile> {
-  _GameTileState(this.player);
+  _GameTileState();
 
   final List<int> durations = <int>[500, 500, 250, 100, 50];
+  late Player player;
   Timer? timer;
-  Player player;
 
   late StreamSubscription _playerSubscription;
-
-  @override
-  void initState() {
-    super.initState();
-    _playerSubscription =
-        Hive.box<Player>('players').watch(key: player.key).listen((event) {
-      setState(() {
-        player.score = event.value.score;
-      });
-    });
-  }
 
   @override
   void dispose() {
@@ -43,44 +33,45 @@ class _GameTileState extends State<GameTile> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onLongPressStart: widget.mode == GameMode.VIEW ? null : _startDecrement,
-      onLongPressEnd: widget.mode == GameMode.VIEW ? null : _stopDecrement,
-      child: SizedBox.expand(
-        child: Container(
-          color: player.color,
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: widget.mode == GameMode.VIEW ? null : _doIncrement,
-              child: LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      height: constraints.maxHeight / 5,
-                      child: _playerName(),
-                    ),
-                    Container(
-                      height: constraints.maxHeight / 2,
-                      child: _playerScore(),
-                    ),
-                    Container(
-                      height: constraints.maxHeight / 5,
-                      child: null,
-                    ),
-                  ],
-                );
-              }),
-            ),
-          ),
-        ),
-      ),
-    );
+  void initState() {
+    super.initState();
+    player = widget.player;
+    _playerSubscription =
+        Hive.box<Player>('players').watch(key: player.key).listen((event) {
+      setState(() {
+        player.score = event.value.score;
+      });
+    });
   }
+
+  void _decrement(int i) {
+    final Duration duration = Duration(milliseconds: durations[i]);
+    final int nextIdx = ++i < durations.length ? i : durations.length - 1;
+
+    timer = Timer(duration, () {
+      _doDecrement();
+      _decrement(nextIdx);
+    });
+  }
+
+  _doDecrement() {
+    if (widget.mode == GameMode.view) {
+      return;
+    }
+    player.score--;
+    player.save();
+  }
+
+  _doIncrement() {
+    if (widget.mode == GameMode.view) {
+      return;
+    }
+    player.score++;
+    player.save();
+  }
+
+  Color _getTextColor(Color color) =>
+      color.computeLuminance() > .5 ? Colors.black : Colors.white;
 
   FittedBox _playerName() {
     return _playerText(Text(
@@ -113,9 +104,6 @@ class _GameTileState extends State<GameTile> {
     );
   }
 
-  Color _getTextColor(Color color) =>
-      color.computeLuminance() > .5 ? Colors.black : Colors.white;
-
   void _startDecrement(LongPressStartDetails details) {
     _doDecrement();
     _decrement(0);
@@ -125,29 +113,43 @@ class _GameTileState extends State<GameTile> {
     timer?.cancel();
   }
 
-  void _decrement(int i) {
-    final Duration duration = Duration(milliseconds: durations[i]);
-    final int nextIdx = ++i < durations.length ? i : durations.length - 1;
-
-    timer = Timer(duration, () {
-      _doDecrement();
-      _decrement(nextIdx);
-    });
-  }
-
-  _doIncrement() {
-    if (widget.mode == GameMode.VIEW) {
-      return;
-    }
-    player.score++;
-    player.save();
-  }
-
-  _doDecrement() {
-    if (widget.mode == GameMode.VIEW) {
-      return;
-    }
-    player.score--;
-    player.save();
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onLongPressStart: widget.mode == GameMode.view ? null : _startDecrement,
+      onLongPressEnd: widget.mode == GameMode.view ? null : _stopDecrement,
+      child: SizedBox.expand(
+        child: Container(
+          color: player.color,
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: widget.mode == GameMode.view ? null : _doIncrement,
+              child: LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      height: constraints.maxHeight / 5,
+                      child: _playerName(),
+                    ),
+                    SizedBox(
+                      height: constraints.maxHeight / 2,
+                      child: _playerScore(),
+                    ),
+                    SizedBox(
+                      height: constraints.maxHeight / 5,
+                      child: null,
+                    ),
+                  ],
+                );
+              }),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

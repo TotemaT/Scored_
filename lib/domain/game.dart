@@ -22,8 +22,6 @@ class Game extends HiveObject {
   }
 
   Game.withPlayers(int playerCount) {
-    final colors = List.from(Colors.primaries)..shuffle();
-    final playerBox = Hive.box<Player>('players');
     players = HiveList(playerBox,
         objects: List.generate(playerCount, (idx) {
           final player = Player(idx, colors[idx % colors.length]);
@@ -32,12 +30,17 @@ class Game extends HiveObject {
         }).toList());
   }
 
+  final colors = List.from(Colors.primaries)
+    ..addAll(Colors.accents)
+    ..shuffle();
+
   @HiveField(0)
   DateTime date = DateTime.now();
 
   @HiveField(1)
   String? name;
 
+  final playerBox = Hive.box<Player>('players');
   @HiveField(2)
   HiveList<Player>? players;
 
@@ -45,6 +48,23 @@ class Game extends HiveObject {
   String toString() {
     return "[$name]:[$date] - $players";
   }
+
+  void addPlayer() {
+    players ??= HiveList(playerBox);
+
+    final idx = players!.length;
+    final player = Player(idx, colors[idx % colors.length]);
+    playerBox.add(player);
+    players!.add(player);
+  }
+
+  void removePlayerAt(int idx) {
+    if (players == null || idx < 0 || idx >= players!.length) {
+      return;
+    }
+    final player = players!.removeAt(idx);
+    playerBox.delete(player);
+  }
 }
 
-enum GameMode { VIEW, PLAY }
+enum GameMode { view, play }

@@ -19,7 +19,14 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'fr';
 
-  static String m0(date, time) => "${date} ${time}";
+  static String m0(count) => "${count} parties supprimées";
+
+  static String m1(name) => "${name} supprimé";
+
+  static String m2(date, time) => "${date} ${time}";
+
+  static String m3(count) =>
+      "${Intl.plural(count, one: '1 partie sélectionnée', other: '${count} parties sélectionnées')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -28,7 +35,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "createParty": MessageLookupByLibrary.simpleMessage("Créer la partie"),
         "darkMode": MessageLookupByLibrary.simpleMessage("Thème Sombre"),
         "delete": MessageLookupByLibrary.simpleMessage("Supprimer"),
-        "historyDate": m0,
+        "deletedParties": m0,
+        "deletedParty": m1,
+        "historyDate": m2,
         "language": MessageLookupByLibrary.simpleMessage("Langue"),
         "noHistoryBody1":
             MessageLookupByLibrary.simpleMessage("Clique sur le bouton"),
@@ -44,14 +53,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "partyName": MessageLookupByLibrary.simpleMessage("Nom de la partie"),
         "playerCount":
             MessageLookupByLibrary.simpleMessage("Nombre de joueurs"),
-        "playerName": MessageLookupByLibrary.simpleMessage("Nom du joueur"),
+        "playerName": MessageLookupByLibrary.simpleMessage("Nom"),
+        "playerScore": MessageLookupByLibrary.simpleMessage("Score"),
         "restart": MessageLookupByLibrary.simpleMessage(" Redémarrer"),
         "selectColor":
             MessageLookupByLibrary.simpleMessage("Sélectionne une couleur"),
         "selectColorShade":
             MessageLookupByLibrary.simpleMessage("Sélectionne une nuance"),
+        "selectedParties": m3,
         "start": MessageLookupByLibrary.simpleMessage("Démarrer"),
         "today": MessageLookupByLibrary.simpleMessage("Aujourd\'hui"),
+        "undo": MessageLookupByLibrary.simpleMessage("Annuler"),
+        "viewScores": MessageLookupByLibrary.simpleMessage("Voir les Scores"),
         "yesterday": MessageLookupByLibrary.simpleMessage("Hier")
       };
 }

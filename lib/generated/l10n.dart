@@ -100,6 +100,26 @@ class S {
     );
   }
 
+  /// `Deleted {name}`
+  String deletedParty(Object name) {
+    return Intl.message(
+      'Deleted $name',
+      name: 'deletedParty',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `Deleted {count} parties`
+  String deletedParties(Object count) {
+    return Intl.message(
+      'Deleted $count parties',
+      name: 'deletedParties',
+      desc: '',
+      args: [count],
+    );
+  }
+
   /// `{date} {time}`
   String historyDate(Object date, Object time) {
     return Intl.message(
@@ -200,11 +220,21 @@ class S {
     );
   }
 
-  /// `Player Name`
+  /// `Name`
   String get playerName {
     return Intl.message(
-      'Player Name',
+      'Name',
       name: 'playerName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Score`
+  String get playerScore {
+    return Intl.message(
+      'Score',
+      name: 'playerScore',
       desc: '',
       args: [],
     );
@@ -240,6 +270,18 @@ class S {
     );
   }
 
+  /// `{count, plural, one{1 party selected} other{{count} parties selected}}`
+  String selectedParties(num count) {
+    return Intl.plural(
+      count,
+      one: '1 party selected',
+      other: '$count parties selected',
+      name: 'selectedParties',
+      desc: '',
+      args: [count],
+    );
+  }
+
   /// `Start`
   String get start {
     return Intl.message(
@@ -255,6 +297,26 @@ class S {
     return Intl.message(
       'Today',
       name: 'today',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Undo`
+  String get undo {
+    return Intl.message(
+      'Undo',
+      name: 'undo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View Scores`
+  String get viewScores {
+    return Intl.message(
+      'View Scores',
+      name: 'viewScores',
       desc: '',
       args: [],
     );

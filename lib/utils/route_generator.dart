@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:scored/generated/l10n.dart';
 
-import 'game/game_page.dart';
-import 'history/history_page.dart';
-import 'partials/layout.dart';
-import 'setup/setup_page.dart';
+import '../game/game_page.dart';
+import '../history/history_page.dart';
+import '../partials/layout.dart';
+import '../setup/setup_page.dart';
 
 class RouteGenerator {
   static _notFound(RouteSettings settings) {
@@ -19,11 +19,11 @@ class RouteGenerator {
               child: Center(
                   child: Column(children: [
             Padding(
-              padding: EdgeInsets.only(top: 160),
+              padding: const EdgeInsets.only(top: 160),
               child: Text('404', style: titleStyle),
             ),
             Padding(
-                padding: EdgeInsets.only(top: 48, bottom: 8),
+                padding: const EdgeInsets.only(top: 48, bottom: 8),
                 child: Text(
                   s.notFoundBody,
                   style: subtitleStyle,
@@ -36,20 +36,31 @@ class RouteGenerator {
         });
   }
 
-  static Route<dynamic> generateRoute(RouteSettings settings) {
-    switch (settings.name) {
+  static Route<dynamic>? generateRoute(RouteSettings settings) {
+    final uri = Uri.parse(settings.name!);
+
+    switch (uri.path) {
       case '/':
         return MaterialPageRoute(
-            settings: settings, builder: (_) => HistoryPage());
-      case '/game':
+            settings: settings, builder: (_) => const HistoryPage());
+      case GamePage.route:
+        if (settings.arguments == null) {
+          return null;
+        }
         final args = settings.arguments as GamePageArgs;
         return MaterialPageRoute(
             settings: settings, builder: (_) => GamePage(args.game, args.mode));
-      case '/setup':
-        final args = settings.arguments as SetupPageArgs;
+      case SetupPage.route:
+        final args = (settings.arguments as SetupPageArgs?) ?? SetupPageArgs();
         return MaterialPageRoute(
             settings: settings,
-            builder: (_) => SetupPage(args.name, args.playerCount));
+            builder: (_) {
+              if (args.game != null) {
+                return SetupPage.restart(args.game!);
+              } else {
+                return SetupPage();
+              }
+            });
       default:
         return _notFound(settings);
     }

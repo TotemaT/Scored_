@@ -9,7 +9,9 @@ import '../domain/player.dart';
 import 'game_tile.dart';
 
 class GamePage extends StatefulWidget {
-  GamePage(this.game, this.mode, {Key? key}) : super(key: key);
+  const GamePage(this.game, this.mode, {Key? key}) : super(key: key);
+
+  static const route = '/game';
 
   final Game game;
   final GameMode mode;
@@ -22,13 +24,14 @@ class _GamePageState extends State<GamePage> {
   @override
   void dispose() {
     super.dispose();
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: SystemUiOverlay.values);
   }
 
   @override
   void initState() {
     super.initState();
-    SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   }
 
   Widget _content(List<Player> players, Orientation orientation, double width,
@@ -54,8 +57,8 @@ class _GamePageState extends State<GamePage> {
         : _twoRowsBody(players, width, height);
   }
 
-  Container _gameTile(Player player, int idx, {double? height, double? width}) {
-    return Container(
+  SizedBox _gameTile(Player player, int idx, {double? height, double? width}) {
+    return SizedBox(
       height: height,
       width: width,
       child: GameTile(player: player, mode: widget.mode),
@@ -183,7 +186,7 @@ class _GamePageState extends State<GamePage> {
               child: Row(
                 children: [
                   IconButton(
-                    icon: Icon(Icons.arrow_back),
+                    icon: const Icon(Icons.arrow_back),
                     color: Colors.white,
                     onPressed: () async {
                       await widget.game.save();
