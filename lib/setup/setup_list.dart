@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scored/setup/text_input_state.dart';
+import 'package:scored/utils/pair.dart';
 
 import '../domain/player.dart';
 import 'setup_item.dart';
@@ -41,11 +42,4 @@ class SetupList extends StatelessWidget {
         itemBuilder: (_, int idx) => _playerItem(context, idx),
         itemCount: players.length);
   }
-}
-
-class Pair<T1, T2> {
-  final T1 first;
-  final T2 second;
-
-  Pair(this.first, this.second);
 }

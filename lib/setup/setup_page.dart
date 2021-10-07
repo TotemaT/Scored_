@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:scored/setup/setup_app_bar.dart';
 import 'package:scored/setup/text_input_state.dart';
+import 'package:scored/utils/pair.dart';
 
 import '../domain/game.dart';
 import '../game/game_page.dart';

@@ -9,8 +9,8 @@ import 'domain/game.dart';
 import 'domain/player.dart';
 import 'generated/l10n.dart';
 import 'notifiers/theme_notifier.dart';
-import 'route_generator.dart';
-import 'theme.dart';
+import 'utils/route_generator.dart';
+import 'utils/theme.dart';
 import 'utils/preferences.dart';
 
 void main() async {
