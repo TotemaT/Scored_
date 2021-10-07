@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:scored/setup/setup_app_bar.dart';
+import 'package:scored/setup/text_input_state.dart';
 
 import '../domain/game.dart';
 import '../game/game_page.dart';
@@ -23,12 +24,28 @@ class SetupPage extends StatefulWidget {
 }
 
 class _SetupPageState extends State<SetupPage> {
+  List<Pair<TextInputState, TextInputState>> inputStates = [];
+
+  @override
+  void initState() {
+    super.initState();
+    inputStates = List.generate(widget.game.players?.length ?? 1,
+        (_) => Pair(TextInputState(), TextInputState()));
+  }
+
+  void _addPlayer() {
+    setState(() {
+      widget.game.addPlayer();
+      inputStates.add(Pair(TextInputState(), TextInputState()));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Layout(
         scaffoldKey: 'SetupPage',
-        appBar: SetupAppBar(() => setState(() => widget.game.addPlayer()),
-            (String name) => setState(() => widget.game.name = name),
+        appBar: SetupAppBar(
+            _addPlayer, (String name) => widget.game.name = name,
             name: widget.game.name ?? ''),
         fabIcon: const Icon(Icons.play_arrow),
         fabAction: () {
@@ -40,7 +57,7 @@ class _SetupPageState extends State<SetupPage> {
               GamePage.route, ModalRoute.withName('/'),
               arguments: GamePageArgs(widget.game, GameMode.play));
         },
-        child: SetupList(widget.game.players!));
+        child: SetupList(widget.game.players!, inputStates));
   }
 }
 

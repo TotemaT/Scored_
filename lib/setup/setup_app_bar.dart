@@ -29,7 +29,7 @@ class _SetupAppBarState extends State<SetupAppBar> {
                     Row(children: const [Icon(Icons.add), Text('Add player')])))
       ],
       title: TextField(
-        focusNode: titleFocusNode..requestFocus(),
+        focusNode: titleFocusNode,
         controller: titleEditingController..text = widget.name,
         cursorColor: Colors.white,
         style: const TextStyle(color: Colors.white),

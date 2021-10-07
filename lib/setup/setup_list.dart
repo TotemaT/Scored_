@@ -5,10 +5,7 @@ import '../domain/player.dart';
 import 'setup_item.dart';
 
 class SetupList extends StatelessWidget {
-  SetupList(this.players, {Key? key})
-      : inputStates = List.generate(
-            players.length, (_) => Pair(TextInputState(), TextInputState())),
-        super(key: key);
+  const SetupList(this.players, this.inputStates, {Key? key}) : super(key: key);
 
   final List<Player> players;
   final List<Pair<TextInputState, TextInputState>> inputStates;
@@ -16,6 +13,10 @@ class SetupList extends StatelessWidget {
   SetupItem _playerItem(BuildContext context, int idx) {
     final player = players[idx];
     final inputState = inputStates[idx];
+
+    if (idx == inputStates.length - 1) {
+      inputState.first.focusNode.requestFocus();
+    }
 
     return SetupItem(
         last: players.indexOf(player) == players.length - 1,
@@ -35,6 +36,7 @@ class SetupList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FocusScope.of(context).unfocus();
     return ListView.builder(
         itemBuilder: (_, int idx) => _playerItem(context, idx),
         itemCount: players.length);
