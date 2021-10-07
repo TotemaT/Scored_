@@ -28,19 +28,19 @@ class _SetupPageState extends State<SetupPage> {
   List<Pair<TextInputState, TextInputState>> inputStates = [];
 
   @override
-  void initState() {
-    super.initState();
-    inputStates = List.generate(widget.game.players?.length ?? 1,
-        (_) => Pair(TextInputState(), TextInputState()));
-  }
-
-  @override
   void dispose() {
     for (var element in inputStates) {
       element.first.dispose();
       element.second.dispose();
     }
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    inputStates = List.generate(widget.game.players?.length ?? 1,
+        (_) => Pair(TextInputState(), TextInputState()));
   }
 
   void _addPlayer() {

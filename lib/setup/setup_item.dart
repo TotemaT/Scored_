@@ -65,8 +65,7 @@ class _SetupItemState extends State<SetupItem> {
     return InputDecoration(
         isDense: true,
         labelText: label,
-        labelStyle: TextStyle(
-            color: Theme.of(context).hintColor),
+        labelStyle: TextStyle(color: Theme.of(context).hintColor),
         border: InputBorder.none,
         filled: true);
   }
