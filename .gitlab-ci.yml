@@ -1,16 +1,22 @@
-
 image: cirrusci/flutter:latest
 
 before_script:
-  - flutter pub get
+    - flutter pub get
+
+analyze:
+    stage: build
+    script: 
+        - flutter analyze
+    only: 
+        - master
 
 pages:
-  stage: deploy
-  script:
-    - flutter build web
-    - cp -r build/web public
-  artifacts:
-    paths:
-      - public
-  only:
-    - web-deploy
+    stage: deploy
+    script:
+        - flutter build web
+        - cp -r build/web public
+    artifacts:
+        paths:
+            - public
+    only:
+        - web-deploy

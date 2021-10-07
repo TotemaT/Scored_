@@ -1,39 +1,92 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:scored/setup/setup_app_bar.dart';
+import 'package:scored/setup/text_input_state.dart';
+import 'package:scored/utils/pair.dart';
 
 import '../domain/game.dart';
 import '../game/game_page.dart';
 import '../partials/layout.dart';
 import 'setup_list.dart';
 
-class SetupPage extends StatelessWidget {
-  SetupPage(this.name, this.playerCount, {Key? key}) : super(key: key) {
-    game = Game.withPlayers(playerCount)..name = name;
+class SetupPage extends StatefulWidget {
+  SetupPage({Key? key})
+      : game = Game.withPlayers(1),
+        super(key: key);
+
+  const SetupPage.restart(this.game, {Key? key}) : super(key: key);
+
+  static const route = '/setup';
+
+  final Game game;
+
+  @override
+  _SetupPageState createState() => _SetupPageState();
+}
+
+class _SetupPageState extends State<SetupPage> {
+  List<Pair<TextInputState, TextInputState>> inputStates = [];
+
+  @override
+  void dispose() {
+    for (var element in inputStates) {
+      element.first.dispose();
+      element.second.dispose();
+    }
+    super.dispose();
   }
 
-  final String name;
-  final int playerCount;
-  late final Game game;
+  @override
+  void initState() {
+    super.initState();
+    inputStates = List.generate(widget.game.players?.length ?? 1,
+        (_) => Pair(TextInputState(), TextInputState()));
+  }
+
+  void _addPlayer() {
+    setState(() {
+      widget.game.addPlayer();
+      inputStates.add(Pair(TextInputState(), TextInputState()));
+    });
+  }
+
+  void _removePlayer(int idx) {
+    setState(() {
+      widget.game.removePlayerAt(idx);
+      final state = inputStates.removeAt(idx);
+      state.first.dispose();
+      state.second.dispose();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Layout(
         scaffoldKey: 'SetupPage',
-        title: name,
-        fabIcon: Icon(Icons.play_arrow),
+        appBar: SetupAppBar(() {
+          FocusScope.of(context).unfocus();
+          _addPlayer();
+        }, (String name) => widget.game.name = name,
+            name: widget.game.name ?? ''),
+        fabIcon: const Icon(Icons.play_arrow),
         fabAction: () {
-          Hive.box<Game>('games').add(game);
+          final box = Hive.box<Game>('games');
+          if (widget.game.key == null || !box.containsKey(widget.game.key)) {
+            box.add(widget.game);
+          }
           Navigator.of(context).pushNamedAndRemoveUntil(
-              '/game', ModalRoute.withName('/'),
-              arguments: GamePageArgs(game, GameMode.PLAY));
+              GamePage.route, ModalRoute.withName('/'),
+              arguments: GamePageArgs(widget.game, GameMode.play));
         },
-        child: SetupList(game.players!));
+        child: SetupList(widget.game.players!, inputStates, (idx) {
+          FocusScope.of(context).unfocus();
+          _removePlayer(idx);
+        }));
   }
 }
 
 class SetupPageArgs {
-  const SetupPageArgs(this.name, this.playerCount);
+  SetupPageArgs({this.game});
 
-  final int playerCount;
-  final String name;
+  Game? game;
 }

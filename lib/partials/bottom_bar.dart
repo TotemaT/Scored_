@@ -12,7 +12,7 @@ class BottomBar extends StatelessWidget {
       child: Row(
         children: [
           IconButton(
-              icon: Icon(Icons.menu),
+              icon: const Icon(Icons.menu),
               onPressed: () => {
                     showModalBottomSheet<void>(
                         context: context,
