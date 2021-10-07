@@ -20,6 +20,35 @@ class _HistoryPageState extends State {
   final _selectedGames = <Game>{};
   bool _selecting = false;
 
+  void _deleteSelected() {
+    final s = S.of(context);
+    final deletedGames = Set.from(_selectedGames);
+
+    deleteGame(game) => game.delete();
+    reAddGame(game) => Hive.box<Game>('games').add(game);
+
+    _selectedGames.forEach(deleteGame);
+    setState(() {
+      _selecting = false;
+      _selectedGames.clear();
+    });
+    context.showSnackbar(s.deletedParties(deletedGames.length), s.undo, () {
+      deletedGames.forEach(reAddGame);
+    });
+  }
+
+  void _toggleSelected(Game game) {
+    setState(() {
+      _selectedGames.contains(game)
+          ? _selectedGames.remove(game)
+          : _selectedGames.add(game);
+
+      if (!_selecting && _selectedGames.isNotEmpty) {
+        _selecting = true;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Layout(
@@ -74,34 +103,5 @@ class _HistoryPageState extends State {
             );
           },
         ));
-  }
-
-  void _toggleSelected(Game game) {
-    setState(() {
-      _selectedGames.contains(game)
-          ? _selectedGames.remove(game)
-          : _selectedGames.add(game);
-
-      if (!_selecting && _selectedGames.isNotEmpty) {
-        _selecting = true;
-      }
-    });
-  }
-
-  void _deleteSelected() {
-    final s = S.of(context);
-    final deletedGames = Set.from(_selectedGames);
-
-    deleteGame(game) => game.delete();
-    reAddGame(game) => Hive.box<Game>('games').add(game);
-
-    _selectedGames.forEach(deleteGame);
-    setState(() {
-      _selecting = false;
-      _selectedGames.clear();
-    });
-    context.showSnackbar(s.deletedParties(deletedGames.length), s.undo, () {
-      deletedGames.forEach(reAddGame);
-    });
   }
 }

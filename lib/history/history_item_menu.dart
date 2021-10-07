@@ -7,8 +7,37 @@ import 'package:scored/setup/setup_page.dart';
 import 'package:scored/utils/extensions.dart';
 
 class HistoryItemMenu extends StatelessWidget {
-  final Game game;
   const HistoryItemMenu(this.game, {Key? key}) : super(key: key);
+
+  final Game game;
+
+  void _continue(Game game, BuildContext context) {
+    Navigator.of(context).pushNamedAndRemoveUntil(
+        GamePage.route, ModalRoute.withName('/'),
+        arguments: GamePageArgs(game, GameMode.play));
+  }
+
+  void _delete(Game game, BuildContext context) {
+    final s = S.of(context);
+    game.delete();
+    context.showSnackbar(s.deletedParty(game.name ?? ''), s.undo, () {
+      Hive.box<Game>('games').add(game);
+    });
+  }
+
+  void _restart(Game game, BuildContext context) {
+    Game newGame = Game.copy(game);
+    Hive.box<Game>('games').add(newGame);
+    Navigator.of(context).pushNamedAndRemoveUntil(
+        SetupPage.route, ModalRoute.withName('/'),
+        arguments: SetupPageArgs(game: newGame));
+  }
+
+  void _view(Game game, BuildContext context) {
+    Navigator.of(context).pushNamedAndRemoveUntil(
+        GamePage.route, ModalRoute.withName('/'),
+        arguments: GamePageArgs(game, GameMode.view));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,34 +110,6 @@ class HistoryItemMenu extends StatelessWidget {
           break;
       }
     });
-  }
-
-  void _continue(Game game, BuildContext context) {
-    Navigator.of(context).pushNamedAndRemoveUntil(
-        GamePage.route, ModalRoute.withName('/'),
-        arguments: GamePageArgs(game, GameMode.play));
-  }
-
-  void _delete(Game game, BuildContext context) {
-    final s = S.of(context);
-    game.delete();
-    context.showSnackbar(s.deletedParty(game.name ?? ''), s.undo, () {
-      Hive.box<Game>('games').add(game);
-    });
-  }
-
-  void _restart(Game game, BuildContext context) {
-    Game newGame = Game.copy(game);
-    Hive.box<Game>('games').add(newGame);
-    Navigator.of(context).pushNamedAndRemoveUntil(
-        SetupPage.route, ModalRoute.withName('/'),
-        arguments: SetupPageArgs(game: newGame));
-  }
-
-  void _view(Game game, BuildContext context) {
-    Navigator.of(context).pushNamedAndRemoveUntil(
-        GamePage.route, ModalRoute.withName('/'),
-        arguments: GamePageArgs(game, GameMode.view));
   }
 }
 

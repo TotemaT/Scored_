@@ -10,8 +10,8 @@ class GameTile extends StatefulWidget {
   const GameTile({required this.player, required this.mode, Key? key})
       : super(key: key);
 
-  final Player player;
   final GameMode mode;
+  final Player player;
 
   @override
   _GameTileState createState() => _GameTileState();
@@ -21,10 +21,16 @@ class _GameTileState extends State<GameTile> {
   _GameTileState();
 
   final List<int> durations = <int>[500, 500, 250, 100, 50];
-  Timer? timer;
   late Player player;
+  Timer? timer;
 
   late StreamSubscription _playerSubscription;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _playerSubscription.cancel();
+  }
 
   @override
   void initState() {
@@ -38,10 +44,73 @@ class _GameTileState extends State<GameTile> {
     });
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _playerSubscription.cancel();
+  void _decrement(int i) {
+    final Duration duration = Duration(milliseconds: durations[i]);
+    final int nextIdx = ++i < durations.length ? i : durations.length - 1;
+
+    timer = Timer(duration, () {
+      _doDecrement();
+      _decrement(nextIdx);
+    });
+  }
+
+  _doDecrement() {
+    if (widget.mode == GameMode.view) {
+      return;
+    }
+    player.score--;
+    player.save();
+  }
+
+  _doIncrement() {
+    if (widget.mode == GameMode.view) {
+      return;
+    }
+    player.score++;
+    player.save();
+  }
+
+  Color _getTextColor(Color color) =>
+      color.computeLuminance() > .5 ? Colors.black : Colors.white;
+
+  FittedBox _playerName() {
+    return _playerText(Text(
+      player.name,
+      style: TextStyle(
+        color: _getTextColor(player.color),
+      ),
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+    ));
+  }
+
+  FittedBox _playerScore() {
+    return _playerText(Text(
+      '${player.score}',
+      style: TextStyle(
+        color: _getTextColor(player.color),
+      ),
+      textAlign: TextAlign.center,
+    ));
+  }
+
+  FittedBox _playerText(Text text) {
+    return FittedBox(
+      fit: BoxFit.fitWidth,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: text,
+      ),
+    );
+  }
+
+  void _startDecrement(LongPressStartDetails details) {
+    _doDecrement();
+    _decrement(0);
+  }
+
+  void _stopDecrement(LongPressEndDetails details) {
+    timer?.cancel();
   }
 
   @override
@@ -82,74 +151,5 @@ class _GameTileState extends State<GameTile> {
         ),
       ),
     );
-  }
-
-  FittedBox _playerName() {
-    return _playerText(Text(
-      player.name,
-      style: TextStyle(
-        color: _getTextColor(player.color),
-      ),
-      maxLines: 1,
-      overflow: TextOverflow.ellipsis,
-    ));
-  }
-
-  FittedBox _playerScore() {
-    return _playerText(Text(
-      '${player.score}',
-      style: TextStyle(
-        color: _getTextColor(player.color),
-      ),
-      textAlign: TextAlign.center,
-    ));
-  }
-
-  FittedBox _playerText(Text text) {
-    return FittedBox(
-      fit: BoxFit.fitWidth,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: text,
-      ),
-    );
-  }
-
-  Color _getTextColor(Color color) =>
-      color.computeLuminance() > .5 ? Colors.black : Colors.white;
-
-  void _startDecrement(LongPressStartDetails details) {
-    _doDecrement();
-    _decrement(0);
-  }
-
-  void _stopDecrement(LongPressEndDetails details) {
-    timer?.cancel();
-  }
-
-  void _decrement(int i) {
-    final Duration duration = Duration(milliseconds: durations[i]);
-    final int nextIdx = ++i < durations.length ? i : durations.length - 1;
-
-    timer = Timer(duration, () {
-      _doDecrement();
-      _decrement(nextIdx);
-    });
-  }
-
-  _doIncrement() {
-    if (widget.mode == GameMode.view) {
-      return;
-    }
-    player.score++;
-    player.save();
-  }
-
-  _doDecrement() {
-    if (widget.mode == GameMode.view) {
-      return;
-    }
-    player.score--;
-    player.save();
   }
 }

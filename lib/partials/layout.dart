@@ -13,12 +13,12 @@ class Layout extends StatelessWidget {
       Key? key})
       : super(key: key);
 
+  final AppBar? appBar;
   final Widget? child;
   final VoidCallback? fabAction;
   final Icon? fabIcon;
   final String? scaffoldKey;
   final String? title;
-  final AppBar? appBar;
 
   @override
   Widget build(BuildContext context) {

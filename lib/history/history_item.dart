@@ -12,9 +12,9 @@ class HistoryItem extends StatelessWidget {
       : super(key: key);
 
   final Game game;
+  final VoidCallback onSelected;
   final bool selected;
   final bool selecting;
-  final VoidCallback onSelected;
 
   String _playersDetails() {
     final players = game.players ?? <Player>[];

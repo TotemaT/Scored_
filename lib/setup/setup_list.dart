@@ -8,8 +8,8 @@ import 'setup_item.dart';
 class SetupList extends StatelessWidget {
   const SetupList(this.players, this.inputStates, {Key? key}) : super(key: key);
 
-  final List<Player> players;
   final List<Pair<TextInputState, TextInputState>> inputStates;
+  final List<Player> players;
 
   SetupItem _playerItem(BuildContext context, int idx) {
     final player = players[idx];
