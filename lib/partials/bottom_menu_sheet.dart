@@ -95,8 +95,7 @@ class BottomMenuSheet extends StatelessWidget {
             height: 48,
           ),
           applicationName: 'Scored!',
-          applicationVersion: '2.1.4',
-          applicationLegalese: '\u{a9} 2019 Matteo Taroli',
+          applicationVersion: '2.1.5',
           aboutBoxChildren: [_aboutChildren(context)])
     ]);
   }
