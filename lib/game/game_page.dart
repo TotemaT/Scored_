@@ -173,14 +173,13 @@ class _GamePageState extends State<GamePage> {
             widget.game.players!, orientation, size.width, size.height);
       }
 
-      return Scaffold(
-          body: LayoutBuilder(
-            builder: (context, constraints) {
-              final width = constraints.biggest.width;
-              final height = constraints.biggest.height;
-              return _content(widget.game.players!, orientation, width, height);
-            },
-          ));
+      return Scaffold(body: LayoutBuilder(
+        builder: (context, constraints) {
+          final width = constraints.biggest.width;
+          final height = constraints.biggest.height;
+          return _content(widget.game.players!, orientation, width, height);
+        },
+      ));
     }), onWillPop: () async {
       await widget.game.save();
       return true;
