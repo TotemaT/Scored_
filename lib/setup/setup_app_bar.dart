@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scored/generated/l10n.dart';
+import 'package:scored/setup/text_input_state.dart';
 
 class SetupAppBar extends AppBar {
   SetupAppBar(this.addPlayer, this.changeTitle, {this.name = '', Key? key})
@@ -14,8 +15,13 @@ class SetupAppBar extends AppBar {
 }
 
 class _SetupAppBarState extends State<SetupAppBar> {
-  final TextEditingController titleEditingController = TextEditingController();
-  final FocusNode titleFocusNode = FocusNode();
+  final TextInputState inputState = TextInputState();
+
+  @override
+  void dispose() {
+    inputState.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +35,8 @@ class _SetupAppBarState extends State<SetupAppBar> {
                     Row(children: const [Icon(Icons.add), Text('Add player')])))
       ],
       title: TextField(
-        focusNode: titleFocusNode,
-        controller: titleEditingController..text = widget.name,
+        focusNode: inputState.focusNode,
+        controller: inputState.controller..text = widget.name,
         cursorColor: Colors.white,
         style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
