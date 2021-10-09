@@ -180,21 +180,7 @@ class _GamePageState extends State<GamePage> {
               final height = constraints.biggest.height;
               return _content(widget.game.players!, orientation, width, height);
             },
-          ),
-          bottomNavigationBar: BottomAppBar(
-              color: Theme.of(context).primaryColor,
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    color: Colors.white,
-                    onPressed: () async {
-                      await widget.game.save();
-                      Navigator.popUntil(context, ModalRoute.withName('/'));
-                    },
-                  )
-                ],
-              )));
+          ));
     }), onWillPop: () async {
       await widget.game.save();
       return true;
