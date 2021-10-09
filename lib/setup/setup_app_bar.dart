@@ -26,6 +26,8 @@ class _SetupAppBarState extends State<SetupAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      leading: null,
+      automaticallyImplyLeading: false,
       actions: <Widget>[
         Padding(
             padding: const EdgeInsets.only(right: 20.0),
@@ -34,20 +36,22 @@ class _SetupAppBarState extends State<SetupAppBar> {
                 child:
                     Row(children: const [Icon(Icons.add), Text('Add player')])))
       ],
-      title: TextField(
+      title: Padding(padding: const EdgeInsets.symmetric(vertical: 20),child: TextField(
         focusNode: inputState.focusNode,
         controller: inputState.controller..text = widget.name,
         cursorColor: Colors.white,
         style: const TextStyle(color: Colors.white),
+        textCapitalization: TextCapitalization.words,
         decoration: InputDecoration(
             isDense: true,
             labelText: S.of(context).partyName,
             border: InputBorder.none,
             focusColor: Colors.white,
             filled: true,
+            floatingLabelBehavior: FloatingLabelBehavior.always,
             labelStyle: const TextStyle(color: Colors.white)),
         onChanged: widget.changeTitle,
-      ),
+      ),),
     );
   }
 }
