@@ -78,6 +78,7 @@ class _SetupPageState extends State<SetupPage> {
               GamePage.route, ModalRoute.withName('/'),
               arguments: GamePageArgs(widget.game, GameMode.play));
         },
+        navigateBack: () => Navigator.of(context).pop(),
         child: SetupList(widget.game.players!, inputStates, (idx) {
           FocusScope.of(context).unfocus();
           _removePlayer(idx);

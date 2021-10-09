@@ -9,6 +9,7 @@ class Layout extends StatelessWidget {
       this.scaffoldKey,
       this.fabIcon,
       this.fabAction,
+      this.navigateBack,
       this.appBar,
       Key? key})
       : super(key: key);
@@ -16,6 +17,7 @@ class Layout extends StatelessWidget {
   final AppBar? appBar;
   final Widget? child;
   final VoidCallback? fabAction;
+  final VoidCallback? navigateBack;
   final Icon? fabIcon;
   final String? scaffoldKey;
   final String? title;
@@ -28,9 +30,11 @@ class Layout extends StatelessWidget {
             AppBar(
               title: Text(title ?? 'Scored!'),
               centerTitle: false,
+              leading: null,
+              automaticallyImplyLeading: false,
             ),
         body: SafeArea(child: child ?? const Center()),
-        bottomNavigationBar: const BottomBar(),
+        bottomNavigationBar: BottomBar(navigateBack: navigateBack),
         floatingActionButton: fabIcon != null
             ? FloatingActionButton(
                 onPressed: fabAction,
