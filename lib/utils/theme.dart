@@ -7,7 +7,8 @@ final ThemeData scoredTheme = ThemeData(
         primary: Colors.green,
         secondary: Colors.orange,
         brightness: Brightness.light),
-    appBarTheme: const AppBarTheme(backgroundColor: Colors.green));
+    appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.green, foregroundColor: Colors.white));
 
 final ThemeData scoredThemeDark = ThemeData(
   brightness: Brightness.dark,
