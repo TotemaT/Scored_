@@ -55,7 +55,7 @@ class _HistoryPageState extends State {
         appBar: _selecting
             ? AppBar(
                 leading: IconButton(
-                  icon: const Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.close),
                   onPressed: () {
                     setState(() {
                       _selecting = false;
