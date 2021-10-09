@@ -38,6 +38,7 @@ class _SetupAppBarState extends State<SetupAppBar> {
             labelText: S.of(context).partyName,
             border: InputBorder.none,
             focusColor: Colors.white,
+            filled: true,
             labelStyle: const TextStyle(color: Colors.white)),
         onChanged: widget.changeTitle,
       ),
